@@ -1,0 +1,13 @@
+HOA: v1
+States: 1
+Start: 0
+AP: 2 "u0x0x" "u0x0f1df0y240y250y30y41b"
+acc-name: all
+Acceptance: 0 t
+properties: trans-labels explicit-labels state-acc deterministic weak
+controllable-AP: 0 1
+--BODY--
+State: 0
+[!0&1] 0
+--END--
+

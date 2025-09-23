@@ -3,11 +3,13 @@ import subprocess
 import sys
 
 if len(sys.argv) < 3:
-    print("Usage: python run_hoax.py <hoa_file> <config_file>")
+    print("Usage: python run_hoax.py <hoa_file> <out_file>")
     sys.exit(1)
 
 hoa_file = sys.argv[1]
-config_file = sys.argv[2]
+out_file = sys.argv[2]
+config_file = "./TraceGen_Random.toml"
+
 
 try:
     result = subprocess.run(
@@ -17,11 +19,11 @@ try:
         capture_output=True
     )
 except subprocess.CalledProcessError as e:
-    print("❌ Error running hoax:")
+    print("Error running hoax:")
     print(e.stderr)
     sys.exit(1)
 
-with open("/Users/will/github/corp/examples/simple3/hoax_raw.txt", "w") as f:
+with open(out_file, "w") as f:
     f.write(result.stdout)
 
-print("✅ Hoax output written to hoax_raw.txt")
+print(f"Hoax output written to {out_file}")

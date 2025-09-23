@@ -7,7 +7,7 @@ import argparse
 
 def parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input_file", type=str, required=True)
+    parser.add_argument("-i", type=str, required=True)
     parser.add_argument("--timeout", type=int, default=900)
     parser.add_argument("--csvname", type=str, default="scarlet_out.csv")
     parser.add_argument("--thres", type=int, default=0)
@@ -19,7 +19,7 @@ def main():
     args = vars(args)
 
     learner = LTLlearner(
-        input_file=args["input_file"],   # your trace file
+        input_file=args["i"],   # your trace file
         timeout=args["timeout"],                     # optional
         csvname=args["csvname"],       # optional
         # optional, 0 = perfect separation
