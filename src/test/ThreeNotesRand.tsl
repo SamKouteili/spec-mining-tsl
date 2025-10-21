@@ -1,0 +1,8 @@
+always assume {
+                
+
+}
+always guarantee {
+  (! [note2to2play <- note2to2play]
+  );
+}

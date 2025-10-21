@@ -1,0 +1,5 @@
+Time Elapsed,Formula Size,Formula,is Terminated?
+1.012,12,"((u0ball0f1dmove2left0ball1b | (X (u0ball0f1dmove2left0ball1b & (F (X (X p0p0leftmost0ball)))))) & (G (! u0ball0ball
+)))"
+5.211,12,(X (X (X (X (G (u0ball0f1dmove2right0ball1b | (G (u0ball0f1dmove2left0ball1b | (G p0p0leftmost0ball)))))))))
+9.866,12,(X (X (X (X (G (u0ball0f1dmove2right0ball1b | (G (u0ball0f1dmove2left0ball1b | (G p0p0leftmost0ball))))))))),1

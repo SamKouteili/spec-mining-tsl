@@ -1,0 +1,9 @@
+always guarantee {
+
+  [ball <- moveLeft ball] -> X (! rightmost ball);
+  [ball <- moveRight ball] -> X (! leftmost ball);
+  ! (leftmost ball && rightmost ball);
+}
+
+
+

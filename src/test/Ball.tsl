@@ -1,0 +1,10 @@
+always assume {
+                
+
+[ball <- moveLeft ball] -> X (! rightmost ball);
+[ball <- moveRight ball] -> X (! leftmost ball);
+! (leftmost ball && rightmost ball);
+}
+always guarantee {
+  (F (leftmost ball && (F (X [ball <- moveRight ball]))));
+}

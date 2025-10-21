@@ -1,0 +1,11 @@
+0: (0, {'p0p0rightmost0ball', 'p0p0leftmost0ball', 'u0ball0f1dmove2left0ball1b'}, 3)
+0: (3, {'u0ball0f1dmove2right0ball1b', 'u0ball0ball', 'p0p0leftmost0ball', 'p0p0rightmost0ball', 'u0ball0f1dmove2left0ball1b'}, 2)
+0: (2, {'p0p0rightmost0ball', 'p0p0leftmost0ball'}, 2)
+0: (2, {'p0p0rightmost0ball', 'p0p0leftmost0ball'}, 2)
+0: (2, {'p0p0rightmost0ball', 'u0ball0f1dmove2left0ball1b'}, 1)
+0: (1, {'u0ball0f1dmove2right0ball1b', 'p0p0rightmost0ball', 'u0ball0f1dmove2left0ball1b'}, 2)
+0: (2, {'u0ball0f1dmove2right0ball1b', 'u0ball0ball', 'p0p0leftmost0ball', 'p0p0rightmost0ball', 'u0ball0f1dmove2left0ball1b'}, 2)
+0: (2, {'u0ball0f1dmove2right0ball1b', 'u0ball0ball', 'p0p0leftmost0ball'}, 2)
+0: (2, {'p0p0rightmost0ball', 'u0ball0f1dmove2left0ball1b'}, 1)
+0: (1, {'p0p0rightmost0ball'}, 2)
+Hook: Bound: 10 triggered Quit at step 11

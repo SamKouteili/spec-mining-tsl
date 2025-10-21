@@ -1,0 +1,32 @@
+INFO {
+  TITLE:       "Converted TSL Specification"
+  DESCRIPTION: "TSL specification, which has been converted to TLSF."
+  SEMANTICS:   Mealy
+  TARGET:      Mealy
+}
+MAIN {
+  INPUTS {
+    p0p0rightmost0ball;
+    p0p0leftmost0ball;
+  }
+
+  OUTPUTS {
+    u0ball0ball;
+    u0ball0f1dmove2left0ball1b;
+    u0ball0f1dmove2right0ball1b;
+  }
+
+  ASSUME {
+    G ((u0ball0f1dmove2left0ball1b) -> (X (! (p0p0rightmost0ball))));
+    G ((u0ball0f1dmove2right0ball1b) -> (X (! (p0p0leftmost0ball))));
+    G (! ((p0p0leftmost0ball) && (p0p0rightmost0ball)));
+
+  }
+
+  GUARANTEE {
+    G (((((u0ball0ball) && (! (u0ball0f1dmove2left0ball1b))) && (! (u0ball0f1dmove2right0ball1b))) || (((u0ball0f1dmove2left0ball1b) && (! (u0ball0ball))) && (! (u0ball0f1dmove2right0ball1b)))) || (((u0ball0f1dmove2right0ball1b) && (! (u0ball0ball))) && (! (u0ball0f1dmove2left0ball1b))));
+    (((G ((u0ball0f1dmove2left0ball1b) -> (X (! (p0p0rightmost0ball))))) && (G ((u0ball0f1dmove2right0ball1b) -> (X (! (p0p0leftmost0ball)))))) && (G (! ((p0p0leftmost0ball) && (p0p0rightmost0ball))))) -> (((((G ((p0p0rightmost0ball) -> (F (u0ball0f1dmove2left0ball1b)))) && (G ((p0p0leftmost0ball) -> (F (u0ball0f1dmove2right0ball1b))))) && (G (((! (p0p0leftmost0ball)) && (! (p0p0rightmost0ball))) -> (F ((u0ball0f1dmove2left0ball1b) || (u0ball0f1dmove2right0ball1b)))))) && (G (((p0p0leftmost0ball) && (X (! (p0p0leftmost0ball)))) -> ((! (u0ball0f1dmove2left0ball1b)) W (p0p0rightmost0ball))))) && (G (((p0p0rightmost0ball) && (X (! (p0p0rightmost0ball)))) -> ((! (u0ball0f1dmove2right0ball1b)) W (p0p0leftmost0ball)))));
+
+  }
+}
+
