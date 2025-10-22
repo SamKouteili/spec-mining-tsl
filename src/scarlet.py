@@ -8,7 +8,7 @@ from pathlib import Path
 import time
 
 from runner import run_tsl, run_ltl2tgba, run_accept_word
-from utilsf import extract_block
+from futils import extract_block
 from tracer import str_to_trace, trace_to_str, scarlet_to_spot_trace, get_ap_list, convert_trace_to_sub_alphabet
 
 def parser():
@@ -90,18 +90,18 @@ def write_formula_to_file(formula, output_file):
     
     base_name = os.path.splitext(os.path.basename(output_file))[0]
 
-    with open(f'{base_name}.tlsf', 'w') as f:
-        f.write(content)
+    # with open(f'{base_name}.tlsf', 'w') as f:
+    #     f.write(content)
 
     print("TLSF:\n", content)
 
-    tsl = run_tsl("fromtlsf", Path(f"{base_name}.tlsf"))
+    tsl = run_tsl("fromtlsf", content)
 
     # tsl = tsl.replace("always", "initially")
 
     print("TSL:\n", tsl)
  
-    os.remove(f'{base_name}.tlsf')
+    # os.remove(f'{base_name}.tlsf')
 
     with open(output_file, 'a') as f:
         f.write(tsl)
@@ -112,7 +112,7 @@ def main():
 
     # if os.exists()
     # os.remove(args['o'], exists) # delete old version
-    
+
 
     start_time = time.time()
     learner = LTLlearner(

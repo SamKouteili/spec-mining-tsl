@@ -1,5 +1,6 @@
 """Utils for trace processing/translation"""
 import re
+import random
 
 # Types; TODO: Class?
 AP = str
@@ -10,11 +11,12 @@ def get_ap_list(hoa: str) -> list[str]:
     """Extract the atomic propositions declared in a HOA."""
     for line in hoa.splitlines():
         if line.strip().startswith("AP:"):
+            # print("APs:\n", line, "\n\n")
             tokens = line.split()
             assert len(
                 tokens) >= 3, "AP line should be formatted 'AP: <count> <proposition1> <proposition2> ...'"
             # tokens[0] == "AP:", tokens[1] == count, rest are proposition names
-            return [token.strip('"') for token in tokens[2:]]
+            return [token.strip('"').strip() for token in tokens[2:]]
     return []
 
 
@@ -70,10 +72,16 @@ def str_to_trace(trace_str: str, kind: str = "spot") -> Trace:
     return [[ap.strip() for ap in step.strip().split(split_var) if ap.strip()] 
             for step in trace_str.split(";") if step.strip() and not step.startswith("cycle{")]
 
-def convert_trace_to_sub_alphabet(trace : Trace, aps : list[str]) -> list[list[str]]:
+def convert_trace_to_sub_alphabet(trace : Trace, aps : list[str]) -> Trace:
     """Convert a trace to a subset alphabet of atomic propositions. 
         Assume same type of trace (spot). Assume new alphabet is a subset of original alphabet."""
     return [[ap for ap in letter if ap.strip("!") in aps] for letter in trace]
+
+def add_aps_to_trace(trace: Trace, aps: list[str]) -> Trace:
+    """Randomly assign variables not in a trace to augment it"""
+    assert all(ap not in [l.strip("!") for l in trace[0]] for ap in aps)
+    return [word + [ap if random.choice([True, False]) else f"!{ap}" for ap in aps] for word in trace]
+
 
 def spot_to_scarlet_trace(spot_trace: Trace) -> Trace:
     """Convert a spot trace to scarlet trace."""

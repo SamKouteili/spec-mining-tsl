@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 from utils import *
-from utilsf import get_input
+from futils import get_input
 from runner import run_dot_gen
 
 def parser():
@@ -348,7 +348,7 @@ if __name__ == "__main__" :
             exit(1)
     elif args.get("gen"):
         for i in range(args["gen"]):
-            out = Dotomata.ex_dot_machine(machine, args['length'])
+            out = Dotomata.ex_dot_machine(machine, args['length'], cycle=True)
             print(Dotomata.machine_to_spot(out, aps))
     else:
         print(dot)

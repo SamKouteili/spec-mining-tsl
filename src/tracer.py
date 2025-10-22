@@ -4,7 +4,7 @@ from pathlib import Path
 
 from runner import *
 from utils import *
-from utilsf import *
+from futils import *
 from dotomata import Dotomata
 
 
@@ -36,7 +36,7 @@ def parser():
 
 def extract_assumptions(f: str, delim="ASSUME") -> str :
     return " & ".join([l.strip("\n") for l in extract_block(f, delim).split(";") if l.strip("\n")]).replace(
-        "&&", "&").replace("||", "|").strip("")
+        "&&", "&").replace("||", "|").strip()
 
 
 def update_mutex_consistent(spot_trace: Trace) -> bool:
@@ -73,27 +73,34 @@ def update_mutex_consistent(spot_trace: Trace) -> bool:
 
 
 
-def generate_traces(num, length, positive, tsl, timeout=10) -> list[Trace]:
+def generate_traces(num, length, positive, tsl, timeout=10) -> tuple[list[Trace],list[str]]:
     """Generate traces for some ltl specification that adhere to some assumption ltl.
-        Positive traces are accepted by both the hoa and the assumption hoa."""
+        Positive traces are accepted by both the hoa and the assumption hoa.
+        return: list[traces], aps
+        """
     # Use ltlf2dfa for clean DFA generation with finite trace semantics
     # ltl_ = ltl if positive else run_neg_ltl(ltl)
 
     tlsf = run_tsl("tlsf", tsl)
     ltl = run_syfco(tlsf, flags=["-f", "ltl"])
 
-    # For negative traces, also keep the positive DFA for checking
-    machinep = None
-    if not positive:
-        hoap = run_ltlf2dfa(ltl) # save the positive hoa
-        dotp = run_dot_gen(hoap)
-        machinep = Dotomata.load_dot(dotp)
-        ntsl = negate_tsl(tsl)
-        ntlsf = run_tsl("tlsf", ntsl)
-        ltl = run_syfco(ntlsf, flags=["-f", "ltl"])
+    # # For negative traces, also keep the positive DFA for checking
+    # machinep, apsp = None, []
+    # if not positive:
+    #     hoap = run_ltlf2dfa(ltl) # save the positive hoa
+    #     apsp = get_ap_list(hoap)
+    #     dotp = run_dot_gen(hoap)
+    #     machinep = Dotomata.load_dot(dotp)
+    #     ntsl = negate_tsl(tsl)
+    #     ntlsf = run_tsl("tlsf", ntsl)
+    #     ltl = run_syfco(ntlsf, flags=["-f", "ltl"])
     
     hoa = run_ltlf2dfa(ltl)
     aps = get_ap_list(hoa)
+    print("[tracer] TSL:\n",tsl)
+    print("[tracer] LTL:\n",ltl)
+    print("[tracer] HOA:\n",hoa)
+    print("[tracer] APs:", aps)
 
     dot = run_dot_gen(hoa)
     machine = Dotomata.load_dot(dot)
@@ -105,11 +112,18 @@ def generate_traces(num, length, positive, tsl, timeout=10) -> list[Trace]:
         hoaa = run_ltl2tgba("True")
         apsa = []
     else :
-        hoaa = run_ltlf2dfa(ltla) # NOTE: Should we suppose finite semantics for assumptions?
+        # Use ltl2tgba for assumptions (not ltlf2dfa) because assumptions often contain
+        # temporal operators like X, W, R that are not supported in LTLf
+        hoaa = run_ltl2tgba(ltla, flags=["-M", "-D", "-H"])
+        # print("AssUMPTION HOA:\n", hoaa)
         apsa = get_ap_list(hoaa)
+    
+    print("[tracer] Assumption HOA:\n", hoaa)
+    print("[tracer] Assumption APs:", apsa)
+    
 
-    dota = run_dot_gen(hoaa)
-    dota_exec = Dotomata.load_dot(dota)
+    # dota = run_dot_gen(hoaa)
+    # dota_exec = Dotomata.load_dot(dota)
 
     traces_vars_spot = []
     start_time = time.time()
@@ -126,20 +140,28 @@ def generate_traces(num, length, positive, tsl, timeout=10) -> list[Trace]:
         #     accepting_state_counts[final_state] = accepting_state_counts.get(final_state, 0) + 1
 
         if trace_vars not in traces_vars_spot:
-            trace_vars_a = convert_trace_to_sub_alphabet(trace_vars, apsa)
 
-            # print(f"[tracer] candidate: {trace_to_str(trace_vars, "spot")}")
+            trace_vars_a = convert_trace_to_sub_alphabet(trace_vars, apsa)
             if update_mutex_consistent(trace_vars) \
                 and run_accept_word(hoaa, trace_to_str(trace_vars_a, "spot")): 
-                # and Dotomata.check_trace_acceptance_dot(dota_exec, trace_vars_a):
+                # and Dotomata.check_trace_acceptance_dot(dota_exec, trace_vars_a): # TODO: dot or hoa check?
+                # and run_accept_word(hoaa, trace_to_str(trace_vars_a, "spot")): 
                 # print(f"[tracer] {positive} candidate: {trace_str}")
                 # Check acceptance in main automaton
                 # if positive or not run_accept_word(hoafp, trace_str) :
+                print(f"[tracer] candidate: {trace_to_str(trace_vars, "spot")}")
+
                 if positive :
-                    if Dotomata.check_trace_acceptance_dot(machine, trace_vars, debug=True) :
+                    if Dotomata.check_trace_acceptance_dot(machine, trace_vars, debug=False) :
                         traces_vars_spot.append(trace_vars)
                 else:
-                    if not Dotomata.check_trace_acceptance_dot(machinep, trace_vars, debug=True):
+                    # print(aps)
+                    # print(apsp)
+                    # if len(aps) != len(apsp) : # negation deleted some variable
+                    #     dif_aps = list(set(apsp).difference(set(aps)))
+                    #     print("dif_aps:", dif_aps)
+                    #     trace_vars = add_aps_to_trace(trace_vars, dif_aps)
+                    if not Dotomata.check_trace_acceptance_dot(machine, trace_vars, debug=False):
                         traces_vars_spot.append(trace_vars)
                 # else:
                 #     print(f"[tracer] rejected by main automaton")
@@ -165,7 +187,7 @@ def generate_traces(num, length, positive, tsl, timeout=10) -> list[Trace]:
 
     print(f"[tracer] Generated {len(traces_vars_spot)} {positive} traces")
 
-    return traces_vars_spot
+    return traces_vars_spot, aps
 
 def write_trace_file(pos_traces: list[str], 
                      neg_traces: list[str], 
@@ -206,7 +228,8 @@ def generate_mining_traces(args):
 
     # ltla = extract_assumptions(tlsf)
 
-    aps = get_ap_list(run_tsl("hoa", tsl))
+    # Don't get APs from tsl hoa (it may crash on complex specs)
+    # We'll get them from the DFA generated in generate_traces() instead
 
 
     # tlsf = run_tsl("tlsf", tsl)
@@ -220,7 +243,7 @@ def generate_mining_traces(args):
     # ltlfhoa = run_to_finite(run_ltl2tgba(ltlf, flags=["-B", "--ltlf"]))
     # ltlnfhoa = run_to_finite(run_ltl2tgba(ltlnf, flags=["-B", "--ltlf"]))
     # aps = get_ap_list(ltlfhoa)
-    
+
     # assumptions = " & ".join(
     #     [l.strip("\n") for l in extract_block(tlsf, "ASSUME").split(";") if l.strip("\n")]).replace(
     #         "&&", "&").replace(
@@ -246,18 +269,18 @@ def generate_mining_traces(args):
     # print("Assumption Atomic Propositions:", apsa)
 
 
-    pos_traces_vars = generate_traces(num=args['p'], 
-                                      length=args['l'], 
-                                      positive=True,
-                                      tsl=tsl,
-                                      timeout=args["timeout"])
+    pos_traces_vars, aps = generate_traces(num=args['p'],
+                                            length=args['l'],
+                                            positive=True,
+                                            tsl=tsl,
+                                            timeout=args["timeout"])
     # print("[tracer] positive traces generated")
 
-    neg_traces_vars = generate_traces(num=args['n'], 
-                                      length=args['l'], 
-                                      positive=False,
-                                      tsl=tsl,
-                                      timeout=args["timeout"])
+    neg_traces_vars, _ = generate_traces(num=args['n'],
+                                          length=args['l'],
+                                          positive=False,
+                                          tsl=tsl,
+                                          timeout=args["timeout"])
 
     print("pos_traces_vars:")
     for t in pos_traces_vars:
@@ -303,15 +326,15 @@ def eval_mined_automata(args):
     # tlsf_guarantees = 
 
     tsl = Path(args["tsl"]).read_text()
-    ntsl = negate_tsl(tsl)
+    # ntsl = negate_tsl(tsl)
 
-    tlsf = run_tsl("tlsf", tsl)
-    ntlsf = run_tsl("tlsf", ntsl)
+    # tlsf = run_tsl("tlsf", tsl)
+    # ntlsf = run_tsl("tlsf", ntsl)
 
-    ltl = run_syfco(tlsf, flags=["-f", "ltl"])
-    nltl = run_syfco(ntlsf, flags=["-f", "ltl"])
+    # ltl = run_syfco(tlsf, flags=["-f", "ltl"])
+    # nltl = run_syfco(ntlsf, flags=["-f", "ltl"])
 
-    ltla = extract_assumptions(tlsf)
+    # ltla = extract_assumptions(tlsf)
 
 
     # mtlsf = run_tsl("tlsf", Path(args["tslm"]))
@@ -354,14 +377,14 @@ def eval_mined_automata(args):
     # hoaa = run_ltl2tgba(assumptions)
     # apsa = get_ap_list(hoaa)
 
-    pos_traces_vars = generate_traces(num=args['p'], 
+    pos_traces_vars, _ = generate_traces(num=args['p'], 
                                       length=args['l'], 
                                       positive=True,
                                       tsl=tsl,
                                       timeout=args["timeout"])
     # print("[tracer] positive traces generated")
 
-    neg_traces_vars = generate_traces(num=args['n'], 
+    neg_traces_vars, _ = generate_traces(num=args['n'], 
                                       length=args['l'], 
                                       positive=False,
                                       tsl=tsl,
@@ -369,16 +392,17 @@ def eval_mined_automata(args):
     
 
     print("pos_traces_vars:")
+    # print(pos_traces_vars)
     for t in pos_traces_vars:
         for l in t:
             print("\t", l)
-        print(trace_to_str(t, "spot"))
+        # print(trace_to_str(t, "spot"))
         print("-----")
     print("neg_traces_vars")
     for t in neg_traces_vars:
         for l in t:
             print("\t", l)
-        print(trace_to_str(t, "spot"))
+        # print(trace_to_str(t, "spot"))
         print("-----")
     
     
@@ -386,19 +410,21 @@ def eval_mined_automata(args):
     # mltl = run_syfco(Path(args["tslm"]).read_text(), flags=["-f", "ltl"])
     mhoa = run_ltlf2dfa(mltl)
     apsm = get_ap_list(mhoa)
+    mdot = run_dot_gen(mhoa)
+    mmachine = Dotomata.load_dot(mdot)
 
     # pos_traces_vars = generate_traces(num=args['p'], length=args['l'], aps=aps, hoa=ltlfhoa, hoaa=hoaa, apsa=apsa, positive=True, 
     #                                   timeout=args["timeout"])
     # neg_traces_vars = generate_traces(num=args['n'], length=args['l'], aps=aps, hoa=ltlnfhoa, hoaa=hoaa, apsa=apsa, positive=False,timeout=args["timeout"])
 
-    pos_traces_m = [trace_to_str(convert_trace_to_sub_alphabet(t, apsm), "spot") for t in pos_traces_vars]
-    neg_traces_m = [trace_to_str(convert_trace_to_sub_alphabet(t, apsm), "spot") for t in neg_traces_vars]
+    pos_traces_m = [convert_trace_to_sub_alphabet(t, apsm) for t in pos_traces_vars]
+    neg_traces_m = [convert_trace_to_sub_alphabet(t, apsm)for t in neg_traces_vars]
 
     
 
     # TODO: dot machine check instead?
     for i, t in enumerate(pos_traces_m):
-        if not run_accept_word(mhoa, t):
+        if not Dotomata.check_trace_acceptance_dot(mmachine, t):
             print("positive trace rejected:")
             for l in pos_traces_vars[i]:
                 print(l)
@@ -406,7 +432,7 @@ def eval_mined_automata(args):
             print("----")
 
     for i, t in enumerate(neg_traces_m):
-        if run_accept_word(mhoa, t):
+        if Dotomata.check_trace_acceptance_dot(mmachine, t):
             print("negative trace accepted:")
             for l in neg_traces_vars[i]:
                 print(l)
@@ -414,8 +440,8 @@ def eval_mined_automata(args):
             print("----")
 
 
-    mined_pos = sum(run_accept_word(mhoa, t) for t in pos_traces_m)
-    mined_neg = sum(not run_accept_word(mhoa, t) for t in neg_traces_m)
+    mined_pos = sum(Dotomata.check_trace_acceptance_dot(mmachine, t) for t in pos_traces_m)
+    mined_neg = sum(not Dotomata.check_trace_acceptance_dot(mmachine, t) for t in neg_traces_m)
 
 
     print(f"Evaluation results for mined automata {args['tslm']}:")
