@@ -7,9 +7,10 @@ import argparse
 from pathlib import Path
 import time
 
-from runner import run_tsl, run_ltl2tgba, run_accept_word
-from futils import extract_block
-from tracer import str_to_trace, trace_to_str, scarlet_to_spot_trace, get_ap_list, convert_trace_to_sub_alphabet
+from runners import run_tsl, run_dot_gen, run_ltlf2dfa
+from utils import *
+from tracer import Trace
+from dotomata import Dotomata
 
 def parser():
     parser = argparse.ArgumentParser()
@@ -44,38 +45,40 @@ def extract_last_formula(input_file):
 
 def ensure_split(trace_f, tsl_f, last_formula):
     # Sanity check
-    pos_scarlet, neg_scarlet, ops, aps = [s.strip("\n") for s in open(trace_f, 'r').read().split("---")]
+    pos_scarlet, neg_scarlet, ops, aps = [s.strip("\n") for s in Path(trace_f).read_text().split("---")]
     aps = aps.split(",")
-    pos_traces = [scarlet_to_spot_trace(str_to_trace(t, 'scarlet'), aps) for t in pos_scarlet.split("\n")]
-    neg_traces = [scarlet_to_spot_trace(str_to_trace(t, 'scarlet'), aps) for t in neg_scarlet.split("\n")]
+    pos_traces, neg_traces = [[Trace.from_scarlet(t, aps) for t in scarlet.split("\n")] 
+                              for scarlet in [pos_scarlet, neg_scarlet]]
 
-    hoam = run_ltl2tgba(last_formula)
-    print(hoam)
-    apsm = get_ap_list(hoam)
+    mhoa = run_ltlf2dfa(last_formula)
+    maps = get_ap_list(mhoa)
+    mdot = run_dot_gen(mhoa)
+    mmachine = Dotomata(mdot)
 
-    hoam_tsl = run_tsl("hoa", tsl_f)
-    apsm_tsl = get_ap_list(hoam_tsl)
+
     
-    print(hoam)
+    # print(mhoa)
 
     # failed = False
     for trace in pos_traces:
-        word = trace_to_str(convert_trace_to_sub_alphabet(trace, apsm), "spot")
-        word_tsl = trace_to_str(convert_trace_to_sub_alphabet(trace, apsm_tsl), "spot")
-        if not run_accept_word(hoam, word):
-            print('[ltl2tgba] word from pos traces rejected:\n', word)
+        mtrace = trace.change_alphabet(maps)
+        if not mmachine.accepts(mtrace):
+            print('[scarlet] word from pos traces rejected:\n\t', trace, "\n\t", mtrace)
+            exit(1)
             # failed = True
-        if not run_accept_word(hoam_tsl, word_tsl):
-            print('[tsl hoa] word from pos traces rejected:\n', word)
+        # if not run_accept_word(hoam_tsl, word_tsl):
+        #     print('[tsl hoa] word from pos traces rejected:\n', word)
 
     for trace in neg_traces:
-        word = trace_to_str(convert_trace_to_sub_alphabet(trace, apsm), "spot")
-        word_tsl = trace_to_str(convert_trace_to_sub_alphabet(trace, apsm_tsl), "spot")
-        if run_accept_word(hoam, word):
-            print('[ltl2tgba] word from neg traces accepted:\n', word)
+        mtrace = trace.change_alphabet(maps)
+        # word = trace_to_str(convert_trace_to_sub_alphabet(trace, apsm), "spot")
+        # word_tsl = trace_to_str(convert_trace_to_sub_alphabet(trace, apsm_tsl), "spot")
+        if mmachine.accepts(trace.change_alphabet(maps)):
+            print('[scarlet] word from pos traces rejected:\n\t', trace, "\n\t", mtrace)
+            exit(1)
             # failed = True
-        if run_accept_word(hoam_tsl, word_tsl):
-            print('[tsl hoa] word from neg traces not accepted:\n', word)
+        # if run_accept_word(hoam_tsl, word_tsl):
+        #     print('[tsl hoa] word from neg traces not accepted:\n', word)
     
     # if not failed:
     #     print("yay passed")

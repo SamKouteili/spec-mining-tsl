@@ -1,0 +1,7 @@
+Changes:
+- `ThreeNotesRand.tsl` : always guarantee -> initially guarantee
+- `Simple.tsl` : always guarantee -> initially guarantee
+- `Note2.tsl` : always guarantee -> initially guarantee
+- `NoteButton.tsl` : always guarantee -> initially guarantee
+- `Window2.tsl` : always assume -> initially assume
+- `Morning2.tsl` : always assume -> initially assume & always guarantee -> initially guarantee

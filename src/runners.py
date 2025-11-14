@@ -84,7 +84,7 @@ def run_accept_word(hoa: str, word: str) -> bool:
     try:
         result = subprocess.run(["autfilt", f"--accept-word={word}"], input=hoa, capture_output=True, text=True)
     except :
-        print("Error running autfilt hoa --acept")
+        print("Error running autfilt hoa --accept")
         return False
     if result.returncode != 0:
         return False
@@ -127,9 +127,9 @@ def run_syfco(inp: str, flags: list[str] = ["-f", "ltl"]) -> str:
         raise RuntimeError(f"syfco failed on {inp} with error: {result.stderr}")
     return result.stdout
 
-def run_ltlf2dfa(ltl: str) -> str:
+def run_ltlf2dfa(ltl: str, flags: list[str] = []) -> str:
     """$> ltlf2dfa < ltl. Converts LTL to DFA with finite trace semantics."""
-    cmd = ["ltlf2dfa"]
+    cmd = ["ltlf2dfa"] + flags
     try:
         result = subprocess.run(cmd, input=ltl, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
