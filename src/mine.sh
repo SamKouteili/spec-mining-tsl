@@ -43,7 +43,7 @@ if [[ -n "${sample_bank_path:-}" && -f "$sample_bank_path" ]]; then
   python utils.py -i "$sample_bank_path" -o "$trace_path" -d "$num_samples"
 else
   echo "* Sample bank not found, generating traces"
-  python tracer.py --tsl "$tsl_path" -o "$trace_path" -p "$num_samples" -n "$num_samples" -l "$length" -t "$kind" --timeout 60
+  python src/tracer.py --tsl "$tsl_path" -o "$trace_path" -p "$num_samples" -n "$num_samples" -l "$length" -t "$kind" --timeout 60
 fi
 
 echo "[mine] Mining Specification from Trace"
