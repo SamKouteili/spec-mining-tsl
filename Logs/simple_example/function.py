@@ -3,7 +3,7 @@ Ball moving in a 1D plane. must eventually move to the min or max if at one must
 Must always make monotonic progress to the other bound if it has reached the other bound 
 '''
 VARS = {
-    "ball": int
+    "ball": "int"
 }
 
 FUNCTIONS = {
@@ -12,6 +12,6 @@ FUNCTIONS = {
 }
 
 PREDICATES = {
-    "rightMost": ("int->bool", lambda ball: ball == -2),
-    "leftMost": ("int->bool", lambda ball: ball == 2),
+    "rightMost": ("int->bool", lambda ball: ball == 2),
+    "leftMost": ("int->bool", lambda ball: ball == -2),
 }

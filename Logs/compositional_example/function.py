@@ -4,12 +4,16 @@ Spec is (x+2) *2 is a funciton. WTS discovery of compositional functions
 '''
 
 VARS = {
-    "X": int,
+    "X": "int",
 }
 
 FUNCTIONS = {
-    "Plus": ("int->int", lambda X: X + 2),
-    "Multiplied":("int->int", lambda X: X * 2)
+    "Plus2": ("int->int", lambda X: X + 2),
+    "Mult2":("int->int", lambda X: X * 2)
+}
+
+PREDICATES = {
+
 }
 
 
