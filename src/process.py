@@ -8,7 +8,7 @@ from tracer import Trace
 import pandas as pd
 from itertools import product
 import json
-
+from copy import deepcopy
 
 def parse_args():
     parser = ArgumentParser(description="Process log data to boolean trace format")
@@ -74,8 +74,15 @@ class Update:
         self.var = var
         self.term = term
 
+
     def __str__(self):
         return f"[{self.var} <- {self.term}]"
+    
+    def __eq__(self, other):
+        return isinstance(other, Update) and self.var == other.var and self.term == other.term
+    
+    def __hash__(self):
+        return hash((self.var, self.term))
 
 class UpdateF:
     def __init__(self, var: str, func, inputs: tuple[str]):
@@ -85,6 +92,12 @@ class UpdateF:
 
     def __str__(self):
         return f"[{self.var} <- {self.func.name} {' '.join(self.inputs)}]"
+    
+    def __eq__(self, other):
+        return isinstance(other, UpdateF) and self.var == other.var and self.func.name == other.func.name and self.inputs == other.inputs
+    
+    def __hash__(self):
+        return hash((self.var, self.func.name, self.inputs))
 
 class Predicate:
     def __init__(self, pred: Function, inputs: tuple[str]):
@@ -93,9 +106,17 @@ class Predicate:
 
     def __str__(self):
         return f"{self.pred.name} {' '.join(self.inputs)}"
+    
+    def __eq__(self, value: object) -> bool:
+        return isinstance(value, Predicate) and self.pred.name == value.pred.name and self.inputs == value.inputs
+    
+    def __hash__(self):
+        return hash((self.pred.name, self.inputs))
+    
 
+Table = list[dict[Update | UpdateF | Predicate, bool]]
 
-def build_ap_table(log, metadata) -> list[dict[Update | UpdateF | Predicate, bool]]:
+def build_ap_table(log, metadata) -> Table:
     """Build AP table for a given trace and metadata.
     
         e.g. Suppose log:
@@ -175,16 +196,91 @@ def build_ap_table(log, metadata) -> list[dict[Update | UpdateF | Predicate, boo
     return ap_table
 
 
-def check_updates(ap_table: list[dict[Update | UpdateF | Predicate, bool]], vrs: dict[str, str]) -> list[dict[str, int]]:
+def check_updates(ap_table: Table, vrs: dict[str, str]) -> list[dict[str, int]]:
     """Check for any point how many updates are applied to a term."""
     num_updates = []
-    for i, entry in enumerate(ap_table):
-        updates_at_time_step = {var: sum(ap_table[i][ap] for ap in entry if (isinstance(ap, Update) or isinstance(ap, UpdateF)) and ap.var == var) for var in vrs.keys()}
+    for entry in ap_table:
+        updates_at_time_step = {var: sum(entry[ap] for ap in entry if (isinstance(ap, Update) or isinstance(ap, UpdateF)) and ap.var == var) for var in vrs.keys()}
         num_updates.append(updates_at_time_step)
     return num_updates
 
+def copy_table(table: Table) -> Table:
+    return [{ deepcopy(ap): asgn for ap, asgn in d.items() } for d in table]
 
-def print_table(ap_table):
+
+# class Tree :
+#     def __init__(self):
+
+
+
+def split_tables(ap_table: Table, vrs: dict[str, str], i=0) -> list[Table]:
+    """Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
+        e.g. Suppose at time step 0, we have:
+        {"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": True, "rightMost ball": False, "leftMost ball": False, "END": False}
+        Then we would need to create two tables:
+        [
+            {"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": False, "END": False},
+            {"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": True,  "rightMost ball": False, "leftMost ball": False, "END": False}
+    ]
+    """
+
+    print(f"split_tables: i={i}")
+
+    if i == len(ap_table) - 1:
+        return [ap_table]
+    
+    updates_at_time_step = {var: [ap for ap in ap_table[i] 
+                                    if (isinstance(ap, Update) or isinstance(ap, UpdateF)) 
+                                        and ap.var == var and ap_table[i][ap]] 
+                                    for var in vrs.keys()}
+    
+    out = []
+    splitted = False
+    for var, asgns in updates_at_time_step.items():
+        print(var, [str(k) for k in updates_at_time_step[var]])
+        if len(asgns) > 1:
+            splitted = True
+            for asgn in asgns:
+                print(f"asgn={asgn}")
+                new_table = copy_table(ap_table)
+                for asgn2 in asgns:
+                    if asgn != asgn2:
+                        new_table[i][asgn] = False
+                print_table(new_table)
+                # print(f"new table: {new_table}")
+                out.extend(split_tables(new_table, vrs, i+1))
+    
+    if not splitted :
+        out.extend(split_tables(ap_table, vrs, i+1))
+            
+
+    # new_tables = [copy_table(ap_table)]
+    # final_tables = []
+
+    # while new_tables != []:
+    #     cur_table = new_tables.pop()
+    #     for word in cur_table:
+    #         updates_at_time_step = {var: [ap for ap in word 
+    #                                       if (isinstance(ap, Update) or isinstance(ap, UpdateF)) and ap.var == var and word[ap]] 
+    #                                       for var in vrs.keys()}
+    #         for var, asgns in updates_at_time_step.items():
+    #             if len(asgns) > 1:
+    #                 print(var, [str(k) for k in updates_at_time_step[var]])
+    #                 for asgn in asgns:
+    #                     new_table = copy_table(cur_table)
+    #                     for asgn2 in asgns:
+    #                         if asgn != asgn2:
+    #                             new_table[i][asgn] = False
+    #                     # print(f"new table: {new_table}")
+    #                     new_tables.append(new_table)
+    
+    return out
+
+        
+
+
+
+def print_table(ap_table: Table):
     print("\n".join(str({str(ap): val for ap, val in row.items()}) for row in ap_table))
 
 
@@ -193,12 +289,14 @@ def compose_metadata_functions(metadata):
     new_functions = {}
     for f1 in metadata["functions"].values():
         for f2 in metadata["functions"].values():
-            # NOTE: Only composing currently on first arg. Should be extended to multiple args
-            if f1.output_type == f2.input_types[0]:  # Check if output of f1 matches input of f2
-                composed_name = f"{f2.name}({f1.name})"
-                composed_arg_types = "->".join(f1.input_types + f2.input_types[1:] + [f2.output_type])
-                composed_impl = lambda *args, f1=f1, f2=f2: f2.run(f1.run(*args[:len(f1.input_types)]), *args[len(f1.input_types):])
-                new_functions[composed_name] = (composed_arg_types, composed_impl)
+            for i, ty in enumerate(f2.input_types):
+
+                # NOTE: Only composing currently on first arg. Should be extended to multiple args
+                if f1.output_type == ty:  # Check if output of f1 matches input of f2
+                    composed_name = f"{f2.name}({i}{f1.name})"
+                    composed_arg_types = "->".join(f2.input_types[:i] + f1.input_types + f2.input_types[i+1:] + [f2.output_type])
+                    composed_impl = lambda *args, f1=f1, f2=f2: f2.run(f1.run(*args[:len(f1.input_types)]), *args[len(f1.input_types):])
+                    new_functions[composed_name] = (composed_arg_types, composed_impl)
     
     metadata["functions"].update({name: Function(name, *details) for name, details in new_functions.items()})
     return metadata
@@ -224,7 +322,7 @@ if __name__ == "__main__":
         print("----------------")
         with trace_file.open("r", encoding="utf-8") as fh:
             log = [json.loads(line) for line in fh if line.strip()]
-            
+            good_tables = []
             good_trace = False 
             while not good_trace:
                 table = build_ap_table(log, metadata)
@@ -243,8 +341,20 @@ if __name__ == "__main__":
                     print("  Variables:", metadata['vars'])
                     print("  Functions:", {str(fun) for fun in metadata['functions'].values()})
                     print("  Predicates:", {str(pred) for pred in metadata['predicates'].values()})
-                else:
+                elif any(any(update > 1 for update in updates.values()) for updates in num_updates[:-1]):
+                    print("Detected table entry with multiple updates. Splitting mining traces...")
+                    tables = split_tables(table, metadata['vars'])
+                    print(f"Split into {len(tables)} tables:")
+                    for t in tables:
+                        print("----")
+                        print_table(t)
+                        for i, updates in enumerate(check_updates(t, metadata['vars'])):
+                            print(f" {i}: {updates}")
+                    good_tables.extend(tables)
+                    good_trace = True
+                else :
                     print("All entries have updates. No need to compose functions.")
+                    good_tables.append(table)
                     good_trace = True
                     
                 

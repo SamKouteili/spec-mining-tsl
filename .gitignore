@@ -6,6 +6,8 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.history
+.history/*
 
 # Python
 __pycache__/
