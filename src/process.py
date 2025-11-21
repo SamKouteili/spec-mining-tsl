@@ -15,6 +15,7 @@ def parse_args():
     parser = ArgumentParser(description="Process log data to boolean trace format")
     parser.add_argument("traces", type=Path, help="Directory of pos/neg traces")
     parser.add_argument("meta", type=Path,  help="Trace metadata (functions, predicates, types)")
+    parser.add_argument("--out", type=Path, default=Path("out"), help="Output directory for processed traces")
     return parser.parse_args()
 
 # Redundant class could have done it with just Function but this is more explicit
@@ -158,6 +159,7 @@ class Predicate:
 
 
 class APTable:
+    """Table of atomic propositions for one log."""
     def __init__(self, table: list[dict[Update | UpdateF | Predicate, bool]], metadata: Metadata):
         self.table = table
         self.metadata = metadata
@@ -331,7 +333,7 @@ def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
                 for t in tables:
                     print("----")
                     print(t)
-                    for i, updates in enumerate(table.check_updates()):
+                    for i, updates in enumerate(t.check_updates()):
                         print(f" {i}: {updates}")
                 good_tables.extend(tables)
             else :
@@ -350,6 +352,27 @@ def cartesian_product_tables(table_dict: dict[str, list[APTable]]) -> list[list[
     return [list(combo) for combo in product(*lists)]
 
 
+
+def write_bolt_dict(pos_tables: list[APTable], neg_tables: list[APTable]) -> dict:
+    return {
+        "positive_traces": [table.to_bolt() for table in pos_tables],
+        "negative_traces": [table.to_bolt() for table in neg_tables],
+        "atomic_propositions": [str(ap) for ap in pos_tables[0].aps],
+        "number_atomic_propositions": len(pos_tables[0].aps),
+        "number_positive_traces": len(pos_tables),
+        "number_negative_traces": len(neg_tables),
+        "max_length_traces": max(len(table.table) for table in pos_tables + neg_tables),
+        "trace_type": "finite"
+    }
+
+
+
+def check_empty(trace_file: Path) -> bool:
+    """Check if the trace file is empty."""
+    with trace_file.open("r", encoding="utf-8") as fh:
+        return not any(line.strip() for line in fh)
+
+
 def main():
     args = parse_args()
     print(f"Processing traces from: {args.traces}")
@@ -365,35 +388,68 @@ def main():
 
     pos_tables = {}
     for trace_file in pos.glob("*.jsonl"):
+        if check_empty(trace_file):
+            print(f"Skipping empty trace file: {trace_file}")
+            continue
         print(f"Processing positive trace: {trace_file}")
         pos_tables[trace_file.stem] = generate_ap_tables(trace_file, metadata)
         print("----------------")
     
+
     print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
 
     neg_tables = {}
     for trace_file in neg.glob("*.jsonl"):
+        if check_empty(trace_file):
+            print(f"Skipping empty trace file: {trace_file}")
+            continue
         print(f"Processing negative trace: {trace_file}")
         neg_tables[trace_file.stem] = generate_ap_tables(trace_file, metadata)
         print("----------------")
 
     print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
 
-    pos_combinations = cartesian_product_tables(pos_tables)
-    print(f"Generated {len(pos_combinations)} combinations of positive AP tables:")
-    for combo in pos_combinations:
-        print("----")
-        for table in combo:
-            print(table)
-            # print(f"Number of updates at each time step:")
-            # for i, updates in enumerate(table.check_updates()):
-            #     print(f" {i}: {updates}")
+    combs = {}
+    for name, tables in zip(["pos_combinations", "neg_combinations"], [pos_tables, neg_tables]):
+        combs[name] = cartesian_product_tables(tables)
+        print(f"Generated {len(combs[name])} combinations of {name}:")
+        for combo in combs[name]:
+            for table in combo:
+                print(table)
+                # print(f"Number of updates at each time step:")
+                # for i, updates in enumerate(table.check_updates()):
+                #     print(f" {i}: {updates}")
+            print("----")
 
-    print("BOLT FORMAT:")
-    for name, tables in pos_tables.items():
-        for i, table in enumerate(tables):
-            print(f"{name}_table_{i}:")
-            print(table.to_bolt())
+    # produce explicit references to pos/neg combinations and take their cartesian product
+    pos_combinations = combs.get("pos_combinations", [])
+    neg_combinations = combs.get("neg_combinations", [])
+
+    # pair each positive combination with each negative combination
+    pos_neg_product = [(p, n) for p in pos_combinations for n in neg_combinations]
+
+    # print("\n\n\n")
+    for i, (pos_combo, neg_combo) in enumerate(pos_neg_product):
+        print(f"Combination {i+1}:")
+        print("Positive combination:")
+        for table in pos_combo:
+            print(table)
+        print("Negative combination:")
+        for table in neg_combo:
+            print(table)
+        
+        bolt_entry = write_bolt_dict(pos_combo, neg_combo)
+        # print("BOLT entry:")
+        if args.out:
+            out_file = args.out / f"combination_{i+1}.json"
+            with out_file.open("w", encoding="utf-8") as fh:
+                json.dump(bolt_entry, fh)
+            print(f"Saved BOLT entry to: {out_file}")
+        else:
+            print(json.dumps(bolt_entry))
+        print("----------------")
+
+    print(f"Generated {len(pos_neg_product)} positive-negative combination pairs.")
 
             
 
