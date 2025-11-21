@@ -1,6 +1,7 @@
 '''
 Compositional Function Example
-Spec is (x+2) *2 is a funciton. WTS discovery of compositional functions
+Spec: [x <- *2 *2 x] & X (G [x <- +2 x]) 
+    WTS discovery of compositional functions
 '''
 
 VARS = {
