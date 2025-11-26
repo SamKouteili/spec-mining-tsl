@@ -1,0 +1,25 @@
+(set-logic NIA)
+
+(synth-fun f ((x Int)) Int
+  ((I Int))
+  (
+    (I Int (
+            x
+            (Constant Int)
+            (+ I I)
+            (- I I)
+            (* I I)
+            (div I I)
+            (mod I I)
+    )
+  )
+)
+)
+
+;; Your data constraints:
+(constraint (= (f 2) 10))
+(constraint (= (f 4) 12))
+(constraint (= (f 6) 14))
+(constraint (= (f 8) 16))
+
+(check-synth)
