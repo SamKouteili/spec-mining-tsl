@@ -116,6 +116,9 @@ class Update:
 
     def __str__(self):
         return f"[{self.var} <- {self.term}]"
+    
+    def __repr__(self):
+        return str(self)
 
     # def __repr__(self):
     #     return f"u0{self.var}0{self.term}0"
@@ -136,6 +139,9 @@ class UpdateF:
     def __str__(self):
         return f"[{self.var} <- {self.func.name} {' '.join(self.inputs)}]"
     
+    def __repr__(self):
+        return str(self)
+    
     def __eq__(self, other):
         return isinstance(other, UpdateF) and self.var == other.var and self.func.name == other.func.name and self.inputs == other.inputs
     
@@ -150,6 +156,9 @@ class Predicate:
     def __str__(self):
         return f"{self.pred.name} {' '.join(self.inputs)}"
     
+    def __repr__(self):
+        return str(self)
+    
     def __eq__(self, value: object) -> bool:
         return isinstance(value, Predicate) and self.pred.name == value.pred.name and self.inputs == value.inputs
     
@@ -163,7 +172,7 @@ class APTable:
     def __init__(self, table: list[dict[Update | UpdateF | Predicate, bool]], metadata: Metadata):
         self.table = table
         self.metadata = metadata
-        self.aps = table[0].keys() if table else set()
+        self.aps = set(table[0].keys()) if table else set()
 
     def __str__(self):
         return "  " + "\n  ".join(" & ".join([("" if val else "!") + str(ap) for ap, val in row.items()]) + ";" for row in self.table)
@@ -305,7 +314,6 @@ class APTable:
         return d
 
 
-
 def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
     with trace_file.open("r", encoding="utf-8") as fh:
         log = [json.loads(line) for line in fh if line.strip()]
@@ -341,6 +349,33 @@ def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
                 good_tables.append(table)
         
     return good_tables
+
+
+def cleanup_ap_tables(tables: list[APTable]) -> list[APTable]:
+    """Remove any variables that is unused at any point in all tables."""
+    aps_in_use = set()
+    all_aps = set()
+    for table in tables:
+        for entry in table.table:
+            for ap, val in entry.items():
+                if val:
+                    aps_in_use.add(ap)
+                all_aps.add(ap)
+
+    print(f"All APs: {[str(ap) for ap in all_aps]}")
+    print(f"APs in use: {[str(ap) for ap in aps_in_use]}")
+    aps_not_in_use = all_aps - aps_in_use
+    for table in tables:
+        for entry in table.table:
+            for ap in aps_not_in_use:
+                # print(f"Removing unused AP {ap} from table.")
+                # print(entry)
+                del entry[ap]
+                # print(o)
+        table.aps = aps_in_use
+
+    return tables
+
 
 
 def cartesian_product_tables(table_dict: dict[str, list[APTable]]) -> list[list[APTable]]:
@@ -426,7 +461,7 @@ def main():
     neg_combinations = combs.get("neg_combinations", [])
 
     # pair each positive combination with each negative combination
-    pos_neg_product = [(p, n) for p in pos_combinations for n in neg_combinations]
+    pos_neg_product = [(deepcopy(p), deepcopy(n)) for p in pos_combinations for n in neg_combinations]
 
     # print("\n\n\n")
     for i, (pos_combo, neg_combo) in enumerate(pos_neg_product):
@@ -437,8 +472,11 @@ def main():
         print("Negative combination:")
         for table in neg_combo:
             print(table)
+
+        cleaned_tables = cleanup_ap_tables(pos_combo + neg_combo)
+        pos_combo_cleaned, neg_combo_cleaned = cleaned_tables[:len(pos_combo)], cleaned_tables[len(pos_combo):]
         
-        bolt_entry = write_bolt_dict(pos_combo, neg_combo)
+        bolt_entry = write_bolt_dict(pos_combo_cleaned, neg_combo_cleaned)
         # print("BOLT entry:")
         if args.out:
             out_file = args.out / f"combination_{i+1}.json"
