@@ -8,13 +8,14 @@ from collections import defaultdict
 def extract_time_step(source):
     # source looks like: "pos_1:line_3→4"
     part = source.split("line_")[1]
-    i = int(part.split("→")[0])
+    i = int(part.split("_to_")[0])
     return i
 
 
 def output_var_from_filename(filename):
     base = os.path.basename(filename)
-    return base.split("_to_")[1].replace(".jsonl", "")
+    print("base:", base.split("2X")[1])
+    return base.split("2X")[1].replace(".jsonl", "")
 
 
 def load_trace_mapping_dir(trace_dir):

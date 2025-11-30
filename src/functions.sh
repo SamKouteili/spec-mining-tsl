@@ -8,21 +8,18 @@ set -e  # stop on any error
 # ARGUMENT PARSING
 #########################################
 
-if [ "$#" -lt 3 ]; then
-    echo "Usage: ./run_pipeline.sh <input_dir> <output_dir> <var1> [var2] [var3] ..."
+if [ "$#" != 2 ]; then
+    echo "Usage: ./functions.sh <input_dir> <output_dir>"
     exit 1
 fi
 
 INPUT_DIR="$1"
 OUTPUT_DIR="$2"
-shift 2
-VARS="$@"   # remaining args are vars
 
 echo "==========================================="
 echo " Running Full Pipeline"
 echo " Input Dir:  $INPUT_DIR"
 echo " Output Dir: $OUTPUT_DIR"
-echo " Vars:       $VARS"
 echo "==========================================="
 
 #########################################
@@ -31,10 +28,9 @@ echo "==========================================="
 
 echo ""
 echo "=== Step 1: IOSeperation.py ==="
-python3 IOSeperation.py \
+python3 SygusFunctionSolver/IOSeperation.py \
     --input_dir "$INPUT_DIR" \
-    --output_dir "$OUTPUT_DIR" \
-    --vars $VARS
+    --output_dir "$OUTPUT_DIR"
 
 #########################################
 # STEP 2 — CreateGroupings.py
@@ -42,7 +38,7 @@ python3 IOSeperation.py \
 
 echo ""
 echo "=== Step 2: CreateGroupings.py ==="
-python3 CreateGroupings.py \
+python3 SygusFunctionSolver/CreateGroupings.py \
     --root_dir "$OUTPUT_DIR"
 
 #########################################
@@ -51,7 +47,7 @@ python3 CreateGroupings.py \
 
 echo ""
 echo "=== Step 3: CreateGroupingSubsets.py ==="
-python3 CreateGroupingSubsets.py \
+python3 SygusFunctionSolver/CreateGroupingSubsets.py \
     --root_dir "$OUTPUT_DIR"
 
 #########################################
@@ -60,7 +56,7 @@ python3 CreateGroupingSubsets.py \
 
 echo ""
 echo "=== Step 4: GenerateFunctions.py ==="
-python3 GenerateFunctions.py \
+python3 SygusFunctionSolver/GenerateFunctions.py \
     --root_dir "$OUTPUT_DIR"
 
 echo ""

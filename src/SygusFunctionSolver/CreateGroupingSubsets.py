@@ -26,32 +26,47 @@ def partitions(set_list):
         yield [[first]] + rest
 
 
+# def compute_full_block_partitions(full_set):
+#     unary = []
+#     binary = []
+
+#     for key, rec in full_set.items():
+#         if get_arity(rec) == 1:
+#             unary.append(key)
+#         else:
+#             binary.append(key)
+
+#     unary_parts = list(partitions(unary)) if unary else [[]]
+#     binary_parts = list(partitions(binary)) if binary else [[]]
+
+#     all_results = []
+
+#     for up in unary_parts:
+#         for bp in binary_parts:
+#             blocks = []
+#             for block in up:
+#                 blocks.append({k: full_set[k] for k in block})
+#             for block in bp:
+#                 blocks.append({k: full_set[k] for k in block})
+#             all_results.append(blocks)
+
+#     all_results.sort(key=lambda p: len(p))
+#     return all_results
+
 def compute_full_block_partitions(full_set):
-    unary = []
-    binary = []
+    keys = list(full_set.keys())
+    parts = list(partitions(keys))
+    results = []
 
-    for key, rec in full_set.items():
-        if get_arity(rec) == 1:
-            unary.append(key)
-        else:
-            binary.append(key)
+    for p in parts:
+        block_dicts = []
+        for block in p:
+            block_dicts.append({k: full_set[k] for k in block})
+        results.append(block_dicts)
 
-    unary_parts = list(partitions(unary)) if unary else [[]]
-    binary_parts = list(partitions(binary)) if binary else [[]]
-
-    all_results = []
-
-    for up in unary_parts:
-        for bp in binary_parts:
-            blocks = []
-            for block in up:
-                blocks.append({k: full_set[k] for k in block})
-            for block in bp:
-                blocks.append({k: full_set[k] for k in block})
-            all_results.append(blocks)
-
-    all_results.sort(key=lambda p: len(p))
-    return all_results
+    # sort by number of blocks
+    results.sort(key=lambda p: len(p))
+    return results
 
 
 def main(root_dir):
