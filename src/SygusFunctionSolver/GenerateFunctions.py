@@ -12,15 +12,24 @@ import argparse
 SINGLE_ARITY_TEMPLATE = """(set-logic NIA)
 
 (synth-fun f ((x Int)) Int
-  ((I Int))
+  ((I Int) (C Int))
   (
     (I Int (
-            x
-            (+ I I)
-            (- I I)
-            (* I I)
-            (div I I)
-            (mod I I)
+        x
+        C
+        (+ I I)
+        (- I I)
+        (+ I C)
+        (- I C)
+        (+ C I)
+        (- C I)
+    ))
+    (C Int (
+        0
+        1
+        (- 0 1)
+        (+ C C)
+        (- C C)
     ))
   )
 )
@@ -33,16 +42,25 @@ SINGLE_ARITY_TEMPLATE = """(set-logic NIA)
 BINARY_ARITY_TEMPLATE = """(set-logic NIA)
 
 (synth-fun f ((x Int) (y Int)) Int
-  ((I Int))
+  ((I Int) (C Int))
   (
     (I Int (
-            x
-            y
-            (+ I I)
-            (- I I)
-            (* I I)
-            (div I I)
-            (mod I I)
+        x
+        y
+        C
+        (+ I I)
+        (- I I)
+        (+ I C)
+        (- I C)
+        (+ C I)
+        (- C I)
+    ))
+    (C Int (
+        0
+        1
+        (- 0 1)
+        (+ C C)
+        (- C C)
     ))
   )
 )
@@ -52,7 +70,7 @@ BINARY_ARITY_TEMPLATE = """(set-logic NIA)
 (check-synth)
 """
 
-TIMEOUT = 0.05  # 50ms per solver call
+TIMEOUT = 10  # 10 seconds per solver call
 
 
 # ========================================================================
@@ -63,6 +81,21 @@ def get_arity(rec):
     return 2 if isinstance(rec["input"], list) else 1
 
 
+def format_block(block):
+    """Format block as input->output pairs for debugging."""
+    pairs = []
+    for key, rec in block.items():
+        pairs.append(f"{rec['input']}->{rec['output']}")
+    return "{" + ", ".join(pairs) + "}"
+
+
+def format_sygus_int(n):
+    """Format an integer for SyGuS - negative numbers need (- 0 n) syntax."""
+    if n < 0:
+        return f"(- 0 {abs(n)})"
+    return str(n)
+
+
 def generate_constraints(block):
     """Generate SyGuS constraints from a block of input-output pairs."""
     out = []
@@ -70,15 +103,21 @@ def generate_constraints(block):
         inp = rec["input"]
         outv = rec["output"]
         if isinstance(inp, list):
-            out.append(f"(constraint (= (f {inp[0]} {inp[1]}) {outv}))")
+            inp0 = format_sygus_int(inp[0])
+            inp1 = format_sygus_int(inp[1])
+            outv_str = format_sygus_int(outv)
+            out.append(f"(constraint (= (f {inp0} {inp1}) {outv_str}))")
         else:
-            out.append(f"(constraint (= (f {inp}) {outv}))")
+            inp_str = format_sygus_int(inp)
+            outv_str = format_sygus_int(outv)
+            out.append(f"(constraint (= (f {inp_str}) {outv_str}))")
     return "\n".join(out)
 
 
-def solve_block(block, timeout=TIMEOUT):
+def solve_block(block, block_idx, timeout=TIMEOUT):
     """Solve a single block of constraints."""
     if not block:
+        print(f"      Block {block_idx}: EMPTY")
         return None
 
     # Determine arity
@@ -88,6 +127,7 @@ def solve_block(block, timeout=TIMEOUT):
     # Ensure consistent arity across block
     for rec in block.values():
         if get_arity(rec) != arity:
+            print(f"      Block {block_idx}: INCONSISTENT ARITY")
             return None
 
     constraints = generate_constraints(block)
@@ -108,29 +148,47 @@ def solve_block(block, timeout=TIMEOUT):
             timeout=timeout
         )
         out = result.stdout.strip()
+        err = result.stderr.strip()
 
         # Successful synthesis?
         if "(define-fun" in out and "error" not in out.lower():
+            # Extract just the function definition
+            lines = [l for l in out.split('\n') if 'define-fun' in l]
+            func = lines[0] if lines else out
+            print(f"      Block {block_idx}: SUCCESS -> {func}")
             return out
 
+        print(f"      Block {block_idx}: NO SOLUTION (stderr: {err[:80]})")
         return None
 
     except subprocess.TimeoutExpired:
+        print(f"      Block {block_idx}: TIMEOUT")
         return None
-    except Exception:
+    except FileNotFoundError:
+        print(f"      Block {block_idx}: CVC5 NOT FOUND")
+        return None
+    except Exception as e:
+        print(f"      Block {block_idx}: EXCEPTION {type(e).__name__}: {e}")
         return None
     finally:
         os.unlink(path)
 
 
-def solve_partition(partition):
+def solve_partition(partition, line_num):
     """All blocks must be solvable or partition fails."""
+    print(f"\n  Line {line_num}: {len(partition)} blocks")
+    for block_idx, block in enumerate(partition):
+        print(f"    Block {block_idx}: {format_block(block)}")
+    
     fns = []
-    for block in partition:
-        fn = solve_block(block)
+    for block_idx, block in enumerate(partition):
+        fn = solve_block(block, block_idx)
         if fn is None:
+            print(f"    -> PARTITION FAILED at block {block_idx}")
             return None
         fns.append(fn)
+    
+    print(f"    -> ALL BLOCKS SOLVED!")
     return fns
 
 
@@ -154,11 +212,8 @@ def process_single_trace(trace_dir):
 
     with open(in_path) as f:
         for line_num, line in enumerate(f):
-            if line_num % 100 == 0:
-                print(f"    Checking partition {line_num}...")
-
             partition = json.loads(line)
-            fns = solve_partition(partition)
+            fns = solve_partition(partition, line_num)
 
             if fns is not None:
                 result = {
