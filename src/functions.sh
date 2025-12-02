@@ -59,6 +59,11 @@ echo "=== Step 4: GenerateFunctions.py ==="
 python3 SygusFunctionSolver/GenerateFunctions.py \
     --root_dir "$OUTPUT_DIR"
 
+echo "=== Step 4: CreateMetadata.py ==="
+python3 SygusFunctionSolver/CreateMetadata.py \
+    --trace_dir "$INPUT_DIR" \
+    --function_dir "$OUTPUT_DIR"
+
 echo ""
 echo "==========================================="
 echo " Pipeline Complete!"

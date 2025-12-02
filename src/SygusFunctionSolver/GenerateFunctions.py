@@ -16,7 +16,6 @@ SINGLE_ARITY_TEMPLATE = """(set-logic NIA)
   (
     (I Int (
         x
-        C
         (+ I I)
         (- I I)
         (+ I C)
@@ -47,7 +46,6 @@ BINARY_ARITY_TEMPLATE = """(set-logic NIA)
     (I Int (
         x
         y
-        C
         (+ I I)
         (- I I)
         (+ I C)
@@ -70,7 +68,7 @@ BINARY_ARITY_TEMPLATE = """(set-logic NIA)
 (check-synth)
 """
 
-TIMEOUT = 10  # 10 seconds per solver call
+TIMEOUT = 1  # 10 seconds per solver call
 
 
 # ========================================================================
@@ -112,6 +110,39 @@ def generate_constraints(block):
             outv_str = format_sygus_int(outv)
             out.append(f"(constraint (= (f {inp_str}) {outv_str}))")
     return "\n".join(out)
+
+
+def extract_define_fun(out):
+    """
+    Extracts the full (define-fun ...) s-expression
+    even if it's multi-line and contains nested lets.
+    """
+    lines = out.split("\n")
+    
+    start = None
+    paren_count = 0
+    buf = []
+
+    for i, line in enumerate(lines):
+        if "(define-fun" in line:
+            start = i
+            # count parentheses on this line
+            paren_count = line.count("(") - line.count(")")
+            buf.append(line)
+            break
+
+    if start is None:
+        return None  # no define-fun found
+
+    # Read forward until parentheses balance to zero
+    for line in lines[start+1:]:
+        paren_count += line.count("(")
+        paren_count -= line.count(")")
+        buf.append(line)
+        if paren_count == 0:
+            break
+
+    return "\n".join(buf)
 
 
 def solve_block(block, block_idx, timeout=TIMEOUT):
@@ -156,7 +187,9 @@ def solve_block(block, block_idx, timeout=TIMEOUT):
             lines = [l for l in out.split('\n') if 'define-fun' in l]
             func = lines[0] if lines else out
             print(f"      Block {block_idx}: SUCCESS -> {func}")
-            return out
+
+            func = extract_define_fun(out)
+            return func
 
         print(f"      Block {block_idx}: NO SOLUTION (stderr: {err[:80]})")
         return None

@@ -2,6 +2,7 @@ import os
 import json
 import argparse
 import itertools
+import shutil
 
 
 def clean_line(raw):
@@ -32,7 +33,52 @@ def extract_first_line_keys(file_path):
     return []
 
 
-def generate_mapping_classes(vars_list):
+def find_constant_variables(trace_paths: list[str]) -> set[str]:
+    """
+    Return a set of variables that are constant within every trace file in trace_paths.
+    Values may differ between traces but must not change inside a single trace.
+    """
+    if not trace_paths:
+        return set()
+
+    # Start from the keys of the first trace file
+    constant_vars = set(extract_first_line_keys(trace_paths[0]))
+    if not constant_vars:
+        return set()
+
+    for path in trace_paths:
+        if not constant_vars:
+            break
+
+        first_values: dict = {}
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                for raw in f:
+                    clean = clean_line(raw)
+                    if not clean:
+                        continue
+                    try:
+                        obj = json.loads(clean)
+                    except Exception:
+                        continue
+
+                    for var in list(constant_vars):
+                        if var not in obj:
+                            constant_vars.discard(var)
+                            continue
+                        if var not in first_values:
+                            first_values[var] = obj[var]
+                        elif obj[var] != first_values[var]:
+                            constant_vars.discard(var)
+        except FileNotFoundError:
+            # If a trace doesn't exist, it cannot contribute constants
+            constant_vars.clear()
+            break
+
+    return constant_vars
+        
+
+def generate_mapping_classes(vars_list, constants) -> dict[str, list]:
     """
     Generate mapping classes without duplicates.
     Uses combinations (unordered) instead of permutations (ordered).
@@ -50,8 +96,9 @@ def generate_mapping_classes(vars_list):
 
             # Map to each possible output var
             for out in vars_list:
-                cls_name = f"{inp_prefix}2X{out}"
-                classes[cls_name] = []
+                if out not in constants:
+                    cls_name = f"{inp_prefix}toNext{out}"
+                    classes[cls_name] = []
 
     return classes
 
@@ -63,8 +110,9 @@ def classify_and_store(prev_obj, next_obj, source, pairs, vars_list):
     """
 
     for clause in pairs.keys():
+        # print(clause)
         # example: "XY1_to_Z2"
-        inp_block, out_var = clause.split("2X")
+        inp_block, out_var = clause.split("toNext")
 
         # print(f"clause: {clause}, input_block: {inp_block}, out_block: {out_block}")
 
@@ -87,67 +135,83 @@ def classify_and_store(prev_obj, next_obj, source, pairs, vars_list):
             "output": out_value
         })
 
-
+# TODO: check if conflicting trace file names create problems
 def main(input_dir, output_dir):
 
     assert os.path.exists(input_dir), "Invalid input directory"
+    if input_dir == output_dir :
+        output_dir = os.path.join(output_dir, "out")
+        
     pos_path = os.path.join(input_dir, "pos")
     neg_path = os.path.join(input_dir, "neg")
     assert os.path.exists(pos_path) and os.path.exists(neg_path), "Traces not properly bucketed into pos & neg"
-    # os.removedirs(output_dir)
+    
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
 
-    for d, traces in [(pos_path, os.listdir(pos_path)), (neg_path, os.listdir(neg_path))]:
-        for fname in traces: 
-            if not fname.endswith(".jsonl"):
-                continue
+    trace_paths = []
+    for path in [pos_path, neg_path]:
+        for name in os.listdir(path):
+            trace_paths.append(os.path.join(path, name))
 
-            file_path = os.path.join(d, fname)
+    print(list(trace_paths))
 
-            vars_list = extract_first_line_keys(file_path)
-            # print(vars_list)
+    constants = find_constant_variables(trace_paths)
+    print("Found following constant variables:", constants)
 
-            # Per-trace output folder
-            trace_dir = os.path.join(output_dir, fname.replace(".jsonl", ""))
-            os.makedirs(trace_dir, exist_ok=True)
+    for fpath in trace_paths:
+        if not fpath.endswith(".jsonl"):
+            continue
 
-            pairs = generate_mapping_classes(vars_list)
-            # print(pairs)
+        # file_path = os.path.join(d, fname)
 
-            # load trace
-            lines = []
-            with open(file_path, "r") as f:
-                for raw_line in f:
-                    clean = clean_line(raw_line)
-                    if not clean:
-                        continue
-                    try:
-                        obj = json.loads(clean)
-                        lines.append(obj)
-                    except:
-                        print("Bad JSON:", fname, "line:", repr(raw_line))
+        vars_list = extract_first_line_keys(fpath)
+        # print(vars_list)
+        fname = os.path.basename(fpath)
 
-            # print("lines", lines)
 
-            # process transitions
-            for i in range(len(lines) - 1):
-                # print(lines[i], lines[i+1], pairs, vars_list)
-                classify_and_store(
-                    lines[i],
-                    lines[i + 1],
-                    f"{fname}:line_{i}_to_{i+1}",
-                    pairs,
-                    vars_list,
-                )
+        # Per-trace output folder
+        trace_dir = os.path.join(output_dir, fname.replace(".jsonl", ""))
+        os.makedirs(trace_dir, exist_ok=True)
 
-            # write files
-            for cls_name, items in pairs.items():
-                out_path = os.path.join(trace_dir, f"{cls_name}.jsonl")
-                with open(out_path, "w") as f:
-                    for obj in items:
-                        f.write(json.dumps(obj) + "\n")
+        pairs = generate_mapping_classes(vars_list, constants)
+        # print(pairs)
 
-            print(f"Processed: {fname}")
+        # load trace
+        lines = []
+        with open(fpath, "r") as f:
+            for raw_line in f:
+                clean = clean_line(raw_line)
+                if not clean:
+                    continue
+                try:
+                    obj = json.loads(clean)
+                    lines.append(obj)
+                except:
+                    print("Bad JSON:", fpath, "line:", repr(raw_line))
+
+        # print("lines", lines)
+
+        # process transitions
+        for i in range(len(lines) - 1):
+            # print(lines[i], lines[i+1], pairs, vars_list)
+            classify_and_store(
+                lines[i],
+                lines[i + 1],
+                f"{fname}:line_{i}_to_{i+1}",
+                pairs,
+                vars_list,
+            )
+
+        # write files
+        for cls_name, items in pairs.items():
+            out_path = os.path.join(trace_dir, f"{cls_name}.jsonl")
+            with open(out_path, "w") as f:
+                for obj in items:
+                    f.write(json.dumps(obj) + "\n")
+
+        print(f"Processed: {fname}")
 
     print("Done")
             

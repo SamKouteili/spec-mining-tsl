@@ -14,8 +14,8 @@ def extract_time_step(source):
 
 def output_var_from_filename(filename):
     base = os.path.basename(filename)
-    print("base:", base.split("2X")[1])
-    return base.split("2X")[1].replace(".jsonl", "")
+    # print("base:", base.split("toNext")[1])
+    return base.split("toNext")[1].replace(".jsonl", "")
 
 
 def load_trace_mapping_dir(trace_dir):
