@@ -106,6 +106,10 @@ def generate_constraints(block):
             outv_str = format_sygus_int(outv)
             out.append(f"(constraint (= (f {inp0} {inp1}) {outv_str}))")
         else:
+            # NOTE: # Skipping trivial identity mappings
+            #   this will be a fix in the unary case but not in the binary one
+            if inp == outv:
+                continue
             inp_str = format_sygus_int(inp)
             outv_str = format_sygus_int(outv)
             out.append(f"(constraint (= (f {inp_str}) {outv_str}))")
@@ -162,6 +166,7 @@ def solve_block(block, block_idx, timeout=TIMEOUT):
             return None
 
     constraints = generate_constraints(block)
+    print(constraints)
     sygus = (
         SINGLE_ARITY_TEMPLATE if arity == 1 else BINARY_ARITY_TEMPLATE
     ).format(constraints=constraints)
@@ -171,6 +176,7 @@ def solve_block(block, block_idx, timeout=TIMEOUT):
         f.write(sygus)
         path = f.name
 
+    block_info = f"Block {block_idx} {format_block(block)}"
     try:
         result = subprocess.run(
             ['cvc5', '--lang=sygus2', path],
@@ -186,38 +192,55 @@ def solve_block(block, block_idx, timeout=TIMEOUT):
             # Extract just the function definition
             lines = [l for l in out.split('\n') if 'define-fun' in l]
             func = lines[0] if lines else out
-            print(f"      Block {block_idx}: SUCCESS -> {func}")
+            print(f"    {block_info}: SUCCESS -> {func}")
 
             func = extract_define_fun(out)
             return func
-
-        print(f"      Block {block_idx}: NO SOLUTION (stderr: {err[:80]})")
+        print(f"    {block_info}: NO SOLUTION (stderr: {err[:80]})")
         return None
 
     except subprocess.TimeoutExpired:
-        print(f"      Block {block_idx}: TIMEOUT")
+        print(f"    {block_info}: TIMEOUT")
         return None
     except FileNotFoundError:
-        print(f"      Block {block_idx}: CVC5 NOT FOUND")
+        print(f"    {block_info}: CVC5 NOT FOUND")
         return None
     except Exception as e:
-        print(f"      Block {block_idx}: EXCEPTION {type(e).__name__}: {e}")
+        print(f"    {block_info}: EXCEPTION {type(e).__name__}: {e}")
         return None
     finally:
         os.unlink(path)
 
 
-def solve_partition(partition, line_num):
+def solve_partition(partition: list[dict[str, dict]], line_num):
     """All blocks must be solvable or partition fails."""
     print(f"\n  Line {line_num}: {len(partition)} blocks")
-    for block_idx, block in enumerate(partition):
-        print(f"    Block {block_idx}: {format_block(block)}")
+    # for block_idx, block in enumerate(partition):
+    #     print(f"    Block {block_idx}: {format_block(block)}")
     
     fns = []
     for block_idx, block in enumerate(partition):
         fn = solve_block(block, block_idx)
         if fn is None:
+            #NOTE: WILL CAN I DO THIS??? 
             print(f"    -> PARTITION FAILED at block {block_idx}")
+            # if block_idx > 1 and block_idx == len(partition) - 1:
+            #     print("       (Last block failed after some successes)... Partitioning further...")
+            #     print(block)
+            #     split_block = list(block.items())
+            #     mid = len(split_block) // 2
+            #     first_half = dict(split_block[:mid])
+            #     second_half = dict(split_block[mid:])
+            #     fn1 = solve_block(first_half, block_idx)
+            #     fn2 = solve_block(second_half, block_idx + 1)
+            #     if fn1 is not None and fn2 is not None:
+            #         print("       -> Successfully solved both halves after splitting!")
+            #         fns.append(fn1)
+            #         fns.append(fn2)
+            #         continue
+            #     else:
+            #         print("       -> Splitting did not help.")
+            #     exit(1)
             return None
         fns.append(fn)
     
@@ -292,7 +315,7 @@ def process_single_trace(trace_dir):
 
             for p in partitions(keys):
                 # block_dicts here is the partition of full_set into blocks
-                block_dicts = []
+                block_dicts: list[dict] = []
                 for block in p:
                     block_dicts.append({k: full_set[k] for k in block})
 

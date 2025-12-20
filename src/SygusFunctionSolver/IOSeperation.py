@@ -95,9 +95,9 @@ def generate_mapping_classes(vars_list: list[str], arity = None) -> dict[str, li
             # Map to each possible output var
             for out in vars_list:
                 # NOTE: TESTING FOR NOW TO BE REMOVED
-                if inp_sorted == ['playerX'] and out == 'playerY' or inp_sorted == ['playerY'] and out == 'playerX':
-                    # Skip trivial identity mappings between X and Y
-                    continue
+                # if inp_sorted == ['playerX'] and out == 'playerY' or inp_sorted == ['playerY'] and out == 'playerX':
+                #     # Skip trivial identity mappings between X and Y
+                #     continue
                 print("Generating class for input:", inp_sorted, "-> output:", out)
                 cls_name = f"{inp_prefix}toNext{out}"
                 classes[cls_name] = []
