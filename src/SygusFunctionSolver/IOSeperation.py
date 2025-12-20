@@ -13,7 +13,7 @@ def clean_line(raw):
     )
 
 
-def extract_first_line_keys(file_path):
+def extract_first_line_keys(file_path) -> set[str]:
     """
     Parse the first non-empty JSON line in file_path and return its keys as a list.
     Returns an empty list if no valid JSON object line is found.
@@ -28,9 +28,9 @@ def extract_first_line_keys(file_path):
             except Exception:
                 continue
             if isinstance(obj, dict):
-                return list(obj.keys())
-            return []
-    return []
+                return set(obj.keys())
+            return set()
+    return set()
 
 
 def find_constant_variables(trace_paths: list[str]) -> set[str]:
@@ -38,18 +38,12 @@ def find_constant_variables(trace_paths: list[str]) -> set[str]:
     Return a set of variables that are constant within every trace file in trace_paths.
     Values may differ between traces but must not change inside a single trace.
     """
-    if not trace_paths:
-        return set()
-
     # Start from the keys of the first trace file
-    constant_vars = set(extract_first_line_keys(trace_paths[0]))
+    constant_vars = extract_first_line_keys(trace_paths[0])
     if not constant_vars:
         return set()
 
     for path in trace_paths:
-        if not constant_vars:
-            break
-
         first_values: dict = {}
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -78,7 +72,7 @@ def find_constant_variables(trace_paths: list[str]) -> set[str]:
     return constant_vars
         
 
-def generate_mapping_classes(vars_list, constants) -> dict[str, list]:
+def generate_mapping_classes(vars_list, arity = None) -> dict[str, list]:
     """
     Generate mapping classes without duplicates.
     Uses combinations (unordered) instead of permutations (ordered).
@@ -87,8 +81,10 @@ def generate_mapping_classes(vars_list, constants) -> dict[str, list]:
 
     classes = {}
 
+    rs = [arity] if arity is not None else range(1, len(vars_list) + 1)
+
     # All possible input subsets (size >= 1)
-    for r in range(1, len(vars_list) + 1):
+    for r in rs:
         for combo in itertools.combinations(vars_list, r):
             # Sort for determinism (avoid XY vs YX)
             inp_sorted = sorted(combo)
@@ -96,13 +92,13 @@ def generate_mapping_classes(vars_list, constants) -> dict[str, list]:
 
             # Map to each possible output var
             for out in vars_list:
-                if out not in constants:
-                    cls_name = f"{inp_prefix}toNext{out}"
-                    classes[cls_name] = []
+                cls_name = f"{inp_prefix}toNext{out}"
+                classes[cls_name] = []
 
     return classes
 
 
+# NOTE: vars_list unused
 def classify_and_store(prev_obj, next_obj, source, pairs, vars_list):
     """
     Adds mapping instance to the correct class.
@@ -166,17 +162,19 @@ def main(input_dir, output_dir):
 
         # file_path = os.path.join(d, fname)
 
-        vars_list = extract_first_line_keys(fpath)
-        # print(vars_list)
-        fname = os.path.basename(fpath)
+        all_vars = extract_first_line_keys(fpath)
+        # print(all_vars)
+        variables = all_vars - constants
+        # print(variables)
 
+        fname = os.path.basename(fpath)
 
         # Per-trace output folder
         trace_dir = os.path.join(output_dir, fname.replace(".jsonl", ""))
         os.makedirs(trace_dir, exist_ok=True)
 
-        pairs = generate_mapping_classes(vars_list, constants)
-        # print(pairs)
+        pairs = generate_mapping_classes(variables, arity=1)
+        print(pairs)
 
         # load trace
         lines = []
@@ -201,7 +199,7 @@ def main(input_dir, output_dir):
                 lines[i + 1],
                 f"{fname}:line_{i}_to_{i+1}",
                 pairs,
-                vars_list,
+                variables,
             )
 
         # write files

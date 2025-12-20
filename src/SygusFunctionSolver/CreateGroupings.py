@@ -6,7 +6,7 @@ from collections import defaultdict
 
 
 def extract_time_step(source):
-    # source looks like: "pos_1:line_3→4"
+    # source looks like: "pos_1:line_3_to_4"
     part = source.split("line_")[1]
     i = int(part.split("_to_")[0])
     return i

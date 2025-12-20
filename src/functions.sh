@@ -41,6 +41,8 @@ echo "=== Step 2: CreateGroupings.py ==="
 python3 SygusFunctionSolver/CreateGroupings.py \
     --root_dir "$OUTPUT_DIR"
 
+# exit 0
+
 #########################################
 # STEP 3 — CreateGroupingSubsets.py
 #########################################
