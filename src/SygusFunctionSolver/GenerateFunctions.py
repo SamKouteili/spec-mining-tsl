@@ -37,7 +37,7 @@ SINGLE_ARITY_TEMPLATE = """(set-logic NIA)
 
 (check-synth)
 """
-
+#TODO: WHY - 0 1 and + C C ???
 BINARY_ARITY_TEMPLATE = """(set-logic NIA)
 
 (synth-fun f ((x Int) (y Int)) Int
@@ -68,7 +68,7 @@ BINARY_ARITY_TEMPLATE = """(set-logic NIA)
 (check-synth)
 """
 
-TIMEOUT = 1  # 10 seconds per solver call
+TIMEOUT = 0.02  # 0.1 seconds per solver call
 
 
 # ========================================================================
@@ -225,6 +225,44 @@ def solve_partition(partition, line_num):
     return fns
 
 
+
+# ========================================================================
+#   PARTITION SUBSETS
+# ========================================================================
+
+def partitions(set_list):
+    """
+    Generate all partitions of a list into disjoint non-empty subsets.
+    Bell number growth but manageable for sets ≤ 5.
+    """
+    if not set_list:
+        yield []
+        return
+
+    first = set_list[0]
+    for rest in partitions(set_list[1:]):
+        # Add "first" to an existing block
+        for i in range(len(rest)):
+            new_block = rest[i] + [first]
+            yield rest[:i] + [new_block] + rest[i+1:]
+        # Create a new block containing only "first"
+        yield [[first]] + rest
+
+# def compute_full_block_partitions(full_set):
+#     keys = list(full_set.keys())
+#     parts = list(partitions(keys))
+#     results = []
+
+#     for p in parts:
+#         block_dicts = []
+#         for block in p:
+#             block_dicts.append({k: full_set[k] for k in block})
+#         results.append(block_dicts)
+
+#     # sort by number of blocks
+#     results.sort(key=lambda p: len(p))
+#     return results
+
 # ========================================================================
 #   PROCESS ONE TRACE
 # ========================================================================
@@ -234,31 +272,43 @@ def process_single_trace(trace_dir):
     Load final_partitions.jsonl and try to solve each partition until success.
     Write result to output_funcs.jsonl.
     """
-    in_path = os.path.join(trace_dir, "final_partitions.jsonl")
+    in_path = os.path.join(trace_dir, "groupings.jsonl")
     out_path = os.path.join(trace_dir, "output_funcs.jsonl")
 
     if not os.path.exists(in_path):
-        print(f"  [SKIP] No final_partitions.jsonl in {trace_dir}")
+        print(f"  [SKIP] No groupings.jsonl in {trace_dir}")
         return
 
     print(f"  Solving partitions in {trace_dir} ...")
 
+
     with open(in_path) as f:
         for line_num, line in enumerate(f):
-            partition = json.loads(line)
-            fns = solve_partition(partition, line_num)
+            # NOW THIS IS A LINE IN groupings.jsonl
+            full_set = json.loads(line)
 
-            if fns is not None:
-                result = {
-                    "line": line_num,
-                    "partition": partition,
-                    "functions": fns
-                }
-                with open(out_path, "w") as out:
-                    json.dump(result, out, indent=2)
-                print(f"\n  SUCCESS for trace {trace_dir} at partition {line_num}")
-                print(f"  Output written to {out_path}\n")
-                return
+            keys = list(full_set.keys())
+            # parts = list(partitions(keys))
+
+            for p in partitions(keys):
+                # block_dicts here is the partition of full_set into blocks
+                block_dicts = []
+                for block in p:
+                    block_dicts.append({k: full_set[k] for k in block})
+
+                fns = solve_partition(block_dicts, line_num)
+
+                if fns is not None:
+                    result = {
+                        "line": line_num,
+                        "partition": block_dicts,
+                        "functions": fns
+                    }
+                    with open(out_path, "w") as out:
+                        json.dump(result, out, indent=2)
+                    print(f"\n  SUCCESS for trace {trace_dir} at partition {line_num}")
+                    print(f"  Output written to {out_path}\n")
+                    return
 
     print(f"  No solvable partition found for {trace_dir}\n")
 

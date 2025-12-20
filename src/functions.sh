@@ -47,17 +47,17 @@ python3 SygusFunctionSolver/CreateGroupings.py \
 # STEP 3 — CreateGroupingSubsets.py
 #########################################
 
-echo ""
-echo "=== Step 3: CreateGroupingSubsets.py ==="
-python3 SygusFunctionSolver/CreateGroupingSubsets.py \
-    --root_dir "$OUTPUT_DIR"
+# echo ""
+# echo "=== Step 3: CreateGroupingSubsets.py ==="
+# python3 SygusFunctionSolver/CreateGroupingSubsets.py \
+#     --root_dir "$OUTPUT_DIR"
 
 #########################################
 # STEP 4 — GenerateFunctions.py
 #########################################
 
 echo ""
-echo "=== Step 4: GenerateFunctions.py ==="
+echo "=== Step 3: GenerateFunctions.py ==="
 python3 SygusFunctionSolver/GenerateFunctions.py \
     --root_dir "$OUTPUT_DIR"
 

@@ -72,7 +72,7 @@ def find_constant_variables(trace_paths: list[str]) -> set[str]:
     return constant_vars
         
 
-def generate_mapping_classes(vars_list, arity = None) -> dict[str, list]:
+def generate_mapping_classes(vars_list: list[str], arity = None) -> dict[str, list]:
     """
     Generate mapping classes without duplicates.
     Uses combinations (unordered) instead of permutations (ordered).
@@ -90,8 +90,15 @@ def generate_mapping_classes(vars_list, arity = None) -> dict[str, list]:
             inp_sorted = sorted(combo)
             inp_prefix = "_".join(inp_sorted)
 
+
+
             # Map to each possible output var
             for out in vars_list:
+                # NOTE: TESTING FOR NOW TO BE REMOVED
+                if inp_sorted == ['playerX'] and out == 'playerY' or inp_sorted == ['playerY'] and out == 'playerX':
+                    # Skip trivial identity mappings between X and Y
+                    continue
+                print("Generating class for input:", inp_sorted, "-> output:", out)
                 cls_name = f"{inp_prefix}toNext{out}"
                 classes[cls_name] = []
 
