@@ -18,6 +18,48 @@ def parse_args():
     parser.add_argument("--out", type=Path, default=Path("out"), help="Output directory for processed traces")
     return parser.parse_args()
 
+#################################################################
+################## METADATA CLASSES #############################
+#################################################################
+
+class Variable:
+    def __init__(self, name: str, var_type: str):
+        self.name = name
+        self.type = var_type
+
+    def __str__(self):
+        return f"{self.name}[{self.type}]"
+    
+    def __eq__(self, other):
+        return isinstance(other, Variable) and (self.name == other.name and self.type == other.type)
+
+    def __hash__(self):
+        return hash((self.name, self.type))
+
+class Function:
+    def __init__(self, name: str, arg_types: str, impl):
+        self.name = name
+        self.input_types = arg_types.split("->")[:-1]
+        self.output_type = arg_types.split("->")[-1]
+        self.f = impl
+
+    def __str__(self):
+        return f"{self.name}[{" * ".join(self.input_types)} -> {self.output_type}]"
+    
+    # not checking implementation explicitly. could lookat bytecode if needed
+    def __eq__(self, other):
+        return isinstance(other, Function) and \
+            self.name == other.name and \
+            self.input_types == other.input_types and \
+            self.output_type == other.output_type
+    
+    def __hash__(self):
+        return hash((self.name, tuple(self.input_types), self.output_type))
+
+    def run(self, *args):
+        return self.f(*args)
+    
+
 # Redundant class could have done it with just Function but this is more explicit
 # class Predicate:
 #     def __init__(self, name: str, arg_types: str, impl):
@@ -30,23 +72,10 @@ def parse_args():
     
 #     def run(self, *args):
 #         return self.p(*args)
-
-class Function:
-    def __init__(self, name: str, arg_types: str, impl):
-        self.name = name
-        self.input_types = arg_types.split("->")[:-1]
-        self.output_type = arg_types.split("->")[-1]
-        self.f = impl
-
-    def __str__(self):
-        return f"{self.name}: {" * ".join(self.input_types)} -> {self.output_type})"
-    
-    def run(self, *args):
-        return self.f(*args)
     
 
 class Metadata:
-    def __init__(self, variables: dict[str, str], functions: dict[str, Function], predicates: dict[str, Function]):
+    def __init__(self, variables: set[Variable], functions: set[Function], predicates: set[Function]):
         self.vars = variables
         self.functions = functions
         self.predicates = predicates
@@ -54,15 +83,15 @@ class Metadata:
     def __str__(self):
         out = "metadata {\n"
         out += "  variables {\n"
-        for var, ty in self.vars.items():
-            out += f"    {var}: {ty}\n"
+        for var in self.vars:
+            out += f"    {var}\n"
         out += "  }\n"
         out += "  functions {\n"
-        for func in self.functions.values():
+        for func in self.functions:
             out += f"    {func}\n"
         out += "  }\n"
         out += "  predicates {\n"
-        for pred in self.predicates.values():
+        for pred in self.predicates:
             out += f"    {pred}\n"
         out += "  }\n"
         out += "}"
@@ -80,21 +109,20 @@ class Metadata:
 
         v, f, p = None, None, None
         try:
-            v = meta.VARS
-            f = {name: Function(name, *details) for name, details in meta.FUNCTIONS.items()}
-            p = {name: Function(name, *details) for name, details in meta.PREDICATES.items()}
+            v = set(Variable(name, ty) for name, ty in meta.VARS.items())
+            f = set(Function(name, *details) for name, details in meta.FUNCTIONS.items())
+            p = set(Function(name, *details) for name, details in meta.PREDICATES.items())
         except AttributeError as e:
             raise AttributeError(f"Missing expected attribute in metadata: {e}")
         
         # assert v and f and p, "Metadata must contain VARS, FUNCTIONS, and PREDICATES"
-
         return Metadata(variables=v, functions=f, predicates=p)
     
     def compose_functions(self):
         """Compose functions in metadata to create new functions."""
         new_functions = {}
-        for f1 in self.functions.values():
-            for f2 in self.functions.values():
+        for f1 in self.functions:
+            for f2 in self.functions:
                 for i, ty in enumerate(f2.input_types):
                     if f1.output_type == ty:  # Check if output of f1 matches input of f2
                         composed_name = f"{f2.name}({i}{f1.name})"
@@ -107,21 +135,23 @@ class Metadata:
         return self
 
 
-# AP CLASSES:
+
+#################################################################
+################## TSLf ATOMIC CLASSES ##########################
+#################################################################
+
+# NOTE: Should Update just be a specific instance of UpdateF with "id" function?
 class Update:
-    def __init__(self, var: str, term: str):
+    def __init__(self, var: Variable, term: Variable):
         self.var = var
         self.term = term
-
 
     def __str__(self):
         return f"[{self.var} <- {self.term}]"
     
     def __repr__(self):
         return str(self)
-
-    # def __repr__(self):
-    #     return f"u0{self.var}0{self.term}0"
+        # return f"u0{self.var}0{self.term}0"
     
     def __eq__(self, other):
         return isinstance(other, Update) and self.var == other.var and self.term == other.term
@@ -131,13 +161,13 @@ class Update:
     
 
 class UpdateF:
-    def __init__(self, var: str, func, inputs: tuple[str]):
+    def __init__(self, var: Variable, func: Function, inputs: tuple[Variable, ...]):
         self.var = var
         self.func = func
         self.inputs = inputs
 
     def __str__(self):
-        return f"[{self.var} <- {self.func.name} {' '.join(self.inputs)}]"
+        return f"[{self.var} <- {self.func.name} {' '.join([str(inp) for inp in self.inputs])}]"
     
     def __repr__(self):
         return str(self)
@@ -149,12 +179,12 @@ class UpdateF:
         return hash((self.var, self.func.name, self.inputs))
 
 class Predicate:
-    def __init__(self, pred: Function, inputs: tuple[str]):
+    def __init__(self, pred: Function, inputs: tuple[Variable, ...]):
         self.pred = pred
         self.inputs = inputs
 
     def __str__(self):
-        return f"{self.pred.name} {' '.join(self.inputs)}"
+        return f"{self.pred.name} {' '.join([str(inp) for inp in self.inputs])}"
     
     def __repr__(self):
         return str(self)
@@ -166,7 +196,7 @@ class Predicate:
         return hash((self.pred.name, self.inputs))
     
 
-
+# Atomic Proposition TSLf Table
 class APTable:
     """Table of atomic propositions for one log."""
     def __init__(self, table: list[dict[Update | UpdateF | Predicate, bool]], metadata: Metadata):
@@ -220,35 +250,37 @@ class APTable:
         for i, entry in enumerate(log):
 
             table_entry = {}
-            for var_name, var_t in metadata.vars.items():
-                if "const" not in var_t:
+            for var in metadata.vars:
+                if "const" not in var.type:
                     # Identity APs and simple updates for variable
-                    for var2_name, var2_t in metadata.vars.items():
-                        if var_t == var2_t : # same type
-                            ap = Update(var_name, var2_name)
-                            next_val = log[i+1][var_name] if i + 1 < len(log) else None
-                            table_entry[ap] = (next_val is not None) and entry[var2_name] == next_val
-                # else :  # do we want to add simple update for constants in the table? for now maybe no?
-        
-            for _, func in metadata.functions.items():
+                    for var2 in metadata.vars:
+                        if var.type == var2.type : # same type
+                            ap = Update(var, var2)
+                            next_val = log[i+1][var.name] if i + 1 < len(log) else None
+                            table_entry[ap] = (next_val is not None) and entry[var2.name] == next_val
+                # else :  # do we want to add simple update for constants in the table?
+                #     ap = Update(var_name, var_name)
+                #     table_entry[ap] = i + 1 < len(log)
+
+            for func in metadata.functions:
                 # Permutations (with repetition) of function arguments applied to all variables
-                for var_comb in product(metadata.vars.keys(), repeat=len(func.input_types)):
+                for var_comb in product(metadata.vars, repeat=len(func.input_types)):
                     # Check if types match
-                    if [metadata.vars[var] for var in var_comb] == func.input_types:
+                    if [var.type for var in var_comb] == func.input_types:
                         # Create AP for each variable which the function is applied to.
                         # Check output type matches variable type
-                        for var in metadata.vars.keys():
-                            if metadata.vars[var] == func.output_type:
-                                ap = UpdateF(var, func, var_comb) # type: ignore
-                                next_val = log[i+1][var] if i + 1 < len(log) else None
-                                table_entry[ap] = func.run(*[entry[v] for v in var_comb]) == next_val if next_val is not None else False
+                        for var in metadata.vars:
+                            if var.type == func.output_type:
+                                ap = UpdateF(var, func, var_comb) 
+                                next_val = log[i+1][var.name] if i + 1 < len(log) else None
+                                table_entry[ap] = func.run(*[entry[v.name] for v in var_comb]) == next_val if next_val is not None else False
                 
-            for _, pred in metadata.predicates.items():
+            for pred in metadata.predicates:
                 # Permutations (with repetition) of predicate arguments applied to all variables
-                for var_comb in product(metadata.vars.keys(), repeat=len(pred.input_types)):
+                for var_comb in product(metadata.vars, repeat=len(pred.input_types)):
                     # Check if types match
-                    if [metadata.vars[var] for var in var_comb] == pred.input_types:
-                        ap = Predicate(pred, var_comb) # type: ignore
+                    if [var.type for var in var_comb] == pred.input_types:
+                        ap = Predicate(pred, var_comb)
                         table_entry[ap] = pred.run(*[entry[v] for v in var_comb])
             
             table_entry["END"] = (i == len(log) - 1)
@@ -259,14 +291,31 @@ class APTable:
         return APTable(ap_table, metadata)
     
     
-    def check_updates(self) -> list[dict[str, int]]:
+    def check_var_updates(self) -> list[dict[Variable, set[Update | UpdateF]]]:
         """Check for any timestep how many updates are applied to all variables."""
-        num_updates = []
-        for entry in self.table:
-            updates_at_time_step = {var: sum(entry[ap] for ap in entry if (isinstance(ap, Update) or isinstance(ap, UpdateF)) and ap.var == var) for var in self.metadata.vars.keys()}
-            num_updates.append(updates_at_time_step)
-        return num_updates
+        return [{var: set(ap for ap in entry 
+                    if (isinstance(ap, Update) or isinstance(ap, UpdateF)) and \
+                    entry[ap] and ap.var == var) 
+                    for var in self.metadata.vars}
+                for entry in self.table]
+
     
+    # NOTE: Should we rank functions by application count per variable or total application count?
+    #  We can return either a single list ordered by global function appication or a dictionary of lists per var 
+    def rank_functions(self, updates = None) -> dict[Variable, list[Function]]:
+        """Rank functions by how many times they are applied to each variable in the AP table."""
+        if updates is None:
+            updates = self.check_var_updates()
+        
+        func_count_vars = {var: {} for var in self.metadata.vars}
+        for timestep in updates:
+            for var, asgns in timestep.items():
+                for ap in asgns:
+                    if isinstance(ap, UpdateF):
+                        func_count_vars[var][ap.func] = func_count_vars[var].get(ap.func, 0) + 1
+
+        return {var: sorted(funcs, key=lambda f: func_count_vars[var][f], reverse=True) for var, funcs in func_count_vars.items()}
+
     # def split_tables(self, i=0) -> list[Self]:
     #     """Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
     #         e.g. Suppose at time step 0, we have:
@@ -328,13 +377,7 @@ class APTable:
             return [self]
         
         # Find all variables with multiple true updates at timestep i
-        updates_at_time_step = {}
-        for var in self.metadata.vars.keys():
-            asgns = [ap for ap in self.table[i]
-                     if (isinstance(ap, Update) or isinstance(ap, UpdateF))
-                     and ap.var == var and self.table[i][ap]]
-            if len(asgns) > 1:
-                updates_at_time_step[var] = asgns
+        updates_at_time_step = {var: asgn for var, asgn in self.check_var_updates()[i].items() if len(asgn) > 1}
         
         if not updates_at_time_step:
             # No conflicts at this timestep, move to next
@@ -369,6 +412,7 @@ class APTable:
         return d
 
 
+
 def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
     with trace_file.open("r", encoding="utf-8") as fh:
         log = [json.loads(line) for line in fh if line.strip()]
@@ -379,12 +423,17 @@ def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
             print(f"AP table for {trace_file.name}:")
             print(table)
 
-            num_updates = table.check_updates()
+            var_updates = table.check_var_updates()
             print(f"Number of updates at each time step for {trace_file.name}:")
-            for i, updates in enumerate(num_updates):
-                print(f" {i}: {updates}")
+            for i, updates in enumerate(var_updates):
+                print(f" {i}: {[(str(u), len(v)) for u, v in updates.items()]}")
+                # print(f" {i}: {[(str(u), str(v)) for u, v in updates.items()]}")
+
             
-            # exit(1)
+            for var, funcs in table.rank_functions(var_updates).items():
+                print(f" Ranked functions for {var}: {[str(f) for f in funcs]}")
+            
+            exit(1)
 
             # NOTE: Function composition turned off for now
             # if any(any(update == 0 for update in updates.values()) for updates in num_updates[:-1]):
@@ -392,8 +441,8 @@ def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
             #     metadata = metadata.compose_functions()
             #     print("Generated new functions:")
             #     print(metadata)
-            # [[[[[was elif here]]]]
-            if any(any(update > 1 for update in updates.values()) for updates in num_updates[:-1]):
+            # NOTE: was elif here
+            if any(any(len(update) > 1 for update in updates.values()) for updates in var_updates[:-1]):
                 print("Detected table entry with multiple updates. Splitting mining traces...")
                 tables = table.split_tables2()
                 print(f"Split into {len(tables)} tables:")
@@ -430,9 +479,7 @@ def cleanup_ap_tables(tables: list[APTable]) -> list[APTable]:
         for entry in table.table:
             for ap in aps_not_in_use:
                 # print(f"Removing unused AP {ap} from table.")
-                # print(entry)
                 del entry[ap]
-                # print(o)
         table.aps = aps_in_use
 
     return tables
@@ -552,8 +599,6 @@ def main():
     print(f"Generated {len(pos_neg_product)} positive-negative combination pairs.")
 
             
-
-
 
 if __name__ == "__main__":
     main()
