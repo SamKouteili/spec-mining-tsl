@@ -1,14 +1,7 @@
-# FIRST: Create original table, applying functions on updates and predicates, also adding END
-# SECOND: Check for any point (not END) where NO update APs are true on a variable, we will then need to consider function compositions
-# THIRD: For each variable, check if updated more than once at given timestep, if so, need to create seperate datasets with different instances and take union
-
+import json
 from argparse import ArgumentParser
 from pathlib import Path
-from typing_extensions import Self
-from tracer import Trace
-import pandas as pd
 from itertools import product
-import json
 from copy import deepcopy
 
 def parse_args():
@@ -28,7 +21,7 @@ class Variable:
         self.type = var_type
 
     def __str__(self):
-        return f"{self.name}[{self.type}]"
+        return f"{self.name}" # [{self.type}]"
     
     def __eq__(self, other):
         return isinstance(other, Variable) and (self.name == other.name and self.type == other.type)
@@ -59,7 +52,6 @@ class Function:
     def run(self, *args):
         return self.f(*args)
     
-
 # Redundant class could have done it with just Function but this is more explicit
 # class Predicate:
 #     def __init__(self, name: str, arg_types: str, impl):
@@ -72,7 +64,7 @@ class Function:
     
 #     def run(self, *args):
 #         return self.p(*args)
-    
+   
 
 class Metadata:
     def __init__(self, variables: set[Variable], functions: set[Function], predicates: set[Function]):
@@ -140,27 +132,7 @@ class Metadata:
 ################## TSLf ATOMIC CLASSES ##########################
 #################################################################
 
-# NOTE: Should Update just be a specific instance of UpdateF with "id" function?
 class Update:
-    def __init__(self, var: Variable, term: Variable):
-        self.var = var
-        self.term = term
-
-    def __str__(self):
-        return f"[{self.var} <- {self.term}]"
-    
-    def __repr__(self):
-        return str(self)
-        # return f"u0{self.var}0{self.term}0"
-    
-    def __eq__(self, other):
-        return isinstance(other, Update) and self.var == other.var and self.term == other.term
-    
-    def __hash__(self):
-        return hash((self.var, self.term))
-    
-
-class UpdateF:
     def __init__(self, var: Variable, func: Function, inputs: tuple[Variable, ...]):
         self.var = var
         self.func = func
@@ -171,9 +143,13 @@ class UpdateF:
     
     def __repr__(self):
         return str(self)
+        # return f"u0{self.var}0{self.term}0"
     
     def __eq__(self, other):
-        return isinstance(other, UpdateF) and self.var == other.var and self.func.name == other.func.name and self.inputs == other.inputs
+        return isinstance(other, Update) and \
+            self.var == other.var and \
+            self.func.name == other.func.name and \
+            self.inputs == other.inputs
     
     def __hash__(self):
         return hash((self.var, self.func.name, self.inputs))
@@ -199,7 +175,7 @@ class Predicate:
 # Atomic Proposition TSLf Table
 class APTable:
     """Table of atomic propositions for one log."""
-    def __init__(self, table: list[dict[Update | UpdateF | Predicate, bool]], metadata: Metadata):
+    def __init__(self, table: list[dict[Update | Predicate, bool]], metadata: Metadata):
         self.table = table
         self.metadata = metadata
         self.aps = set(table[0].keys()) if table else set()
@@ -246,6 +222,8 @@ class APTable:
             ]
         """
         ap_table = []
+        # NOTE: need to create id functions for all types not just ints
+        idf_int = Function("", "int->int", lambda x: x) # idf lol
 
         for i, entry in enumerate(log):
 
@@ -255,7 +233,7 @@ class APTable:
                     # Identity APs and simple updates for variable
                     for var2 in metadata.vars:
                         if var.type == var2.type : # same type
-                            ap = Update(var, var2)
+                            ap = Update(var, idf_int, (var2,))
                             next_val = log[i+1][var.name] if i + 1 < len(log) else None
                             table_entry[ap] = (next_val is not None) and entry[var2.name] == next_val
                 # else :  # do we want to add simple update for constants in the table?
@@ -271,7 +249,7 @@ class APTable:
                         # Check output type matches variable type
                         for var in metadata.vars:
                             if var.type == func.output_type:
-                                ap = UpdateF(var, func, var_comb) 
+                                ap = Update(var, func, var_comb) 
                                 next_val = log[i+1][var.name] if i + 1 < len(log) else None
                                 table_entry[ap] = func.run(*[entry[v.name] for v in var_comb]) == next_val if next_val is not None else False
                 
@@ -289,32 +267,329 @@ class APTable:
     
         
         return APTable(ap_table, metadata)
-    
-    
-    def check_var_updates(self) -> list[dict[Variable, set[Update | UpdateF]]]:
+
+
+    def check_var_updates(self) -> list[dict[Variable, set[Update]]]:
         """Check for any timestep how many updates are applied to all variables."""
-        return [{var: set(ap for ap in entry 
-                    if (isinstance(ap, Update) or isinstance(ap, UpdateF)) and \
-                    entry[ap] and ap.var == var) 
-                    for var in self.metadata.vars}
-                for entry in self.table]
-
+        return [{v: set(ap for ap in e if isinstance(ap, Update) and e[ap] and ap.var == v) 
+                for v in self.metadata.vars}
+                for e in self.table]
     
-    # NOTE: Should we rank functions by application count per variable or total application count?
-    #  We can return either a single list ordered by global function appication or a dictionary of lists per var 
-    def rank_functions(self, updates = None) -> dict[Variable, list[Function]]:
-        """Rank functions by how many times they are applied to each variable in the AP table."""
-        if updates is None:
-            updates = self.check_var_updates()
-        
-        func_count_vars = {var: {} for var in self.metadata.vars}
-        for timestep in updates:
-            for var, asgns in timestep.items():
-                for ap in asgns:
-                    if isinstance(ap, UpdateF):
-                        func_count_vars[var][ap.func] = func_count_vars[var].get(ap.func, 0) + 1
 
-        return {var: sorted(funcs, key=lambda f: func_count_vars[var][f], reverse=True) for var, funcs in func_count_vars.items()}
+    # NOTE: Currently arbitarily choses when function ranking is the same. 
+    def mutex_by_ranking(self, ranking) :
+        """Make AP table respect mutex of updates by generated ranking"""
+        for entry in self.table:
+            for var in self.metadata.vars:
+                # Get functions ranked by application count for this variable
+                func_ranks = ranking[var]
+                # Sort ranks descending
+                sorted_ranks = sorted(func_ranks.keys(), reverse=True)
+                applied = False
+                for rank in sorted_ranks:
+                    funcs = func_ranks[rank] 
+                    # NOTE: take implicit python ordering (first in set), can be determinized
+                    for func, inp in funcs: 
+                        ap = Update(var, func, inp)
+                        if entry[ap]:
+                            if not applied:
+                                applied = True
+                            else:
+                                # Set to false to enforce mutex
+                                entry[ap] = False
+    
+
+    def to_bolt(self) -> dict[str, list[int]]:
+        """Convert AP table to Bolt format."""
+        d = {}
+        for ap in self.aps:
+            for letter in self.table:
+                d[str(ap)] = d.get(str(ap), []) + [1 if letter[ap] else 0]
+        return d
+
+
+
+
+# NOTE: Should we rank functions by application count per variable or total application count?
+#  We can return either a single list ordered by global function appication or a dictionary of lists per var 
+# Current Implementation: Functions rankings (frequency) is not agnostic to application. 
+#  We define a unique function as not only the function but also what it is applied to.
+#  [x <- f y] and [x <- f z] are different "functions"
+def rankFunctions(tables: list[APTable]) -> dict[Variable, dict[int, list[tuple[Function, tuple[Variable,...]]]]]:
+    """Rank functions by how many times they are applied to each variable in the AP table."""
+    updates = []
+    # Merge the updates of all the tables into one update list
+    for table in tables:
+        updates_table = table.check_var_updates()
+        for i, timestep in enumerate(updates_table):
+            if i >= len(updates):
+                updates.append({})
+            for var, asgns in timestep.items():
+                updates[i][var] = updates[i].get(var, []) + list(asgns)
+                # if var not in updates[i]:
+                #     updates[i][var] = []
+                # updates[i][var].extend(asgns)
+
+    func_count_vars = {var: {} for var in tables[0].metadata.vars}
+    for timestep in updates:
+        for var, asgns in timestep.items():
+            for ap in asgns:
+                if isinstance(ap, Update):
+                    k = ap.func, ap.inputs # <- if we want to distinguish by application 
+                    func_count_vars[var][k] = func_count_vars[var].get(k, 0) + 1
+                    # break
+    
+    var_count_funcs = {}
+    for var, func_count in func_count_vars.items():
+        # Each variable has a dict of dicts(2) where key of dict(2) = count and value = list of functions with that count
+        count_funcs: dict[int, list[Function]] = {}
+        for func, count in func_count.items():
+            count_funcs[count] = count_funcs.get(count, []) + [func]
+        var_count_funcs[var] = count_funcs
+
+    return var_count_funcs 
+
+
+
+def cleanTables(tables: list[APTable]) -> list[APTable]:
+    """Remove any variables that is unused at any point in all tables."""
+    aps_in_use = set()
+    all_aps = set()
+    for table in tables:
+        for entry in table.table:
+            for ap, val in entry.items():
+                if val:
+                    aps_in_use.add(ap)
+                all_aps.add(ap)
+
+    print(f"All APs: {[str(ap) for ap in all_aps]}")
+    print(f"APs in use: {[str(ap) for ap in aps_in_use]}")
+    aps_not_in_use = all_aps - aps_in_use
+    for table in tables:
+        for entry in table.table:
+            for ap in aps_not_in_use:
+                # print(f"Removing unused AP {ap} from table.")
+                del entry[ap]
+        table.aps = aps_in_use
+
+    return tables
+
+
+
+def writeBolt(pos_tables: list[APTable], neg_tables: list[APTable]) -> dict:
+    return {
+        "positive_traces": [table.to_bolt() for table in pos_tables],
+        "negative_traces": [table.to_bolt() for table in neg_tables],
+        "atomic_propositions": [str(ap) for ap in pos_tables[0].aps],
+        "number_atomic_propositions": len(pos_tables[0].aps),
+        "number_positive_traces": len(pos_tables),
+        "number_negative_traces": len(neg_tables),
+        "max_length_traces": max(len(table.table) for table in pos_tables + neg_tables),
+        "trace_type": "finite"
+    }
+
+
+
+
+def check_empty(trace_file: Path) -> bool:
+    """Check if the trace file is empty."""
+    with trace_file.open("r", encoding="utf-8") as fh:
+        return not any(line.strip() for line in fh)
+
+def main():
+    args = parse_args()
+    print(f"Processing traces from: {args.traces}")
+    print(f"Using metadata from: {args.meta}")
+
+
+    metadata = Metadata.import_metadata(args.meta)
+    print("Metadata loaded successfully:")
+    print(metadata)
+
+    pos = args.traces / "pos"
+    neg = args.traces / "neg"
+
+    pos_tables = {}
+    for trace_file in pos.glob("*.jsonl"):
+        if check_empty(trace_file):
+            print(f"Skipping empty trace file: {trace_file}")
+            continue
+        print(f"Processing positive trace: {trace_file}")
+        # pos_tables[trace_file.stem] = generate_ap_tables(trace_file, metadata)
+        log = [json.loads(line) for line in trace_file.open("r", encoding="utf-8") if line.strip()]
+        pos_tables[trace_file.stem] = APTable.from_log(log, metadata)
+        print("----------------")
+
+
+    neg_tables = {}
+    for trace_file in neg.glob("*.jsonl"):
+        if check_empty(trace_file):
+            print(f"Skipping empty trace file: {trace_file}")
+            continue
+        print(f"Processing negative trace: {trace_file}")
+        log = [json.loads(line) for line in trace_file.open("r", encoding="utf-8") if line.strip()]
+        neg_tables[trace_file.stem] = APTable.from_log(log, metadata)
+        # neg_tables[trace_file.stem] = generate_ap_tables(trace_file, metadata)
+        print("----------------")
+
+    print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+
+    tables = list(pos_tables.values()) + list(neg_tables.values())
+
+    func_ranks = rankFunctions(tables)
+    for var, funcs in func_ranks.items():
+        print(f" FuncRank {var}: {[(i, [(str(f), [str(i) for i in inp]) for f, inp in funcs]) for i, funcs in funcs.items()]}")
+
+    print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+
+    for table_dict in [pos_tables, neg_tables]:
+        for table_name, table in table_dict.items():
+            table.mutex_by_ranking(func_ranks)
+            # print(table)
+            num_updates = table.check_var_updates()
+            print(f"Number of updates at each time step for {table_name} after mutex:")
+            for i, updates in enumerate(num_updates):
+                print(f" {i}: {[(str(u), [str(f) for f in v]) for u, v in updates.items()]}")
+            print("----------------")
+    
+    clean = cleanTables(tables)
+    pos_clean, neg_clean = clean[:len(pos_tables)], clean[len(pos_tables):]
+
+    bolt_entry = writeBolt(pos_clean, neg_clean)
+    # print("BOLT entry:")
+    if args.out:
+        out_file = args.out / f"bolt.json"
+        with out_file.open("w", encoding="utf-8") as fh:
+            json.dump(bolt_entry, fh)
+        print(f"Saved BOLT entry to: {out_file}")
+    else:
+        print(json.dumps(bolt_entry))
+    print("----------------")
+
+    # exit(0)
+
+    # combs = {}
+    # for name, tables in zip(["pos_combinations", "neg_combinations"], [pos_tables, neg_tables]):
+    #     combs[name] = cartesian_product_tables(tables)
+    #     print(f"Generated {len(combs[name])} combinations of {name}:")
+    #     # for combo in combs[name]:
+    #     #     for table in combo:
+    #     #         print(table)
+    #             # print(f"Number of updates at each time step:")
+    #             # for i, updates in enumerate(table.check_updates()):
+    #             #     print(f" {i}: {updates}")
+    #         # print("----")
+
+    # # produce explicit references to pos/neg combinations and take their cartesian product
+    # pos_combinations = combs.get("pos_combinations", [])
+    # neg_combinations = combs.get("neg_combinations", [])
+
+    # # pair each positive combination with each negative combination
+    # pos_neg_product = [(deepcopy(p), deepcopy(n)) for p in pos_combinations for n in neg_combinations]
+
+    # exit(1)
+    # # print("\n\n\n")
+    # for i, (pos_combo, neg_combo) in enumerate(pos_neg_product):
+    #     print(f"Combination {i+1}:")
+    #     print("Positive combination:")
+    #     for table in pos_combo:
+    #         print(table)
+    #     print("Negative combination:")
+    #     for table in neg_combo:
+    #         print(table)
+
+    #     cleaned_tables = cleanup_ap_tables(pos_combo + neg_combo)
+    #     pos_combo_cleaned, neg_combo_cleaned = cleaned_tables[:len(pos_combo)], cleaned_tables[len(pos_combo):]
+        
+    #     bolt_entry = write_bolt_dict(pos_combo_cleaned, neg_combo_cleaned)
+    #     # print("BOLT entry:")
+    #     if args.out:
+    #         out_file = args.out / f"combination_{i+1}.json"
+    #         with out_file.open("w", encoding="utf-8") as fh:
+    #             json.dump(bolt_entry, fh)
+    #         print(f"Saved BOLT entry to: {out_file}")
+    #     else:
+    #         print(json.dumps(bolt_entry))
+    #     print("----------------")
+
+    # print(f"Generated {len(pos_neg_product)} positive-negative combination pairs.")
+
+if __name__ == "__main__":
+    main()
+                    
+                
+
+
+
+# def cartesian_product_tables(table_dict: dict[str, list[APTable]]) -> list[list[APTable]]:
+#     """
+#     Return all combinations of picking one APTable from each entry of table_dict.
+#     The order of each combination follows the iteration order of table_dict.keys().
+#     """
+#     lists = list(table_dict.values())
+#     return [list(combo) for combo in product(*lists)]
+
+# def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
+#     with trace_file.open("r", encoding="utf-8") as fh:
+#         log = [json.loads(line) for line in fh if line.strip()]
+#         good_tables = []
+#         while good_tables == []:
+#             table = APTable.from_log(log, metadata)
+#             # table = build_ap_table(log, metadata)
+#             print(f"AP table for {trace_file.name}:")
+#             print(table)
+
+#             var_updates = table.check_var_updates()
+#             print(f"Number of updates at each time step for {trace_file.name}:")
+#             for i, updates in enumerate(var_updates):
+#                 print(f" {i}: {[(str(u), len(v)) for u, v in updates.items()]}")
+#                 # print(f" {i}: {[(str(u), str(v)) for u, v in updates.items()]}")
+
+#             func_ranks = table.rank_functions(var_updates)
+#             for var, funcs in func_ranks.items():
+#                 print(f" FuncRank {var}: {[(i, [(str(f), [str(i) for i in inp]) for f, inp in funcs]) for i, funcs in funcs.items()]}")
+            
+#             table.mutex_by_ranking(var_updates, func_ranks)
+#             print("AP table after enforcing mutex by ranking:")
+#             print(table)
+
+#             num_updates = table.check_var_updates()
+#             print(f"Number of updates at each time step for {trace_file.name} after mutex:")
+#             # for i, updates in enumerate(num_updates):
+#             #     print(f" {i}: {[(str(u), len(v)) for u, v in updates.items()]}")
+#             for i, updates in enumerate(num_updates):
+#                 print(f" {i}: {[(str(u), [str(f) for f in v]) for u, v in updates.items()]}")
+#                 # print(f" {i}: {[(str(u), str(v)) for u, v in updates.items()]}")
+
+#             exit(1)
+
+#             # NOTE: Function composition turned off for now
+#             # if any(any(update == 0 for update in updates.values()) for updates in num_updates[:-1]):
+#             #     print("Detected table entry with no updates. Composing functions...")
+#             #     metadata = metadata.compose_functions()
+#             #     print("Generated new functions:")
+#             #     print(metadata)
+#             # NOTE: was elif here
+#             if any(any(len(update) > 1 for update in updates.values()) for updates in var_updates[:-1]):
+#                 print("Detected table entry with multiple updates. Splitting mining traces...")
+#                 tables = table.split_tables2()
+#                 print(f"Split into {len(tables)} tables:")
+#                 # for t in tables:
+#                 #     print("-------------------")
+#                 #     print(t)
+#                 #     for i, updates in enumerate(t.check_updates()):
+#                 #         print(f" {i}: {updates}")
+#                 good_tables.extend(tables)
+#                 # print(f"TOTAL GOOD TABLES SO FAR: {len(good_tables)}")
+#                 # exit(1)
+#             else :
+#                 print("All entries are updated exactly once.")
+#                 good_tables.append(table)
+        
+#     return good_tables
+
+
+
 
     # def split_tables(self, i=0) -> list[Self]:
     #     """Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
@@ -358,255 +633,50 @@ class APTable:
     #     return out
     
 
-    def split_tables2(self, i=0) -> list[Self]:
-        """
-        Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
-        e.g. Suppose at time step 0, we have:
-        APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": True, "rightMost ball": False, "leftMost ball": False, "END": False}
-        Then we would need to create two tables:
-        [
-            APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": False, "END": False},
-            APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": True,  "rightMost ball": False, "leftMost ball": False, "END": False}
-        ]
+    # def split_tables2(self, i=0) -> list[Self]:
+    #     """
+    #     Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
+    #     e.g. Suppose at time step 0, we have:
+    #     APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": True, "rightMost ball": False, "leftMost ball": False, "END": False}
+    #     Then we would need to create two tables:
+    #     [
+    #         APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": False, "END": False},
+    #         APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": True,  "rightMost ball": False, "leftMost ball": False, "END": False}
+    #     ]
         
-        BFS approach: split AP table by generating all permutations of updates at each timestep.
-        For each timestep, if any variable has multiple true updates, generate all permutations
-        where each variable gets exactly one true update. Then recursively process the next timestep.
-        """
-        if i == len(self.table) - 1:
-            return [self]
+    #     BFS approach: split AP table by generating all permutations of updates at each timestep.
+    #     For each timestep, if any variable has multiple true updates, generate all permutations
+    #     where each variable gets exactly one true update. Then recursively process the next timestep.
+    #     """
+    #     if i == len(self.table) - 1:
+    #         return [self]
         
-        # Find all variables with multiple true updates at timestep i
-        updates_at_time_step = {var: asgn for var, asgn in self.check_var_updates()[i].items() if len(asgn) > 1}
+    #     # Find all variables with multiple true updates at timestep i
+    #     updates_at_time_step = {var: asgn for var, asgn in self.check_var_updates()[i].items() if len(asgn) > 1}
         
-        if not updates_at_time_step:
-            # No conflicts at this timestep, move to next
-            return self.split_tables2(i+1)
+    #     if not updates_at_time_step:
+    #         # No conflicts at this timestep, move to next
+    #         return self.split_tables2(i+1)
         
-        # Generate all permutations of choices for variables with multiple updates
-        vars_with_conflicts = list(updates_at_time_step.keys())
-        update_choices = [updates_at_time_step[var] for var in vars_with_conflicts]
+    #     # Generate all permutations of choices for variables with multiple updates
+    #     vars_with_conflicts = list(updates_at_time_step.keys())
+    #     update_choices = [updates_at_time_step[var] for var in vars_with_conflicts]
         
-        all_tables = []
-        for choice in product(*update_choices):
-            # choice is a tuple of (update1, update2, ...) for each conflicting variable
-            new_table = self.copy()
+    #     all_tables = []
+    #     for choice in product(*update_choices):
+    #         # choice is a tuple of (update1, update2, ...) for each conflicting variable
+    #         new_table = self.copy()
             
-            # For each variable with conflicts, set all updates to False except the chosen one
-            for var, chosen_update in zip(vars_with_conflicts, choice):
-                for ap in updates_at_time_step[var]:
-                    if ap != chosen_update:
-                        new_table.table[i][ap] = False
+    #         # For each variable with conflicts, set all updates to False except the chosen one
+    #         for var, chosen_update in zip(vars_with_conflicts, choice):
+    #             for ap in updates_at_time_step[var]:
+    #                 if ap != chosen_update:
+    #                     new_table.table[i][ap] = False
             
-            # Recursively process the next timestep
-            all_tables.extend(new_table.split_tables2(i+1))
+    #         # Recursively process the next timestep
+    #         all_tables.extend(new_table.split_tables2(i+1))
         
-        return all_tables
-
-    def to_bolt(self) -> dict[str, list[int]]:
-        """Convert AP table to Bolt format."""
-        d = {}
-        for ap in self.aps:
-            for letter in self.table:
-                d[str(ap)] = d.get(str(ap), []) + [1 if letter[ap] else 0]
-        return d
-
-
-
-def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
-    with trace_file.open("r", encoding="utf-8") as fh:
-        log = [json.loads(line) for line in fh if line.strip()]
-        good_tables = []
-        while good_tables == []:
-            table = APTable.from_log(log, metadata)
-            # table = build_ap_table(log, metadata)
-            print(f"AP table for {trace_file.name}:")
-            print(table)
-
-            var_updates = table.check_var_updates()
-            print(f"Number of updates at each time step for {trace_file.name}:")
-            for i, updates in enumerate(var_updates):
-                print(f" {i}: {[(str(u), len(v)) for u, v in updates.items()]}")
-                # print(f" {i}: {[(str(u), str(v)) for u, v in updates.items()]}")
-
-            
-            for var, funcs in table.rank_functions(var_updates).items():
-                print(f" Ranked functions for {var}: {[str(f) for f in funcs]}")
-            
-            exit(1)
-
-            # NOTE: Function composition turned off for now
-            # if any(any(update == 0 for update in updates.values()) for updates in num_updates[:-1]):
-            #     print("Detected table entry with no updates. Composing functions...")
-            #     metadata = metadata.compose_functions()
-            #     print("Generated new functions:")
-            #     print(metadata)
-            # NOTE: was elif here
-            if any(any(len(update) > 1 for update in updates.values()) for updates in var_updates[:-1]):
-                print("Detected table entry with multiple updates. Splitting mining traces...")
-                tables = table.split_tables2()
-                print(f"Split into {len(tables)} tables:")
-                # for t in tables:
-                #     print("-------------------")
-                #     print(t)
-                #     for i, updates in enumerate(t.check_updates()):
-                #         print(f" {i}: {updates}")
-                good_tables.extend(tables)
-                # print(f"TOTAL GOOD TABLES SO FAR: {len(good_tables)}")
-                # exit(1)
-            else :
-                print("All entries are updated exactly once.")
-                good_tables.append(table)
-        
-    return good_tables
-
-
-def cleanup_ap_tables(tables: list[APTable]) -> list[APTable]:
-    """Remove any variables that is unused at any point in all tables."""
-    aps_in_use = set()
-    all_aps = set()
-    for table in tables:
-        for entry in table.table:
-            for ap, val in entry.items():
-                if val:
-                    aps_in_use.add(ap)
-                all_aps.add(ap)
-
-    print(f"All APs: {[str(ap) for ap in all_aps]}")
-    print(f"APs in use: {[str(ap) for ap in aps_in_use]}")
-    aps_not_in_use = all_aps - aps_in_use
-    for table in tables:
-        for entry in table.table:
-            for ap in aps_not_in_use:
-                # print(f"Removing unused AP {ap} from table.")
-                del entry[ap]
-        table.aps = aps_in_use
-
-    return tables
-
-
-
-def cartesian_product_tables(table_dict: dict[str, list[APTable]]) -> list[list[APTable]]:
-    """
-    Return all combinations of picking one APTable from each entry of table_dict.
-    The order of each combination follows the iteration order of table_dict.keys().
-    """
-    lists = list(table_dict.values())
-    return [list(combo) for combo in product(*lists)]
-
-
-
-def write_bolt_dict(pos_tables: list[APTable], neg_tables: list[APTable]) -> dict:
-    return {
-        "positive_traces": [table.to_bolt() for table in pos_tables],
-        "negative_traces": [table.to_bolt() for table in neg_tables],
-        "atomic_propositions": [str(ap) for ap in pos_tables[0].aps],
-        "number_atomic_propositions": len(pos_tables[0].aps),
-        "number_positive_traces": len(pos_tables),
-        "number_negative_traces": len(neg_tables),
-        "max_length_traces": max(len(table.table) for table in pos_tables + neg_tables),
-        "trace_type": "finite"
-    }
-
-
-
-def check_empty(trace_file: Path) -> bool:
-    """Check if the trace file is empty."""
-    with trace_file.open("r", encoding="utf-8") as fh:
-        return not any(line.strip() for line in fh)
-
-
-def main():
-    args = parse_args()
-    print(f"Processing traces from: {args.traces}")
-    print(f"Using metadata from: {args.meta}")
-
-
-    metadata = Metadata.import_metadata(args.meta)
-    print("Metadata loaded successfully:")
-    print(metadata)
-
-    pos = args.traces / "pos"
-    neg = args.traces / "neg"
-
-    pos_tables = {}
-    for trace_file in pos.glob("*.jsonl"):
-        if check_empty(trace_file):
-            print(f"Skipping empty trace file: {trace_file}")
-            continue
-        print(f"Processing positive trace: {trace_file}")
-        pos_tables[trace_file.stem] = generate_ap_tables(trace_file, metadata)
-        print("----------------")
-    
-
-    print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
-
-    neg_tables = {}
-    for trace_file in neg.glob("*.jsonl"):
-        if check_empty(trace_file):
-            print(f"Skipping empty trace file: {trace_file}")
-            continue
-        print(f"Processing negative trace: {trace_file}")
-        neg_tables[trace_file.stem] = generate_ap_tables(trace_file, metadata)
-        print("----------------")
-
-    print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
-
-    combs = {}
-    for name, tables in zip(["pos_combinations", "neg_combinations"], [pos_tables, neg_tables]):
-        combs[name] = cartesian_product_tables(tables)
-        print(f"Generated {len(combs[name])} combinations of {name}:")
-        # for combo in combs[name]:
-        #     for table in combo:
-        #         print(table)
-                # print(f"Number of updates at each time step:")
-                # for i, updates in enumerate(table.check_updates()):
-                #     print(f" {i}: {updates}")
-            # print("----")
-
-    # produce explicit references to pos/neg combinations and take their cartesian product
-    pos_combinations = combs.get("pos_combinations", [])
-    neg_combinations = combs.get("neg_combinations", [])
-
-    # pair each positive combination with each negative combination
-    pos_neg_product = [(deepcopy(p), deepcopy(n)) for p in pos_combinations for n in neg_combinations]
-
-    exit(1)
-    # print("\n\n\n")
-    for i, (pos_combo, neg_combo) in enumerate(pos_neg_product):
-        print(f"Combination {i+1}:")
-        print("Positive combination:")
-        for table in pos_combo:
-            print(table)
-        print("Negative combination:")
-        for table in neg_combo:
-            print(table)
-
-        cleaned_tables = cleanup_ap_tables(pos_combo + neg_combo)
-        pos_combo_cleaned, neg_combo_cleaned = cleaned_tables[:len(pos_combo)], cleaned_tables[len(pos_combo):]
-        
-        bolt_entry = write_bolt_dict(pos_combo_cleaned, neg_combo_cleaned)
-        # print("BOLT entry:")
-        if args.out:
-            out_file = args.out / f"combination_{i+1}.json"
-            with out_file.open("w", encoding="utf-8") as fh:
-                json.dump(bolt_entry, fh)
-            print(f"Saved BOLT entry to: {out_file}")
-        else:
-            print(json.dumps(bolt_entry))
-        print("----------------")
-
-    print(f"Generated {len(pos_neg_product)} positive-negative combination pairs.")
-
-            
-
-if __name__ == "__main__":
-    main()
-                    
-                
-                
-
-        # 'log' is now a list of JSON objects (dicts) from the .jsonl file
+    #     return all_tables
 
 
 
