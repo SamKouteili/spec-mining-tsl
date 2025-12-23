@@ -175,7 +175,7 @@ class APTable:
         self.aps = set(table[0].keys()) if table else set()
 
     def __str__(self):
-        return "  " + "\n  ".join(" & ".join([("" if val else "!") + str(ap) for ap, val in row.items()]) + ";" for row in self.table)
+        return "|  " + "\n|  ".join(" & ".join([("" if val else "!") + str(ap) for ap, val in row.items()]) + ";" for row in self.table)
 
     def copy(self):
         return APTable([ { deepcopy(ap): asgn for ap, asgn in d.items() } for d in self.table ], self.metadata)
@@ -221,12 +221,14 @@ class APTable:
 
             table_entry = {}
             for var_name, var_t in metadata.vars.items():
-                # Identity APs and simple updates for variable
-                for var2_name, var2_t in metadata.vars.items():
-                    if var_t == var2_t: # same type
-                        ap = Update(var_name, var2_name)
-                        next_val = log[i+1][var_name] if i + 1 < len(log) else None
-                        table_entry[ap] = entry[var2_name] == next_val if next_val is not None else False
+                if "const" not in var_t:
+                    # Identity APs and simple updates for variable
+                    for var2_name, var2_t in metadata.vars.items():
+                        if var_t == var2_t : # same type
+                            ap = Update(var_name, var2_name)
+                            next_val = log[i+1][var_name] if i + 1 < len(log) else None
+                            table_entry[ap] = (next_val is not None) and entry[var2_name] == next_val
+                # else :  # do we want to add simple update for constants in the table? for now maybe no?
         
             for _, func in metadata.functions.items():
                 # Permutations (with repetition) of function arguments applied to all variables
@@ -265,45 +267,98 @@ class APTable:
             num_updates.append(updates_at_time_step)
         return num_updates
     
-    def split_tables(self, i=0) -> list[Self]:
-        """Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
-            e.g. Suppose at time step 0, we have:
-            APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": True, "rightMost ball": False, "leftMost ball": False, "END": False}
-            Then we would need to create two tables:
-            [
-                APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": False, "END": False},
-                APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": True,  "rightMost ball": False, "leftMost ball": False, "END": False}
-            ]
-        """
+    # def split_tables(self, i=0) -> list[Self]:
+    #     """Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
+    #         e.g. Suppose at time step 0, we have:
+    #         APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": True, "rightMost ball": False, "leftMost ball": False, "END": False}
+    #         Then we would need to create two tables:
+    #         [
+    #             APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": False, "END": False},
+    #             APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": True,  "rightMost ball": False, "leftMost ball": False, "END": False}
+    #         ]
+    #     """
 
-        # print(f"split_tables: i={i}")
+    #     # print(f"split_tables: i={i}")
+    #     if i == len(self.table) - 1:
+    #         return [self]
+        
+    #     updates_at_time_step = {var: [ap for ap in self.table[i] 
+    #                                     if (isinstance(ap, Update) or isinstance(ap, UpdateF)) 
+    #                                         and ap.var == var and self.table[i][ap]] 
+    #                                     for var in self.metadata.vars.keys()}
+    #     out = []
+    #     iterated = False
+    #     new_tables = []
+    #     for var, asgns in updates_at_time_step.items():
+    #         print(f"*** {var} : {[str(k) for k in updates_at_time_step[var]]}")
+    #         if len(asgns) > 1:
+    #             iterated = True
+    #             for asgn in asgns:
+    #                 print(f"{i} asgn={asgn}")
+    #                 new_table = self.copy()
+    #                 for asgn2 in asgns:
+    #                     if asgn != asgn2:
+    #                         new_table.table[i][asgn2] = False
+    #                 print(new_table)
+    #                 exit(1)
+    #                 print("------")
+    #                 out.extend(new_table.split_tables(i+1))
+        
+    #     if not iterated:
+    #         out.extend(self.split_tables(i+1))
+    #     return out
+    
+
+    def split_tables2(self, i=0) -> list[Self]:
+        """
+        Split AP table into multiple tables if multiple updates are applied to a term at the same time step.
+        e.g. Suppose at time step 0, we have:
+        APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": True, "rightMost ball": False, "leftMost ball": False, "END": False}
+        Then we would need to create two tables:
+        [
+            APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": True,  "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": False, "END": False},
+            APTable([{"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": True,  "rightMost ball": False, "leftMost ball": False, "END": False}
+        ]
+        
+        BFS approach: split AP table by generating all permutations of updates at each timestep.
+        For each timestep, if any variable has multiple true updates, generate all permutations
+        where each variable gets exactly one true update. Then recursively process the next timestep.
+        """
         if i == len(self.table) - 1:
             return [self]
         
-        updates_at_time_step = {var: [ap for ap in self.table[i] 
-                                        if (isinstance(ap, Update) or isinstance(ap, UpdateF)) 
-                                            and ap.var == var and self.table[i][ap]] 
-                                        for var in self.metadata.vars.keys()}
-        out = []
-        splitted = False
-        for var, asgns in updates_at_time_step.items():
-            print(var, [str(k) for k in updates_at_time_step[var]])
+        # Find all variables with multiple true updates at timestep i
+        updates_at_time_step = {}
+        for var in self.metadata.vars.keys():
+            asgns = [ap for ap in self.table[i]
+                     if (isinstance(ap, Update) or isinstance(ap, UpdateF))
+                     and ap.var == var and self.table[i][ap]]
             if len(asgns) > 1:
-                splitted = True
-                for asgn in asgns:
-                    # print(f"asgn={asgn}")
-                    new_table = self.copy()
-                    for asgn2 in asgns:
-                        if asgn != asgn2:
-                            new_table.table[i][asgn] = False
-                    print(new_table)
-                    out.extend(new_table.split_tables(i+1))
+                updates_at_time_step[var] = asgns
         
-        if not splitted :
-            out.extend(self.split_tables(i+1))
-    
-        return out
-    
+        if not updates_at_time_step:
+            # No conflicts at this timestep, move to next
+            return self.split_tables2(i+1)
+        
+        # Generate all permutations of choices for variables with multiple updates
+        vars_with_conflicts = list(updates_at_time_step.keys())
+        update_choices = [updates_at_time_step[var] for var in vars_with_conflicts]
+        
+        all_tables = []
+        for choice in product(*update_choices):
+            # choice is a tuple of (update1, update2, ...) for each conflicting variable
+            new_table = self.copy()
+            
+            # For each variable with conflicts, set all updates to False except the chosen one
+            for var, chosen_update in zip(vars_with_conflicts, choice):
+                for ap in updates_at_time_step[var]:
+                    if ap != chosen_update:
+                        new_table.table[i][ap] = False
+            
+            # Recursively process the next timestep
+            all_tables.extend(new_table.split_tables2(i+1))
+        
+        return all_tables
 
     def to_bolt(self) -> dict[str, list[int]]:
         """Convert AP table to Bolt format."""
@@ -328,22 +383,28 @@ def generate_ap_tables(trace_file: Path, metadata: Metadata) -> list[APTable]:
             print(f"Number of updates at each time step for {trace_file.name}:")
             for i, updates in enumerate(num_updates):
                 print(f" {i}: {updates}")
+            
+            # exit(1)
 
-            if any(any(update == 0 for update in updates.values()) for updates in num_updates[:-1]):
-                print("Detected table entry with no updates. Composing functions...")
-                metadata = metadata.compose_functions()
-                print("Generated new functions:")
-                print(metadata)
-            elif any(any(update > 1 for update in updates.values()) for updates in num_updates[:-1]):
+            # NOTE: Function composition turned off for now
+            # if any(any(update == 0 for update in updates.values()) for updates in num_updates[:-1]):
+            #     print("Detected table entry with no updates. Composing functions...")
+            #     metadata = metadata.compose_functions()
+            #     print("Generated new functions:")
+            #     print(metadata)
+            # [[[[[was elif here]]]]
+            if any(any(update > 1 for update in updates.values()) for updates in num_updates[:-1]):
                 print("Detected table entry with multiple updates. Splitting mining traces...")
-                tables = table.split_tables()
+                tables = table.split_tables2()
                 print(f"Split into {len(tables)} tables:")
-                for t in tables:
-                    print("----")
-                    print(t)
-                    for i, updates in enumerate(t.check_updates()):
-                        print(f" {i}: {updates}")
+                # for t in tables:
+                #     print("-------------------")
+                #     print(t)
+                #     for i, updates in enumerate(t.check_updates()):
+                #         print(f" {i}: {updates}")
                 good_tables.extend(tables)
+                # print(f"TOTAL GOOD TABLES SO FAR: {len(good_tables)}")
+                # exit(1)
             else :
                 print("All entries are updated exactly once.")
                 good_tables.append(table)
@@ -448,13 +509,13 @@ def main():
     for name, tables in zip(["pos_combinations", "neg_combinations"], [pos_tables, neg_tables]):
         combs[name] = cartesian_product_tables(tables)
         print(f"Generated {len(combs[name])} combinations of {name}:")
-        for combo in combs[name]:
-            for table in combo:
-                print(table)
+        # for combo in combs[name]:
+        #     for table in combo:
+        #         print(table)
                 # print(f"Number of updates at each time step:")
                 # for i, updates in enumerate(table.check_updates()):
                 #     print(f" {i}: {updates}")
-            print("----")
+            # print("----")
 
     # produce explicit references to pos/neg combinations and take their cartesian product
     pos_combinations = combs.get("pos_combinations", [])
@@ -463,6 +524,7 @@ def main():
     # pair each positive combination with each negative combination
     pos_neg_product = [(deepcopy(p), deepcopy(n)) for p in pos_combinations for n in neg_combinations]
 
+    exit(1)
     # print("\n\n\n")
     for i, (pos_combo, neg_combo) in enumerate(pos_neg_product):
         print(f"Combination {i+1}:")

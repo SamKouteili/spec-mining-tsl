@@ -53,7 +53,7 @@ python3 SygusFunctionSolver/CreateGroupings.py \
 #     --root_dir "$OUTPUT_DIR"
 
 #########################################
-# STEP 4 — GenerateFunctions.py
+# STEP 3 — GenerateFunctions.py
 #########################################
 
 echo ""
@@ -61,6 +61,7 @@ echo "=== Step 3: GenerateFunctions.py ==="
 python3 SygusFunctionSolver/GenerateFunctions.py \
     --root_dir "$OUTPUT_DIR"
 
+echo ""
 echo "=== Step 4: CreateMetadata.py ==="
 python3 SygusFunctionSolver/CreateMetadata.py \
     --trace_dir "$INPUT_DIR" \

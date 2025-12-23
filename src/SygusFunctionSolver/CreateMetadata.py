@@ -2,7 +2,7 @@ import os
 import json
 import argparse
 from typing import Any
-# from IOSeperation import extract_first_line_keys
+from IOSeperation import find_constant_variables
 
 OP_PREFIX = {
     "+": "add",
@@ -17,7 +17,7 @@ def clean_line(raw):
            .strip()
     )
 
-def extract_vars(file_path) -> dict[str, str]:
+def extract_vars(file_path, constants) -> dict[str, str]:
     """
     Return a dictionary of variables in the logs and their types
     """
@@ -33,7 +33,7 @@ def extract_vars(file_path) -> dict[str, str]:
                 continue
             if isinstance(obj, dict):
                 for k in obj.keys():
-                    d[k] = type(obj[k]).__name__
+                    d[k] = ("const " if k in constants else "") + type(obj[k]).__name__
             return d
     return d
 
@@ -186,7 +186,7 @@ def _canonical_key(expr: Any, arg_names: list[str], signature: str):
     return (signature, normalized)
 
 
-def extract_function_metadata(functions_path: str, *, include_specs: bool = False):
+def extract_function_metadata(functions_path: str):
     """
     Convert solver output functions into callable Python metadata.
     """
@@ -194,11 +194,10 @@ def extract_function_metadata(functions_path: str, *, include_specs: bool = Fals
         payload = json.load(f)
 
     entries = payload.get("functions", [])
-    if not isinstance(entries, list):
-        return {}
+    assert isinstance(entries, list), "Expected function entries to be a list"
 
-    metadata: dict[str, tuple[str, Any]] = {}
-    specs: dict[str, dict[str, Any]] = {}
+    metadata: dict[str, tuple] = {}
+    specs: dict[str, dict] = {}
     for raw in entries:
         if not isinstance(raw, str):
             continue
@@ -241,19 +240,15 @@ def extract_function_metadata(functions_path: str, *, include_specs: bool = Fals
         arity = len(arg_names)
         sig = _render_type(arity)
         metadata[unique_name] = (sig, impl)
-        if include_specs:
-            canonical_key = _canonical_key(expr, arg_names, sig)
-            specs[unique_name] = {
+        canonical_key = _canonical_key(expr, arg_names, sig)
+        specs[unique_name] = {
                 "type": sig,
                 "args": arg_names,
                 "expr": python_expr,
                 "key": canonical_key,
                 "base_name": base_name,
-            }
-    if include_specs:
-        return metadata, specs
-    return metadata
-
+        }
+    return metadata, specs
 
 def _format_vars_block(variables: dict[str, str]) -> list[str]:
     lines = ["VARS = {"]
@@ -316,7 +311,7 @@ def gather_functions(root_dir: str):
     aggregated_specs: dict[str, dict[str, Any]] = {}
     seen_keys: set[Any] = set()
     for path in sorted(_iter_function_outputs(root_dir)):
-        metadata, specs = extract_function_metadata(path, include_specs=True)
+        metadata, specs = extract_function_metadata(path)
         for name, meta in metadata.items():
             spec = specs.get(name)
             if not spec:
@@ -352,17 +347,22 @@ if __name__ == "__main__":
 
     assert os.path.exists(args.trace_dir), "Invalid input directory"
     pos_path = os.path.join(args.trace_dir, "pos")
-    # neg_path = os.path.join(input_dir, "neg")
-    assert os.path.exists(pos_path), "Traces not properly bucketed"
+    neg_path = os.path.join(args.trace_dir, "neg")
+    assert os.path.exists(pos_path) and os.path.exists(neg_path), "Traces not properly bucketed"
     assert os.path.exists(args.function_dir), "Invalid functions directory"
 
     # GET VARIABLE METADATA
+    trace_paths = []
+    for path in [pos_path, neg_path]:
+        for name in os.listdir(path):
+            if not name.endswith(".jsonl"):
+                continue
+            trace_paths.append(os.path.join(path, name))
+
+    constants = find_constant_variables(trace_paths)
     variables = {}
-    for trace in os.listdir(pos_path):
-        if not trace.endswith(".jsonl"):
-            continue
-        trace_path = os.path.join(pos_path, trace)
-        variables = extract_vars(trace_path)
+    for trace_path in trace_paths:
+        variables = extract_vars(trace_path, constants)
         if variables :
             break
     

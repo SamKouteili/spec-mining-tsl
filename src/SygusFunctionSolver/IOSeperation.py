@@ -72,7 +72,7 @@ def find_constant_variables(trace_paths: list[str]) -> set[str]:
     return constant_vars
         
 
-def generate_mapping_classes(vars_list: list[str], arity = None) -> dict[str, list]:
+def generate_mapping_classes(variables: set[str], arity = None) -> dict[str, list]:
     """
     Generate mapping classes without duplicates.
     Uses combinations (unordered) instead of permutations (ordered).
@@ -81,23 +81,17 @@ def generate_mapping_classes(vars_list: list[str], arity = None) -> dict[str, li
 
     classes = {}
 
-    rs = [arity] if arity is not None else range(1, len(vars_list) + 1)
+    rs = [arity] if arity is not None else range(1, len(variables) + 1)
 
     # All possible input subsets (size >= 1)
     for r in rs:
-        for combo in itertools.combinations(vars_list, r):
+        for combo in itertools.combinations(variables, r):
             # Sort for determinism (avoid XY vs YX)
             inp_sorted = sorted(combo)
             inp_prefix = "_".join(inp_sorted)
 
-
-
             # Map to each possible output var
-            for out in vars_list:
-                # NOTE: TESTING FOR NOW TO BE REMOVED
-                # if inp_sorted == ['playerX'] and out == 'playerY' or inp_sorted == ['playerY'] and out == 'playerX':
-                #     # Skip trivial identity mappings between X and Y
-                #     continue
+            for out in variables:
                 print("Generating class for input:", inp_sorted, "-> output:", out)
                 cls_name = f"{inp_prefix}toNext{out}"
                 classes[cls_name] = []
@@ -106,7 +100,7 @@ def generate_mapping_classes(vars_list: list[str], arity = None) -> dict[str, li
 
 
 # NOTE: vars_list unused
-def classify_and_store(prev_obj, next_obj, source, pairs, vars_list):
+def classify_and_store(prev_obj, next_obj, source, pairs):
     """
     Adds mapping instance to the correct class.
     Ensures order of variables in mapping is consistent (sorted).
@@ -205,8 +199,7 @@ def main(input_dir, output_dir):
                 lines[i],
                 lines[i + 1],
                 f"{fname}:line_{i}_to_{i+1}",
-                pairs,
-                variables,
+                pairs
             )
 
         # write files
