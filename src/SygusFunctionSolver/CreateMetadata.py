@@ -289,7 +289,10 @@ def write_metadata_file(out_dir: str, variables: dict[str, str], function_specs:
     content_lines.append("")
     content_lines.extend(_format_functions_block(function_specs))
     content_lines.append("")
-    content_lines.append("PREDICATES = {}")
+    # Add a simple equality predicate for integers
+    content_lines.append("PREDICATES = {")
+    content_lines.append('    "eq": ("int->int->bool", lambda x, y: x == y),')
+    content_lines.append("}")
     content_lines.append("")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(content_lines))

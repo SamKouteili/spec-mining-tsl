@@ -110,22 +110,21 @@ class Metadata:
         # assert v and f and p, "Metadata must contain VARS, FUNCTIONS, and PREDICATES"
         return Metadata(variables=v, functions=f, predicates=p)
     
-    def compose_functions(self):
-        """Compose functions in metadata to create new functions."""
-        new_functions = {}
-        for f1 in self.functions:
-            for f2 in self.functions:
-                for i, ty in enumerate(f2.input_types):
-                    if f1.output_type == ty:  # Check if output of f1 matches input of f2
-                        composed_name = f"{f2.name}({i}{f1.name})"
-                        composed_arg_types = "->".join(f2.input_types[:i] + f1.input_types + f2.input_types[i+1:] + [f2.output_type])
-                        composed_impl = lambda *args, f1=f1, f2=f2: f2.run(f1.run(*args[:len(f1.input_types)]), *args[len(f1.input_types):])
-                        new_functions[composed_name] = Function(composed_name, composed_arg_types, composed_impl)
+    # def compose_functions(self):
+    #     """Compose functions in metadata to create new functions."""
+    #     new_functions = {}
+    #     for f1 in self.functions:
+    #         for f2 in self.functions:
+    #             for i, ty in enumerate(f2.input_types):
+    #                 if f1.output_type == ty:  # Check if output of f1 matches input of f2
+    #                     composed_name = f"{f2.name}({i}{f1.name})"
+    #                     composed_arg_types = "->".join(f2.input_types[:i] + f1.input_types + f2.input_types[i+1:] + [f2.output_type])
+    #                     composed_impl = lambda *args, f1=f1, f2=f2: f2.run(f1.run(*args[:len(f1.input_types)]), *args[len(f1.input_types):])
+    #                     new_functions[composed_name] = Function(composed_name, composed_arg_types, composed_impl)
         
-        self.functions.update(new_functions)
+    #     self.functions.update(new_functions)
 
-        return self
-
+    #     return self
 
 
 #################################################################
@@ -259,7 +258,7 @@ class APTable:
                     # Check if types match
                     if [var.type for var in var_comb] == pred.input_types:
                         ap = Predicate(pred, var_comb)
-                        table_entry[ap] = pred.run(*[entry[v] for v in var_comb])
+                        table_entry[ap] = pred.run(*[entry[v.name] for v in var_comb])
             
             table_entry["END"] = (i == len(log) - 1)
 
@@ -395,6 +394,7 @@ def check_empty(trace_file: Path) -> bool:
     """Check if the trace file is empty."""
     with trace_file.open("r", encoding="utf-8") as fh:
         return not any(line.strip() for line in fh)
+    
 
 def main():
     args = parse_args()
