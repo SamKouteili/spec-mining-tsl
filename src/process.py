@@ -351,25 +351,30 @@ def rankFunctions(tables: list[APTable]) -> dict[Variable, dict[int, list[tuple[
 
 
 def cleanTables(tables: list[APTable]) -> list[APTable]:
-    """Remove any variables that is unused at any point in all tables."""
+    """Remove any variables that is unused at any point in all tables or always on accross all tables."""
     aps_in_use = set()
+    aps_turned_off = set()
     all_aps = set()
     for table in tables:
         for entry in table.table:
             for ap, val in entry.items():
                 if val:
                     aps_in_use.add(ap)
+                if not val:
+                    aps_turned_off.add(ap)
                 all_aps.add(ap)
+                
 
     print(f"All APs: {[str(ap) for ap in all_aps]}")
     print(f"APs in use: {[str(ap) for ap in aps_in_use]}")
     aps_not_in_use = all_aps - aps_in_use
+    aps_never_removed = all_aps - aps_turned_off
     for table in tables:
         for entry in table.table:
-            for ap in aps_not_in_use:
+            for ap in aps_not_in_use.union(aps_never_removed):
                 # print(f"Removing unused AP {ap} from table.")
                 del entry[ap]
-        table.aps = aps_in_use
+        table.aps = all_aps - aps_not_in_use - aps_never_removed
 
     return tables
 

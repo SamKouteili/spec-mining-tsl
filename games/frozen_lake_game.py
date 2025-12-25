@@ -209,23 +209,24 @@ class FrozenLakeGame:
         self.display()
 
         quit_session = False
+        quit_mid_game = False
         while not self.game_over:
             key = self.get_key()
 
             if key == 'q':
-                self.game_over = True
-                self.won = False
                 quit_session = True
+                quit_mid_game = True
                 break
             elif key in ['up', 'down', 'left', 'right']:
                 self.move(key)
                 self.display()
 
-        # Final display
-        self.display()
+        # Final display (only if game ended naturally)
+        if not quit_mid_game:
+            self.display()
 
-        # Save the trace
-        self.save_trace()
+            # Save the trace only if game ended naturally (win or loss, not quit)
+            self.save_trace()
 
         return quit_session
 

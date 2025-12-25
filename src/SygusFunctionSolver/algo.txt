@@ -1,0 +1,348 @@
+================================================================================
+BOTTOM-UP FUNCTION SYNTHESIS ALGORITHM WITH INPUT SELECTION
+================================================================================
+
+OVERVIEW
+--------
+Given multiple groupings (different input variable choices for each output at
+each timestep), synthesize the minimal set of functions that explain all
+transitions by:
+1. Starting with singleton blocks (maximum partitioning)
+2. Greedily merging blocks that share functions
+3. When merges fail, trying alternative inputs from other groupings
+4. Stopping when no merges succeed at layer n+1
+
+KEY INSIGHT
+-----------
+Instead of top-down partition enumeration (Bell number explosion), we work
+bottom-up and selectively swap inputs when needed. This is exponentially
+more efficient.
+
+================================================================================
+TERMINOLOGY
+================================================================================
+
+GROUPING:
+  A complete assignment of input variables to outputs at each timestep.
+  Each line in groupings.jsonl represents one grouping.
+
+  Example grouping:
+  {
+    "time_0__playerX": {"source": "...", "input": 0, "output": 0},
+    "time_0__playerY": {"source": "...", "input": 0, "output": 1},
+    "time_1__playerX": {"source": "...", "input": 1, "output": 0},
+    "time_1__playerY": {"source": "...", "input": 1, "output": 2}
+  }
+
+KEY:
+  A (timestep, output_variable) pair, e.g., "time_0__playerX"
+  Represents: "The output value of playerX at timestep 0"
+
+RECORD:
+  A mapping: {"source": ..., "input": <prev_value>, "output": <next_value>}
+  The input comes from some variable at timestep t-1
+  The output is the target variable at timestep t
+
+BLOCK:
+  A set of keys grouped together, hypothesized to share the same function.
+  Example: [time_0__playerX, time_1__playerX] might both use f(x) = x + 1
+
+FUNCTION GROUP:
+  Keys that synthesized identical functions after singleton synthesis.
+  Organized by size for merge priority.
+
+================================================================================
+ALGORITHM STEPS
+================================================================================
+
+INPUT:
+  - groupings.jsonl: Multiple groupings (line 1 = grouping 1, etc.)
+  - Mapping files from IOSeparation (playerX_toNextY.jsonl, etc.)
+
+OUTPUT:
+  - output_funcs.jsonl: Synthesized functions and final key assignments
+
+--------------------------------------------------------------------------------
+STEP 1: LOAD ALL GROUPINGS
+--------------------------------------------------------------------------------
+
+Read all groupings from groupings.jsonl into memory.
+Build an index: (time, output_var) → list of possible records from different
+groupings.
+
+Example:
+  groupings = [
+    {"time_0__Y": {"input": 3, "output": 6}, ...},  # Grouping 0
+    {"time_0__Y": {"input": 5, "output": 6}, ...},  # Grouping 1 (different input!)
+  ]
+
+  alternatives_map = {
+    ("time_0", "Y"): [
+      {"input": 3, "output": 6, "grouping_id": 0},
+      {"input": 5, "output": 6, "grouping_id": 1}
+    ],
+    ...
+  }
+
+--------------------------------------------------------------------------------
+STEP 2: SINGLETON SYNTHESIS (START AT BOTTOM)
+--------------------------------------------------------------------------------
+
+For each key in the FIRST grouping (use as base):
+  1. Extract the single input→output pair
+  2. Skip if input == output (identity, handled separately)
+  3. Call CVC5 to synthesize a function for this single constraint
+  4. Record: key → synthesized_function
+
+Example:
+  time_0__Y: {3→6} → synthesizes f(x) = 2x
+  time_1__Y: {4→8} → synthesizes f(x) = 2x
+  time_2__Y: {5→5} → IDENTITY (skip synthesis)
+  time_0__Z: {2→5} → synthesizes f(x) = 2x + 1
+
+Note: If synthesis fails for a singleton (shouldn't happen with simple grammar),
+mark as UNSYNTHESIZABLE.
+
+--------------------------------------------------------------------------------
+STEP 3: GROUP BY FUNCTION SIGNATURE
+--------------------------------------------------------------------------------
+
+Collect all keys that synthesized the same function body into groups.
+Track group sizes for merge prioritization.
+
+Example:
+  function_groups = {
+    "2x": [time_0__Y, time_1__Y],           # size 2
+    "2x+1": [time_0__Z],                     # size 1
+    "identity": [time_2__Y],                 # size 1
+  }
+
+Sort groups by size (smallest first) for greedy merging.
+
+--------------------------------------------------------------------------------
+STEP 4: BOTTOM-UP MERGING WITH INPUT SWAPPING
+--------------------------------------------------------------------------------
+
+REPEAT until no merges succeed:
+
+  A. Identify smallest groups (size 1, then 2, then 3, ...)
+
+  B. For each small group G:
+
+      Try merging G with larger groups:
+
+      1. For each larger group H:
+         - Combine blocks: candidate_block = G ∪ H
+         - Try CVC5 synthesis on candidate_block
+         - If SUCCESS → merge G into H, continue to next small group
+
+      2. If all merges FAILED with current inputs:
+         - For each key K in G:
+           * Look up alternative inputs from alternatives_map
+           * For each alternative input A:
+             - Replace K's record with alternative A
+             - Re-synthesize singleton for K with new input
+             - Retry merges with all larger groups H
+             - If any merge SUCCEEDS → accept this swap, continue
+
+      3. If still no merges work:
+         - Leave G as-is (will be a separate function in output)
+
+  C. If no merges succeeded in this iteration → STOP (reached stable state)
+
+--------------------------------------------------------------------------------
+STEP 5: OUTPUT RESULT
+--------------------------------------------------------------------------------
+
+Write output_funcs.jsonl:
+{
+  "functions": [list of synthesized define-fun expressions],
+  "assignments": {
+    "time_0__Y": {"function": "f_0", "input_source": "playerX"},
+    "time_1__Y": {"function": "f_0", "input_source": "playerX"},
+    "time_0__Z": {"function": "f_1", "input_source": "playerY"},
+    ...
+  }
+}
+
+================================================================================
+DETAILED EXAMPLE WALKTHROUGH
+================================================================================
+
+INITIAL DATA:
+-------------
+
+Trace transitions:
+  t=0: playerX=0, playerY=0
+  t=1: playerX=0, playerY=1
+  t=2: playerX=1, playerY=2
+  t=3: playerX=2, playerY=2
+
+Transitions (t-1 → t):
+  0→1: playerX: 0→0, playerY: 0→1
+  1→2: playerX: 0→1, playerY: 1→2
+  2→3: playerX: 1→2, playerY: 2→2
+
+Grouping 1 (base):
+  time_0__playerX: {input: 0 (from playerX), output: 0}
+  time_1__playerX: {input: 0 (from playerX), output: 1}
+  time_2__playerX: {input: 1 (from playerX), output: 2}
+  time_0__playerY: {input: 0 (from playerY), output: 1}
+  time_1__playerY: {input: 1 (from playerY), output: 2}
+  time_2__playerY: {input: 2 (from playerY), output: 2}
+
+Grouping 2 (alternative):
+  time_0__playerX: {input: 0 (from playerY), output: 0}  ← different input!
+  time_1__playerX: {input: 1 (from playerY), output: 1}
+  time_2__playerX: {input: 2 (from playerY), output: 2}
+  time_0__playerY: {input: 0 (from playerX), output: 1}
+  time_1__playerY: {input: 0 (from playerX), output: 2}
+  time_2__playerY: {input: 1 (from playerX), output: 2}
+
+STEP 1: Load groupings, build alternatives_map
+-----------------------------------------------
+
+alternatives_map[("time_0", "playerX")] = [
+  {"input": 0, "output": 0, "grouping_id": 0, "source_var": "playerX"},
+  {"input": 0, "output": 0, "grouping_id": 1, "source_var": "playerY"}
+]
+... (similar for all keys)
+
+STEP 2: Singleton synthesis (using Grouping 1 as base)
+-------------------------------------------------------
+
+time_0__playerX: {0→0} → IDENTITY (skip)
+time_1__playerX: {0→1} → f(x) = x + 1
+time_2__playerX: {1→2} → f(x) = x + 1
+time_0__playerY: {0→1} → f(x) = x + 1
+time_1__playerY: {1→2} → f(x) = x + 1
+time_2__playerY: {2→2} → IDENTITY (skip)
+
+STEP 3: Group by function
+--------------------------
+
+Groups:
+  "x+1": [time_1__playerX, time_2__playerX, time_0__playerY, time_1__playerY]  (size 4)
+  "identity": [time_0__playerX, time_2__playerY]                                (size 2)
+
+Sorted by size: ["identity" (size 2), "x+1" (size 4)]
+
+STEP 4: Merging iterations
+---------------------------
+
+Iteration 1:
+  Smallest group: "identity" (size 2)
+  Try merging "identity" with "x+1":
+    Block: [time_0__playerX, time_2__playerY, time_1__playerX, ...]
+    Records: {0→0, 2→2, 0→1, 1→2, ...}
+    CVC5: No function fits all → FAIL
+
+  No larger groups to try.
+  Try input swapping:
+    - For time_0__playerX, try Grouping 2: {input: 0 (from playerY), output: 0}
+      Still IDENTITY, no change.
+    - For time_2__playerY, try Grouping 2: {input: 1 (from playerX), output: 2}
+      Synthesize: {1→2} → f(x) = x + 1
+      Retry merge with "x+1" group:
+        Block: [time_2__playerY, time_1__playerX, time_2__playerX, ...]
+        Records: {1→2, 0→1, 1→2, 0→1, 1→2}
+        CVC5: f(x) = x + 1 fits all → SUCCESS!
+
+  Swap time_2__playerY to use playerX as input (from Grouping 2).
+  Merge time_2__playerY into "x+1" group.
+
+  Updated groups:
+    "x+1": [time_1__playerX, time_2__playerX, time_0__playerY, time_1__playerY, time_2__playerY]  (size 5)
+    "identity": [time_0__playerX]                                                                   (size 1)
+
+Iteration 2:
+  Smallest group: "identity" (size 1)
+  Try merging with "x+1": FAIL (identity doesn't merge with x+1)
+  Try input swapping: No alternatives make it non-identity.
+  Leave as-is.
+
+  No merges succeeded → STOP
+
+STEP 5: Output
+--------------
+
+output_funcs.jsonl:
+{
+  "functions": [
+    "(define-fun f ((x Int)) Int (+ x 1))",
+    "(define-fun f ((x Int)) Int x)"
+  ],
+  "assignments": {
+    "time_1__playerX": {"function": 0, "input_from": "playerX"},
+    "time_2__playerX": {"function": 0, "input_from": "playerX"},
+    "time_0__playerY": {"function": 0, "input_from": "playerY"},
+    "time_1__playerY": {"function": 0, "input_from": "playerY"},
+    "time_2__playerY": {"function": 0, "input_from": "playerX"},  ← swapped!
+    "time_0__playerX": {"function": 1, "input_from": "playerX"}
+  }
+}
+
+Result: 2 functions instead of 6 singletons!
+
+================================================================================
+EDGE CASES
+================================================================================
+
+1. ALL IDENTITIES:
+   All keys are identity mappings.
+   Result: Single identity function, no swapping needed.
+
+2. NO MERGES POSSIBLE:
+   Each transition requires a unique function.
+   Result: N singleton functions (one per non-identity key).
+
+3. CONSTANT FUNCTIONS:
+   CVC5 synthesizes f(x) = c for some key.
+   These rarely merge but algorithm handles normally.
+
+4. UNSYNTHESIZABLE SINGLETON:
+   Very rare with simple grammar, but if it happens:
+   Try alternative inputs immediately.
+   If still fails, mark as FAILED and continue.
+
+5. MULTIPLE SWAP CANDIDATES:
+   A key might have 3+ alternative inputs.
+   Try each greedily until one works.
+
+6. CIRCULAR DEPENDENCIES:
+   Not possible: inputs are always from t-1, outputs at t.
+   Time ordering prevents cycles.
+
+================================================================================
+COMPLEXITY ANALYSIS
+================================================================================
+
+OLD APPROACH (top-down partitioning):
+  - Try all partitions: Bell(n) for n keys
+  - Bell(12) = 4,213,597 partitions
+  - For 4096 groupings: ~17 billion attempts
+
+NEW APPROACH (bottom-up with swapping):
+  - Singleton synthesis: O(n) CVC5 calls
+  - Merge iterations: O(k²) where k = number of groups (typically k << n)
+  - Input swapping: O(n × g × k) where g = groupings (typically small)
+  - Total: O(n × g × k²) ≈ polynomial vs exponential
+
+For n=12, g=4096, k≈3:
+  Old: ~17 billion
+  New: ~12 × 4096 × 9 ≈ 442,000 (greedy early termination makes it even smaller)
+
+Reduction: ~38,000x faster!
+
+================================================================================
+IMPLEMENTATION NOTES
+================================================================================
+
+- Use CVC5 timeout of 0.1s per synthesis call (configurable)
+- Track which grouping each key's current record came from
+- When swapping inputs, update the record in-place
+- Greedy strategy: accept first successful merge, don't backtrack
+- Identity mappings get special handling (no CVC5 call needed)
+- Sort groups by size at each iteration (sizes change after merges)
+
+================================================================================

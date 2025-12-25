@@ -32,6 +32,8 @@ python3 SygusFunctionSolver/IOSeperation.py \
     --input_dir "$INPUT_DIR" \
     --output_dir "$OUTPUT_DIR"
 
+# exit 1
+
 #########################################
 # STEP 2 — CreateGroupings.py
 #########################################
