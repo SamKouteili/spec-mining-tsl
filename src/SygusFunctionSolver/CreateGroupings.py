@@ -1,7 +1,6 @@
 import os
 import json
 import argparse
-from itertools import product
 from collections import defaultdict
 
 
@@ -42,21 +41,29 @@ def load_trace_mapping_dir(trace_dir):
     return buckets
 
 
-def enumerate_exactly_one_per_slot(buckets):
+def create_baseline_and_alternatives(buckets):
     """
-    Choose exactly ONE rule per slot.
-    Slots = (out_var, time_step)
-    """
-    slots = list(buckets.keys())
-    choices = [buckets[s] for s in slots]
+    Create ONE baseline grouping (first choice per slot) and
+    an alternatives map for the bottom-up algorithm.
 
-    for combo in product(*choices):
-        subset = {}
-        for slot, rec in zip(slots, combo):
-            out_var, time_step = slot
-            key = f"time_{time_step}__{out_var}"
-            subset[key] = rec
-        yield subset
+    Returns:
+        baseline: dict mapping "time_X__var" to one record
+        alternatives: dict mapping "time_X__var" to list of ALL possible records
+    """
+    baseline = {}
+    alternatives = {}
+
+    for slot, records in buckets.items():
+        out_var, time_step = slot
+        key = f"time_{time_step}__{out_var}"
+
+        # Baseline: pick first option
+        baseline[key] = records[0]
+
+        # Alternatives: store all options for this slot
+        alternatives[key] = records
+
+    return baseline, alternatives
 
 
 def main(root_dir):
@@ -68,26 +75,24 @@ def main(root_dir):
         print(f"\nProcessing trace directory: {trace}")
 
         buckets = load_trace_mapping_dir(trace_dir)
-        print("Found slots:", list(buckets.keys()))
+        print(f"  Found {len(buckets)} slots")
 
-        out_path = os.path.join(trace_dir, "groupings.jsonl")
+        # Create baseline grouping and alternatives map
+        baseline, alternatives = create_baseline_and_alternatives(buckets)
 
-        count = 0
-        with open(out_path, "w") as out_file:
-            for subset in enumerate_exactly_one_per_slot(buckets):
-                out_file.write(json.dumps(subset) + "\n")
-                count += 1
+        # Write baseline grouping (just one line!)
+        groupings_path = os.path.join(trace_dir, "groupings.jsonl")
+        with open(groupings_path, "w") as f:
+            f.write(json.dumps(baseline) + "\n")
 
-        print(f"  Wrote {count} subsets to {out_path}")
-        print("  Expected:", " × ".join([str(len(buckets[s])) for s in buckets]),
-              " = ", product_count(buckets))
+        # Write alternatives map
+        alternatives_path = os.path.join(trace_dir, "alternatives.json")
+        with open(alternatives_path, "w") as f:
+            json.dump(alternatives, f, indent=2)
 
-
-def product_count(buckets):
-    total = 1
-    for slot in buckets:
-        total *= len(buckets[slot])
-    return total
+        print(f"  Wrote baseline grouping to {groupings_path}")
+        print(f"  Wrote alternatives map to {alternatives_path}")
+        print(f"  Total alternatives: {sum(len(alts) for alts in alternatives.values())}")
 
 
 if __name__ == "__main__":

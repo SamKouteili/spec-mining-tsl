@@ -230,57 +230,42 @@ def normalize_function(func_str: str) -> str:
 #   BOTTOM-UP SYNTHESIS WITH INPUT SWAPPING
 # ========================================================================
 
-def load_all_groupings(groupings_path: str) -> Tuple[List[Dict], Dict]:
+def load_baseline_and_alternatives(trace_dir: str) -> Tuple[Dict, Dict]:
     """
-    Load all groupings and build unique alternatives map.
+    Load baseline grouping and alternatives map from new format.
 
     Returns:
-        groupings: List of grouping dicts
-        unique_alternatives_map: {(time_idx, var): [list of UNIQUE input→output records]}
+        baseline_grouping: dict mapping "time_X__var" to record
+        alternatives_map: {(time_part, var_part): [list of input→output records]}
     """
-    groupings = []
+    groupings_path = os.path.join(trace_dir, "groupings.jsonl")
+    alternatives_path = os.path.join(trace_dir, "alternatives.json")
+
+    # Load baseline grouping (only one line)
     with open(groupings_path) as f:
-        for line in f:
-            groupings.append(json.loads(line))
+        baseline_grouping = json.loads(f.readline())
 
-    # Build map with unique (input, output) pairs only
-    alternatives_map = defaultdict(set)  # Use set to track unique pairs
+    # Load alternatives map
+    with open(alternatives_path) as f:
+        alternatives_raw = json.load(f)
 
-    for gid, grouping in enumerate(groupings):
-        for key, record in grouping.items():
-            # Parse key: "time_X__varname"
-            parts = key.split("__")
-            if len(parts) != 2:
-                continue
-            time_part = parts[0]  # e.g., "time_0"
-            var_part = parts[1]    # e.g., "playerX"
+    # Convert keys from "time_X__var" to ("time_X", "var") tuples
+    alternatives_map = {}
+    for key, records in alternatives_raw.items():
+        parts = key.split("__")
+        if len(parts) == 2:
+            time_part, var_part = parts
+            alternatives_map[(time_part, var_part)] = records
 
-            # Store unique (input, output) pair as tuple
-            inp = record["input"]
-            out = record["output"]
-            # Convert to tuple for hashing (handle list inputs)
-            inp_key = tuple(inp) if isinstance(inp, list) else inp
-            alternatives_map[(time_part, var_part)].add((inp_key, out))
-
-    # Convert sets to lists of record dicts
-    unique_alternatives = {}
-    for key, pairs in alternatives_map.items():
-        unique_alternatives[key] = [
-            {"input": list(inp) if isinstance(inp, tuple) and len(inp) > 1 else (inp[0] if isinstance(inp, tuple) else inp),
-             "output": out,
-             "source": f"alternative_{key}"}
-            for inp, out in pairs
-        ]
-
-    return groupings, unique_alternatives
+    return baseline_grouping, alternatives_map
 
 
-def bottom_up_synthesis(groupings_path: str, timeout: float = TIMEOUT, max_group_size: int = 6) -> Optional[Dict]:
+def bottom_up_synthesis(trace_dir: str, timeout: float = TIMEOUT, max_group_size: int = 6) -> Optional[Dict]:
     """
     Main bottom-up synthesis algorithm with input swapping.
 
     Args:
-        groupings_path: Path to groupings.jsonl
+        trace_dir: Path to trace directory containing groupings.jsonl and alternatives.json
         timeout: CVC5 timeout per call
         max_group_size: Stop merging when group size exceeds this (default: 6)
 
@@ -288,18 +273,18 @@ def bottom_up_synthesis(groupings_path: str, timeout: float = TIMEOUT, max_group
         - functions: list of synthesized define-fun strings
         - assignments: dict mapping keys to {function_id, record}
     """
-    # Step 1: Load all groupings and extract unique alternatives
-    groupings, unique_alternatives_map = load_all_groupings(groupings_path)
+    # Step 1: Load baseline grouping and alternatives map
+    base_grouping, alternatives_map = load_baseline_and_alternatives(trace_dir)
 
-    if not groupings:
-        print("No groupings found")
+    if not base_grouping:
+        print("No baseline grouping found")
         return None
 
-    total_unique = sum(len(alts) for alts in unique_alternatives_map.values())
-    print(f"Loaded {len(groupings)} groupings, extracted {total_unique} unique input→output pairs")
+    total_alternatives = sum(len(alts) for alts in alternatives_map.values())
+    print(f"Loaded baseline grouping with {len(base_grouping)} slots")
+    print(f"Total alternatives available: {total_alternatives}")
 
-    # Step 2: Start with first grouping as base
-    base_grouping = groupings[0]
+    # Step 2: Start with baseline grouping
     current_records = dict(base_grouping)  # key → record (mutable, we'll swap inputs)
 
     # Step 3: Singleton synthesis
@@ -386,7 +371,7 @@ def bottom_up_synthesis(groupings_path: str, timeout: float = TIMEOUT, max_group
                 print(f"    Group size {len(small_keys)} > {max_group_size}, skipping alternatives")
                 continue
 
-            # Collect unique alternatives for each key in small group
+            # Collect alternatives for each key in small group
             key_alternatives = []  # List of [alternatives for key1, alternatives for key2, ...]
             for key in small_keys:
                 parts = key.split("__")
@@ -395,7 +380,7 @@ def bottom_up_synthesis(groupings_path: str, timeout: float = TIMEOUT, max_group
                     continue
 
                 lookup_key = (parts[0], parts[1])
-                alternatives = unique_alternatives_map.get(lookup_key, [current_records[key]])
+                alternatives = alternatives_map.get(lookup_key, [current_records[key]])
                 key_alternatives.append(alternatives)
 
             # Calculate Cartesian product size
@@ -495,17 +480,18 @@ def bottom_up_synthesis(groupings_path: str, timeout: float = TIMEOUT, max_group
 def process_single_trace(trace_dir: str, timeout: float = TIMEOUT, max_group_size: int = 6):
     """Process a single trace directory."""
     groupings_path = os.path.join(trace_dir, "groupings.jsonl")
+    alternatives_path = os.path.join(trace_dir, "alternatives.json")
     output_path = os.path.join(trace_dir, "output_funcs.jsonl")
 
-    if not os.path.exists(groupings_path):
-        print(f"[SKIP] No groupings.jsonl in {trace_dir}")
+    if not os.path.exists(groupings_path) or not os.path.exists(alternatives_path):
+        print(f"[SKIP] Missing groupings.jsonl or alternatives.json in {trace_dir}")
         return
 
     print(f"\n{'='*80}")
     print(f"Processing: {trace_dir}")
     print('='*80)
 
-    result = bottom_up_synthesis(groupings_path, timeout, max_group_size)
+    result = bottom_up_synthesis(trace_dir, timeout, max_group_size)
 
     if result:
         with open(output_path, "w") as f:
