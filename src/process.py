@@ -220,10 +220,15 @@ class APTable:
                 {"[ball <- ball]": False, "[ball <- moveRight ball]": False, "[ball <- moveLeft ball]": False, "rightMost ball": False, "leftMost ball": True,  "END": True}
             ]
         """
+        if len(log) == 0:
+            return APTable([], metadata)
+
         ap_table = []
         # NOTE: need to create id functions for all types not just ints
         idf_int = Function("", "int->int", lambda x: x) # idf lol
-
+        # variables = set()
+        # for v in metadata.vars:
+        
         for i, entry in enumerate(log):
 
             table_entry = {}
@@ -381,11 +386,13 @@ def cleanTables(tables: list[APTable]) -> list[APTable]:
 
 
 def writeBolt(pos_tables: list[APTable], neg_tables: list[APTable]) -> dict:
+    assert pos_tables or neg_tables, "At least one of pos_tables or neg_tables must be non-empty."
+    t = pos_tables[0] if pos_tables else neg_tables[0]
     return {
         "positive_traces": [table.to_bolt() for table in pos_tables],
         "negative_traces": [table.to_bolt() for table in neg_tables],
-        "atomic_propositions": [str(ap) for ap in pos_tables[0].aps],
-        "number_atomic_propositions": len(pos_tables[0].aps),
+        "atomic_propositions": [str(ap) for ap in t.aps],
+        "number_atomic_propositions": len(t.aps),
         "number_positive_traces": len(pos_tables),
         "number_negative_traces": len(neg_tables),
         "max_length_traces": max(len(table.table) for table in pos_tables + neg_tables),

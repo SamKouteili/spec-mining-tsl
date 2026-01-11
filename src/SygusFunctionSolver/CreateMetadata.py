@@ -293,6 +293,7 @@ def write_metadata_file(out_dir: str, variables: dict[str, str], function_specs:
     content_lines.append("PREDICATES = {")
     content_lines.append('    "eq": ("int->int->bool", lambda x, y: x == y),')
     content_lines.append('    "eqC": ("int->const int->bool", lambda x, y: x == y),')
+    # content_lines.append('    "in": ("int->list int->bool", lambda x, y: x in y),')
     content_lines.append("}")
     content_lines.append("")
     with open(out_path, "w", encoding="utf-8") as f:

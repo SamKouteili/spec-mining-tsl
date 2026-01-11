@@ -83,3 +83,4 @@ fi
 FINAL_SPEC_PATH="$OUT_DIR/final.tsl"
 printf '%s\n' "$final_spec" > "$FINAL_SPEC_PATH"
 echo "[bolt.sh] Combined specification saved to $FINAL_SPEC_PATH"
+cat "$FINAL_SPEC_PATH"

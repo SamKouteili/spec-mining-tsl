@@ -165,7 +165,8 @@ def main(input_dir, output_dir):
 
         all_vars = extract_first_line_keys(fpath)
         # print(all_vars)
-        variables = all_vars - constants
+        # Sort variables for deterministic output order
+        variables = sorted(all_vars - constants)
         # print(variables)
 
         fname = os.path.basename(fpath)
