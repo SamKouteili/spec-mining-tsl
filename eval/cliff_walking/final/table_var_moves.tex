@@ -1,0 +1,28 @@
+\begin{table}[t]
+\scriptsize
+\centering
+\begin{tabular}{lllcccccccccc}
+\toprule
+\textbf{Method} & \textbf{Train} & \textbf{Test} & \textbf{4} & \textbf{8} & \textbf{12} & \textbf{16} & \textbf{20} & \textbf{50} & \textbf{100} & \textbf{200} & \textbf{500} & \textbf{1000} \\
+\midrule
+\multirow{2}{*}{\textbf{SpecMining(TSL$_f$)}}
+  & fixed & var\_conf & 17 & 17 & 17 & 17 & 17 & - & - & - & - & - \\
+  & var\_conf & var\_conf & 0 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - & - \\
+\midrule
+\multirow{2}{*}{BehavClon(NN)}
+  & fixed & var\_conf & 7 & 7 & 7 & 3 & 7 & 3 & 0 & 0 & 0 & 0 \\
+  & var\_conf & var\_conf & 17 & 27 & 43 & \textbf{50} & \textbf{50} & \textbf{50} & 30 & 33 & 23 & 17 \\
+\midrule
+\multirow{2}{*}{DecTree(wLR)}
+  & fixed & var\_conf & 3 & 3 & 3 & 0 & 0 & 3 & 0 & 0 & 0 & 0 \\
+  & var\_conf & var\_conf & 13 & 27 & \textbf{50} & \textbf{50} & \textbf{50} & 47 & 33 & 37 & 23 & 20 \\
+\midrule
+\multirow{2}{*}{Alergia(SMM)}
+  & fixed & var\_conf & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+  & var\_conf & var\_conf & 20 & 22 & 22 & 19 & 20 & 0 & 0 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\caption{\textsc{CliffWalking} with variant moves (left=$x-1$, right=$(x*2)+1$, up=$y-2$, down=$y+1$). Win counts from training over fixed boards and varied board configurations. Test on 50 var\_conf instances (variable cliff width and height, var\_moves enabled). Columns show number of training samples. Note: LTL-DK baseline not applicable (predefined predicates assume standard movement).}
+\label{tab:cliff_walking_var_moves}
+\end{table}

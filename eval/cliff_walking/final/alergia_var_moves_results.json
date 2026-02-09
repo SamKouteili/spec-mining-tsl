@@ -1,0 +1,752 @@
+{
+  "method": "alergia",
+  "test_condition": "var_conf",
+  "var_moves": true,
+  "num_test_configs": 50,
+  "fixed": {
+    "4": {
+      "successes": 23,
+      "total": 50,
+      "success_rate": 0.46,
+      "num_states": 1,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.0008749961853027344
+    },
+    "8": {
+      "successes": 19,
+      "total": 50,
+      "success_rate": 0.38,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.002198934555053711
+    },
+    "12": {
+      "successes": 19,
+      "total": 50,
+      "success_rate": 0.38,
+      "num_states": 1,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.0036652088165283203
+    },
+    "16": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.004513978958129883
+    },
+    "20": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.0036089420318603516
+    },
+    "50": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.04599809646606445
+    },
+    "100": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.027945995330810547
+    },
+    "200": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 5,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.04758810997009277
+    },
+    "500": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 5,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.09629297256469727
+    },
+    "1000": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 5,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.17794084548950195
+    }
+  },
+  "var_conf": {
+    "4": {
+      "successes": 21,
+      "total": 50,
+      "success_rate": 0.42,
+      "num_states": 1,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.0012421607971191406
+    },
+    "8": {
+      "successes": 23,
+      "total": 50,
+      "success_rate": 0.46,
+      "num_states": 1,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.0021140575408935547
+    },
+    "12": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.006190776824951172
+    },
+    "16": {
+      "successes": 18,
+      "total": 50,
+      "success_rate": 0.36,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.005370140075683594
+    },
+    "20": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 4,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.004003047943115234
+    },
+    "50": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 4,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.013035058975219727
+    },
+    "100": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 3,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.016836166381835938
+    },
+    "200": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 5,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.030038118362426758
+    },
+    "500": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 5,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.13170623779296875
+    },
+    "1000": {
+      "successes": 0,
+      "total": 50,
+      "success_rate": 0.0,
+      "num_states": 5,
+      "unique_observations": [
+        "AHr",
+        "BYu",
+        "XHd"
+      ],
+      "train_time": 0.22823810577392578
+    }
+  },
+  "test_configs": [
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_conf_0"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 1,
+      "name": "var_conf_1"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 1,
+      "name": "var_conf_2"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 3,
+      "name": "var_conf_3"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 1,
+      "name": "var_conf_4"
+    },
+    {
+      "width": 12,
+      "height": 4,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 2,
+      "name": "var_conf_5"
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "goalX": 2,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 1,
+      "cliffHeight": 1,
+      "name": "var_conf_6"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_conf_7"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 3,
+      "name": "var_conf_8"
+    },
+    {
+      "width": 12,
+      "height": 4,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 1,
+      "name": "var_conf_9"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 1,
+      "name": "var_conf_10"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 2,
+      "name": "var_conf_11"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 2,
+      "name": "var_conf_12"
+    },
+    {
+      "width": 12,
+      "height": 4,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 2,
+      "name": "var_conf_13"
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "goalX": 2,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 1,
+      "cliffHeight": 1,
+      "name": "var_conf_14"
+    },
+    {
+      "width": 9,
+      "height": 4,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 2,
+      "name": "var_conf_15"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 1,
+      "name": "var_conf_16"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 2,
+      "name": "var_conf_17"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_conf_18"
+    },
+    {
+      "width": 9,
+      "height": 4,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 1,
+      "name": "var_conf_19"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 2,
+      "name": "var_conf_20"
+    },
+    {
+      "width": 12,
+      "height": 4,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 2,
+      "name": "var_conf_21"
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "goalX": 2,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 1,
+      "cliffHeight": 3,
+      "name": "var_conf_22"
+    },
+    {
+      "width": 10,
+      "height": 4,
+      "goalX": 9,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 8,
+      "cliffHeight": 3,
+      "name": "var_conf_23"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 2,
+      "name": "var_conf_24"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 3,
+      "name": "var_conf_25"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 3,
+      "name": "var_conf_26"
+    },
+    {
+      "width": 12,
+      "height": 4,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 2,
+      "name": "var_conf_27"
+    },
+    {
+      "width": 12,
+      "height": 4,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 1,
+      "name": "var_conf_28"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_conf_29"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 2,
+      "name": "var_conf_30"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_conf_31"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 2,
+      "name": "var_conf_32"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 2,
+      "name": "var_conf_33"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 1,
+      "name": "var_conf_34"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 2,
+      "name": "var_conf_35"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 3,
+      "name": "var_conf_36"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 3,
+      "name": "var_conf_37"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 3,
+      "name": "var_conf_38"
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 3,
+      "name": "var_conf_39"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 1,
+      "name": "var_conf_40"
+    },
+    {
+      "width": 10,
+      "height": 4,
+      "goalX": 9,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 8,
+      "cliffHeight": 2,
+      "name": "var_conf_41"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 3,
+      "name": "var_conf_42"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 1,
+      "name": "var_conf_43"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 1,
+      "name": "var_conf_44"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 1,
+      "name": "var_conf_45"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 2,
+      "name": "var_conf_46"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 1,
+      "name": "var_conf_47"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 3,
+      "name": "var_conf_48"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 1,
+      "name": "var_conf_49"
+    }
+  ]
+}

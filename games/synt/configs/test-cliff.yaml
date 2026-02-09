@@ -1,0 +1,28 @@
+debug: true
+name: cliff_walking
+run_configuration:
+- cliff_height: 3
+  cliff_max: 9
+  cliff_min: 1
+  goal_pos:
+    x: 10
+    y: 0
+  grid_rows: 4
+  grid_size: 11
+  name: config_25
+  objectives:
+    - objective: " (F ((eq x goalx) && (eq y goaly))) && (G ((eq x goaly) || ((eq y goaly) -> (eq x goalx))))"
+      timeout: 1000
+  start_pos:
+    x: 0
+    y: 0
+synthesis:
+  args:
+  - --tslmt
+  - --synt
+  - --pruning
+  - '1'
+  - --accel
+  - 'no'
+  command: issy
+  timeout_minutes: 60

@@ -1,5 +1,0 @@
-{"source": "ballpos1.jsonl:line_0_to_1", "input": 1, "output": 2}
-{"source": "ballpos1.jsonl:line_1_to_2", "input": 2, "output": 1}
-{"source": "ballpos1.jsonl:line_2_to_3", "input": 1, "output": 0}
-{"source": "ballpos1.jsonl:line_3_to_4", "input": 0, "output": -1}
-{"source": "ballpos1.jsonl:line_4_to_5", "input": -1, "output": -2}

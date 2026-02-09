@@ -1,0 +1,1 @@
+(F (! ((([count <- add count (add i1() i1())]) <-> ([count <- sub (add count count) (add i1() (add i1() i1()))])) U (stood)))) & (G ((ltC count standVsWeakMin) | (X ((eqC count standVsWeakMin) <-> ([count <- count])))))

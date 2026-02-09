@@ -1,0 +1,23 @@
+{
+  "time_0__count": [
+    {
+      "source": "neg_trace_6.jsonl:line_0_to_1",
+      "input": 13,
+      "output": 21
+    }
+  ],
+  "time_1__count": [
+    {
+      "source": "neg_trace_6.jsonl:line_1_to_2",
+      "input": 21,
+      "output": 17
+    }
+  ],
+  "time_2__count": [
+    {
+      "source": "neg_trace_6.jsonl:line_2_to_3",
+      "input": 17,
+      "output": 17
+    }
+  ]
+}

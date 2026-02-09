@@ -1,0 +1,18 @@
+{
+  "timestamp": "20260203_145833",
+  "results": [
+    {
+      "method": "bc",
+      "strategy": "basic",
+      "n": 2,
+      "win_rate": 0.0,
+      "strategy_adherence": 0.5,
+      "games_won": 0,
+      "games_tested_win": 2,
+      "games_followed": 1,
+      "games_tested_strategy": 2,
+      "train_time": 4.026597023010254,
+      "error": null
+    }
+  ]
+}

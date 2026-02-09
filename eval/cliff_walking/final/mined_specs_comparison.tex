@@ -1,0 +1,29 @@
+\begin{table*}[t]
+\centering
+\tiny
+\begin{tabular}{@{}l p{4.5cm} p{7cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Liveness} & \textbf{Safety} \\
+\midrule
+TSL$_f$
+& $\mathbf{F}\,((\texttt{eq}\,x\,\texttt{goalx}) \land\land (\texttt{eq}\,y\,\texttt{goaly}))$
+& $\mathbf{G}\,((\texttt{eq}\,x\,\texttt{goalx}) \lor\lor ((\texttt{lt}\,y\,\texttt{cliffHeight}) \to (\texttt{eq}\,x\,\texttt{goalx})))$ \\
+& & $\mathbf{G}\,((\texttt{eq}\,x\,\texttt{goaly}) \lor\lor ((\texttt{eq}\,y\,\texttt{goaly}) \to (\texttt{eq}\,x\,\texttt{goalx})))$ \\
+\midrule
+LTL-DK
+& $\mathbf{F}\,(\texttt{isGoal})$
+& $\mathbf{G}\,((\texttt{aboveCliff}) \lor (\texttt{outsideCliffBounds}))$ \\
+\midrule
+LTL-BB
+& $\mathbf{F}\,((\bot) \mathbin{\mathbf{R}} ((\texttt{x\_b0}) \land (\texttt{x\_b1})))$
+& $\mathbf{G}\,((\mathbf{X}\,\texttt{cliffHeight\_b1}) \to ((\texttt{x\_b0}) \land (\texttt{x\_b1})))$ \\
+& $\mathbf{F}\,((\bot) \mathbin{\mathbf{R}} ((\texttt{x\_b0}) \land (\texttt{x\_b3})))$
+& $\mathbf{G}\,((\mathbf{X}\,\texttt{cliffHeight\_b1}) \to ((\texttt{x\_b0}) \land (\texttt{x\_b3})))$ \\
+& $\mathbf{F}\,(\neg ((\mathbf{X}\,\texttt{x\_b3}) \to (\texttt{y\_b1})))$
+& $\mathbf{G}\,((\mathbf{X}\,\texttt{cliffHeight\_b2}) \to (\texttt{x\_b3}))$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\caption{Unique specifications found by mining baselines on \textsc{CliffWalking}.}
+\label{tab:mined-specs-cliff-comparison}
+\end{table*}

@@ -1,6 +1,0 @@
-Time Elapsed,Formula Size,Formula,is Terminated?
-0.013,15,(((X u0ball0f1dmove2left0ball1b) & (F (X (X (X p0p0leftmost0ball))))) | (X (X (X (X (X p0p0rightmost0ball))))))
-0.763,13,(((F p0p0rightmost0ball) & (X (X (X (X u0ball0f1dmove2right0ball1b))))) | (G (u0ball0f1dmove2right0ball1b | (X p0p0leftmost0ball))))
-0.836,11,(((F p0p0rightmost0ball) & (X (X (X (X u0ball0f1dmove2right0ball1b))))) | (G (p0p0rightmost0ball | u0ball0f1dmove2right0ball1b)))
-3.617,12,(X (X (X (X (G (u0ball0f1dmove2right0ball1b | (G (p0p0rightmost0ball | (G p0p0leftmost0ball)))))))))
-6.985,12,(X (X (X (X (G (u0ball0f1dmove2right0ball1b | (G (p0p0rightmost0ball | (G p0p0leftmost0ball))))))))),1

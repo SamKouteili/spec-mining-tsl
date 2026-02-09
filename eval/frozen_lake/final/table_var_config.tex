@@ -1,0 +1,25 @@
+\begin{table*}[h]
+\centering
+\caption{FrozenLake Win Counts (out of 50) - Test on var\_config (fixed 4$\times$4, variable positions)}
+\label{tab:frozen_lake_var_config}
+\begin{tabular}{lllcccccccccccc}
+\toprule
+\textbf{Method} & \textbf{Train} & \textbf{Test} & \textbf{4} & \textbf{8} & \textbf{12} & \textbf{16} & \textbf{20} & \textbf{50} & \textbf{100} & \textbf{500} & \textbf{1k} & \textbf{5k} & \textbf{10k} & \textbf{50k} \\
+\midrule
+\multirow{2}{*}{SpecMining(TSLf)}
+  & fixed & var\_config & 24 & 42 & 50 & 50 & 50 & - & - & - & - & - & - & - \\
+  & var & var\_config & 45 & 50 & 50 & 50 & 50 & - & - & - & - & - & - & - \\
+\midrule
+\multirow{2}{*}{BehavClon(NN)}
+  & fixed & var\_config & 13 & 9 & 11 & 13 & 16 & 12 & 6 & 3 & 4 & 3 & 1 & 2 \\
+  & var & var\_config & 21 & 28 & 17 & 18 & 27 & 25 & 19 & 33 & 32 & 35 & 40 & 41 \\
+\midrule
+\multirow{2}{*}{DecTree(wLR)}
+  & fixed & var\_config & 13 & 15 & 13 & 9 & 9 & 9 & 11 & 9 & 12 & 10 & 11 & 11 \\
+  & var & var\_config & 12 & 17 & 13 & 12 & 9 & 27 & 32 & 39 & 42 & 43 & 47 & 46 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+
+\footnotesize{Note: Columns = n\_train. For SpecMining: n pos + n neg traces. For BC/DT: n samples. ``-'' = no experiment.}
+\end{table*}

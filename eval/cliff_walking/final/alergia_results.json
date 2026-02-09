@@ -1,0 +1,651 @@
+{
+  "method": "alergia",
+  "test_condition": "var_size",
+  "num_test_configs": 50,
+  "fixed": {
+    "4": {
+      "successes": 19,
+      "total": 50,
+      "success_rate": 0.38,
+      "num_states": 2,
+      "train_time": 0.0018689632415771484
+    },
+    "8": {
+      "successes": 21,
+      "total": 50,
+      "success_rate": 0.42,
+      "num_states": 2,
+      "train_time": 0.0017349720001220703
+    },
+    "12": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 2,
+      "train_time": 0.0020570755004882812
+    },
+    "16": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 3,
+      "train_time": 0.003397226333618164
+    },
+    "20": {
+      "successes": 21,
+      "total": 50,
+      "success_rate": 0.42,
+      "num_states": 1,
+      "train_time": 0.003734111785888672
+    },
+    "50": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 2,
+      "train_time": 0.04475593566894531
+    },
+    "100": {
+      "successes": 18,
+      "total": 50,
+      "success_rate": 0.36,
+      "num_states": 2,
+      "train_time": 0.016518115997314453
+    },
+    "200": {
+      "successes": 19,
+      "total": 50,
+      "success_rate": 0.38,
+      "num_states": 4,
+      "train_time": 0.030296802520751953
+    },
+    "500": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 3,
+      "train_time": 0.07930803298950195
+    },
+    "1000": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 4,
+      "train_time": 0.1530759334564209
+    }
+  },
+  "var_size": {
+    "4": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 1,
+      "train_time": 0.0016722679138183594
+    },
+    "8": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 1,
+      "train_time": 0.0028307437896728516
+    },
+    "12": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 1,
+      "train_time": 0.002535104751586914
+    },
+    "16": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 1,
+      "train_time": 0.0021719932556152344
+    },
+    "20": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 2,
+      "train_time": 0.005649089813232422
+    },
+    "50": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 2,
+      "train_time": 0.00648188591003418
+    },
+    "100": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 3,
+      "train_time": 0.011967897415161133
+    },
+    "200": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 3,
+      "train_time": 0.07213115692138672
+    },
+    "500": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 6,
+      "train_time": 0.06161904335021973
+    },
+    "1000": {
+      "successes": 50,
+      "total": 50,
+      "success_rate": 1.0,
+      "num_states": 5,
+      "train_time": 0.12211012840270996
+    }
+  },
+  "test_configs": [
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 3,
+      "name": "var_size_0"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 1,
+      "name": "var_size_1"
+    },
+    {
+      "width": 5,
+      "height": 6,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 1,
+      "name": "var_size_2"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 3,
+      "name": "var_size_3"
+    },
+    {
+      "width": 9,
+      "height": 4,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 1,
+      "name": "var_size_4"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_size_5"
+    },
+    {
+      "width": 11,
+      "height": 6,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 1,
+      "name": "var_size_6"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 3,
+      "name": "var_size_7"
+    },
+    {
+      "width": 11,
+      "height": 5,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 1,
+      "name": "var_size_8"
+    },
+    {
+      "width": 10,
+      "height": 6,
+      "goalX": 9,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 8,
+      "cliffHeight": 2,
+      "name": "var_size_9"
+    },
+    {
+      "width": 3,
+      "height": 4,
+      "goalX": 2,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 1,
+      "cliffHeight": 3,
+      "name": "var_size_10"
+    },
+    {
+      "width": 9,
+      "height": 5,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 2,
+      "name": "var_size_11"
+    },
+    {
+      "width": 5,
+      "height": 4,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 2,
+      "name": "var_size_12"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 2,
+      "name": "var_size_13"
+    },
+    {
+      "width": 4,
+      "height": 5,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 2,
+      "name": "var_size_14"
+    },
+    {
+      "width": 12,
+      "height": 5,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 1,
+      "name": "var_size_15"
+    },
+    {
+      "width": 10,
+      "height": 6,
+      "goalX": 9,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 8,
+      "cliffHeight": 1,
+      "name": "var_size_16"
+    },
+    {
+      "width": 9,
+      "height": 4,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 3,
+      "name": "var_size_17"
+    },
+    {
+      "width": 7,
+      "height": 6,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 3,
+      "name": "var_size_18"
+    },
+    {
+      "width": 8,
+      "height": 6,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 1,
+      "name": "var_size_19"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 3,
+      "name": "var_size_20"
+    },
+    {
+      "width": 6,
+      "height": 5,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 1,
+      "name": "var_size_21"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 2,
+      "name": "var_size_22"
+    },
+    {
+      "width": 7,
+      "height": 5,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 3,
+      "name": "var_size_23"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 2,
+      "name": "var_size_24"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 3,
+      "name": "var_size_25"
+    },
+    {
+      "width": 7,
+      "height": 6,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 3,
+      "name": "var_size_26"
+    },
+    {
+      "width": 4,
+      "height": 6,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 3,
+      "name": "var_size_27"
+    },
+    {
+      "width": 5,
+      "height": 6,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 3,
+      "name": "var_size_28"
+    },
+    {
+      "width": 6,
+      "height": 4,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 2,
+      "name": "var_size_29"
+    },
+    {
+      "width": 9,
+      "height": 5,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 3,
+      "name": "var_size_30"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 3,
+      "name": "var_size_31"
+    },
+    {
+      "width": 8,
+      "height": 4,
+      "goalX": 7,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 6,
+      "cliffHeight": 1,
+      "name": "var_size_32"
+    },
+    {
+      "width": 3,
+      "height": 5,
+      "goalX": 2,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 1,
+      "cliffHeight": 2,
+      "name": "var_size_33"
+    },
+    {
+      "width": 7,
+      "height": 4,
+      "goalX": 6,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 5,
+      "cliffHeight": 1,
+      "name": "var_size_34"
+    },
+    {
+      "width": 12,
+      "height": 6,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 2,
+      "name": "var_size_35"
+    },
+    {
+      "width": 6,
+      "height": 6,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 2,
+      "name": "var_size_36"
+    },
+    {
+      "width": 9,
+      "height": 6,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 2,
+      "name": "var_size_37"
+    },
+    {
+      "width": 5,
+      "height": 5,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 1,
+      "name": "var_size_38"
+    },
+    {
+      "width": 6,
+      "height": 6,
+      "goalX": 5,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 4,
+      "cliffHeight": 3,
+      "name": "var_size_39"
+    },
+    {
+      "width": 11,
+      "height": 5,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 3,
+      "name": "var_size_40"
+    },
+    {
+      "width": 12,
+      "height": 5,
+      "goalX": 11,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 10,
+      "cliffHeight": 3,
+      "name": "var_size_41"
+    },
+    {
+      "width": 9,
+      "height": 5,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 1,
+      "name": "var_size_42"
+    },
+    {
+      "width": 5,
+      "height": 6,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 2,
+      "name": "var_size_43"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "goalX": 3,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 2,
+      "cliffHeight": 1,
+      "name": "var_size_44"
+    },
+    {
+      "width": 5,
+      "height": 6,
+      "goalX": 4,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 3,
+      "cliffHeight": 1,
+      "name": "var_size_45"
+    },
+    {
+      "width": 9,
+      "height": 6,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 1,
+      "name": "var_size_46"
+    },
+    {
+      "width": 9,
+      "height": 5,
+      "goalX": 8,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 7,
+      "cliffHeight": 3,
+      "name": "var_size_47"
+    },
+    {
+      "width": 10,
+      "height": 6,
+      "goalX": 9,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 8,
+      "cliffHeight": 2,
+      "name": "var_size_48"
+    },
+    {
+      "width": 11,
+      "height": 4,
+      "goalX": 10,
+      "goalY": 0,
+      "cliffXMin": 1,
+      "cliffXMax": 9,
+      "cliffHeight": 3,
+      "name": "var_size_49"
+    }
+  ]
+}

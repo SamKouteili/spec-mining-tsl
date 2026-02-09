@@ -1,0 +1,3 @@
+{"source": "neg_trace_1.jsonl:line_0_to_1", "input": 17, "output": 13}
+{"source": "neg_trace_1.jsonl:line_1_to_2", "input": 13, "output": 16}
+{"source": "neg_trace_1.jsonl:line_2_to_3", "input": 16, "output": 26}

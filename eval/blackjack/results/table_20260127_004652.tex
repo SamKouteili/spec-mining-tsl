@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Blackjack Evaluation Results: Strategy Adherence (Win Rate)}
+\begin{tabular}{llccc}
+\toprule
+Method & Strategy & n=8 & n=12 & n=16 \\
+\midrule
+TSLF & Threshold & 100%(46%) & 100%(46%) & 100%(46%) \\
+ & Conservative & 80%(46%) & 100%(54%) & 100%(54%) \\
+ & Basic & 87%(46%) & 100%(54%) & 100%(54%) \\
+\midrule
+ALERGIA & Threshold & ERR & ERR & ERR \\
+ & Conservative & ERR & ERR & ERR \\
+ & Basic & ERR & ERR & ERR \\
+\midrule
+BC & Threshold & 100%(46%) & 100%(46%) & 100%(46%) \\
+ & Conservative & 80%(46%) & 97%(54%) & 100%(54%) \\
+ & Basic & 100%(54%) & 100%(54%) & 100%(54%) \\
+\midrule
+DT & Threshold & 100%(46%) & 100%(46%) & 100%(46%) \\
+ & Conservative & 80%(46%) & 47%(50%) & 100%(54%) \\
+ & Basic & 87%(46%) & 93%(50%) & 100%(54%) \\
+\bottomrule
+\end{tabular}
+\label{tab:blackjack_eval}
+\end{table}

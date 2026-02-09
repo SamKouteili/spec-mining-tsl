@@ -1,0 +1,44 @@
+  \begin{table}[t]
+  \scriptsize
+  \centering
+  \begin{tabular}{lllccccccccc}
+  \toprule
+  \textbf{Method} & \textbf{Train} & \textbf{Test} & \textbf{4} & \textbf{8} & \textbf{12} & \textbf{16} & \textbf{20} & \textbf{50} & \textbf{100} & \textbf{500} &
+  \textbf{1000} \\
+  \midrule
+  \multirow{4}{*}{\textbf{SpecMining(TSL$_f$)}}
+    & fixed & var\_conf & 24 & 42 & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+    & var\_conf & var\_conf & 45 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+    & fixed & var\_size & 24 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+    & var\_size & var\_size & 42 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+  \midrule
+  \multirow{4}{*}{SpecMining(LTL-DK)}
+    & fixed & var\_conf & 24 & 42 & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+    & var\_conf & var\_conf & 45 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+    & fixed & var\_size & 24 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+    & var\_size & var\_size & 42 & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - \\
+  \midrule
+  \multirow{4}{*}{Alergia(SMM)}
+    & fixed & var\_conf & 24 & 23 & 21 & 22 & 21 & 22 & 24 & 24 & 21 \\
+    & var\_conf & var\_conf & 20 & 22 & 14 & 25 & 29 & 26 & 33 & 34 & 42 \\
+    & fixed & var\_size & 25 & 26 & 29 & 26 & 25 & 26 & 25 & 26 & 23 \\
+    & var\_size & var\_size & 26 & 33 & 35 & 34 & 31 & 39 & 36 & 40 & 42 \\
+  \midrule
+  \multirow{4}{*}{BehavClon(NN)}
+    & fixed & var\_conf & 13 & 9 & 11 & 13 & 16 & 12 & 6 & 3 & 4 \\
+    & var\_conf & var\_conf & 21 & 28 & 17 & 18 & 27 & 25 & 19 & 33 & 32 \\
+    & fixed & var\_size & 17 & 8 & 10 & 6 & 8 & 5 & 8 & 4 & 5 \\
+    & var\_size & var\_size & 18 & 23 & 23 & 24 & 27 & 22 & 24 & 32 & 32 \\
+  \midrule
+  \multirow{4}{*}{DecTree(CART)}
+    & fixed & var\_conf & 13 & 15 & 13 & 9 & 9 & 9 & 11 & 9 & 12 \\
+    & var\_conf & var\_conf & 12 & 17 & 13 & 12 & 9 & 27 & 33 & 39 & 42 \\
+    & fixed & var\_size & 14 & 14 & 14 & 11 & 11 & 11 & 8 & 8 & 9 \\
+    & var\_size & var\_size & 6 & 22 & 26 & 21 & 22 & 20 & 34 & 39 & 41 \\
+  \bottomrule
+  \end{tabular}
+  \vspace{0.5em}
+  \caption{\textsc{FrozenLake} win rates (out of 50 test instances). \texttt{var\_conf}: fixed $4 \times 4$ board with varied hole/goal positions. \texttt{var\_size}: $3 \times
+  3$ to $5 \times 5$ boards with varied positions. Columns show number of training samples.}
+  \label{tab:frozen_lake_combined}
+  \end{table}

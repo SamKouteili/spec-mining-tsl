@@ -1,0 +1,42 @@
+# Taxi Pipeline Configuration
+#
+# Taxi navigates a grid to pick up a passenger and deliver to destination.
+# The grid has 4 colored cells (red, green, blue, yellow) that serve as
+# potential pickup/dropoff locations. The taxi must avoid entering colored
+# cells that are not the designated pickup or dropoff location.
+
+name: taxi
+
+synthesis:
+  command: issy
+  args:
+    - "--tslmt"
+    - "--synt"
+    - "--pruning"
+    - "1"
+  timeout_minutes: 20  # Skip configuration if synthesis takes longer than 10 minutes
+
+debug: true
+
+run_configuration:
+  - name: "5x5 yellow to red"
+    grid_size: 5
+    start_pos: {x: 2, y: 2}
+    # Define colored cell positions (potential pickup/dropoff locations)
+    colored_cells:
+      red: {x: 0, y: 0}
+      green: {x: 4, y: 4}
+      blue: {x: 4, y: 0}
+      yellow: {x: 0, y: 4}
+    # Specify which colors are pickup and dropoff
+    pickup_color: yellow
+    dropoff_color: red
+    barriers:
+      - {x: 3, y: 1}
+      - {x: 3, y: 2}
+    objectives:
+      # Objective: deliver passenger to destination
+      - objective: "( F (eq x DEST_X && eq y DEST_Y && passengerInTaxi) && G (blue <-> green))"
+        timeout: 1000
+      - objective: "( F (eq x DEST_X && eq y DEST_Y && passengerInTaxi) && G (passengerInTaxi -> (blue <-> green)))"
+        timeout: 1000

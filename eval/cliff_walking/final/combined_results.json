@@ -1,0 +1,1457 @@
+{
+  "game": "cliff_walking",
+  "timestamp": "20260123_190242",
+  "n_values": [
+    4,
+    8,
+    12,
+    16,
+    20,
+    50,
+    100,
+    200,
+    500,
+    1000
+  ],
+  "num_test_configs": 30,
+  "fixed": {
+    "game": "cliff_walking",
+    "train_mode": "var_moves",
+    "timestamp": "20260123_190242",
+    "results": [
+      {
+        "method": "bc",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.1,
+        "avg_steps": null,
+        "train_time": 1.1092171669006348,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.001317739486694336,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 5,
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 6.0,
+        "train_time": 8.203369855880737,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.1,
+        "avg_steps": null,
+        "train_time": 0.7913680076599121,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.0019371509552001953,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 5,
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 6.0,
+        "train_time": 6.54571795463562,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 1.1298930644989014,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.001992940902709961,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 5,
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 6.0,
+        "train_time": 7.686023950576782,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.13333333333333333,
+        "avg_steps": null,
+        "train_time": 1.501896858215332,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.002128124237060547,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 5,
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 6.0,
+        "train_time": 8.503817796707153,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.13333333333333333,
+        "avg_steps": null,
+        "train_time": 1.7873809337615967,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.0024619102478027344,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 5,
+        "success_rate": 0.3333333333333333,
+        "avg_steps": 6.0,
+        "train_time": 8.484657049179077,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.13333333333333333,
+        "avg_steps": null,
+        "train_time": 4.544439077377319,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.004648923873901367,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.13333333333333333,
+        "avg_steps": null,
+        "train_time": 9.376766920089722,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.007982015609741211,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.16666666666666666,
+        "avg_steps": null,
+        "train_time": 19.06420874595642,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.015174150466918945,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.16666666666666666,
+        "avg_steps": null,
+        "train_time": 48.71286106109619,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.03649592399597168,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.13333333333333333,
+        "avg_steps": null,
+        "train_time": 101.05125403404236,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.03333333333333333,
+        "avg_steps": null,
+        "train_time": 0.1507418155670166,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      }
+    ],
+    "test_configs_var_config": [
+      {
+        "name": "config_1",
+        "width": 4,
+        "height": 4,
+        "goalX": 3,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 2,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 4,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 2,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_2",
+        "width": 4,
+        "height": 4,
+        "goalX": 3,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 2,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 4,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 2,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_3",
+        "width": 4,
+        "height": 4,
+        "goalX": 3,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 2,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 4,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 2,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_4",
+        "width": 6,
+        "height": 4,
+        "goalX": 5,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 4,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 6,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 4,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_5",
+        "width": 6,
+        "height": 4,
+        "goalX": 5,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 4,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 6,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 4,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_6",
+        "width": 6,
+        "height": 4,
+        "goalX": 5,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 4,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 6,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 4,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_7",
+        "width": 8,
+        "height": 4,
+        "goalX": 7,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 6,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 8,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 6,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_8",
+        "width": 8,
+        "height": 4,
+        "goalX": 7,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 6,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 8,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 6,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_9",
+        "width": 8,
+        "height": 4,
+        "goalX": 7,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 6,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 8,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 6,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_10",
+        "width": 10,
+        "height": 4,
+        "goalX": 9,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 8,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 10,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 8,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_11",
+        "width": 10,
+        "height": 4,
+        "goalX": 9,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 8,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 10,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 8,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_12",
+        "width": 10,
+        "height": 4,
+        "goalX": 9,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 8,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 10,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 8,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_13",
+        "width": 12,
+        "height": 4,
+        "goalX": 11,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 10,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 12,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 10,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 11,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_14",
+        "width": 12,
+        "height": 4,
+        "goalX": 11,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 10,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 12,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 10,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 11,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_15",
+        "width": 12,
+        "height": 4,
+        "goalX": 11,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 10,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 12,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 10,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 11,
+          "y": 0
+        }
+      }
+    ],
+    "test_configs_var_size": []
+  },
+  "var_config": {
+    "game": "cliff_walking",
+    "train_mode": "var_config_moves",
+    "timestamp": "20260123_190642",
+    "results": [
+      {
+        "method": "bc",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.4,
+        "avg_steps": null,
+        "train_time": 0.29,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.4,
+        "avg_steps": null,
+        "train_time": 0.001,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 15,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 15.293784856796265,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.467,
+        "avg_steps": null,
+        "train_time": 0.46,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.5329999999999999,
+        "avg_steps": null,
+        "train_time": 0.001,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 15,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 9.564900159835815,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.867,
+        "avg_steps": null,
+        "train_time": 0.71,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.8,
+        "avg_steps": null,
+        "train_time": 0.001,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 15,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 9.654536008834839,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.9329999999999999,
+        "avg_steps": null,
+        "train_time": 0.71,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 1.0,
+        "avg_steps": null,
+        "train_time": 0.002,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 15,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 11.275820255279541,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 1.0,
+        "avg_steps": null,
+        "train_time": 0.85,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_20/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 1.0,
+        "avg_steps": null,
+        "train_time": 0.002,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_20/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 15,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 10.0,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 15
+      },
+      {
+        "method": "bc",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.867,
+        "avg_steps": null,
+        "train_time": 2.5,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_50/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.9329999999999999,
+        "avg_steps": null,
+        "train_time": 0.003,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_50/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.9329999999999999,
+        "avg_steps": null,
+        "train_time": 6.51,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.733,
+        "avg_steps": null,
+        "train_time": 0.007,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.9329999999999999,
+        "avg_steps": null,
+        "train_time": 13.5,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_200/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.733,
+        "avg_steps": null,
+        "train_time": 0.014,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_200/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.467,
+        "avg_steps": null,
+        "train_time": 35.0,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_500/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.467,
+        "avg_steps": null,
+        "train_time": 0.035,
+        "test_time": null,
+        "error": "No traces found in /Users/samkouteili/rose/tsl-f/spec-mining-tsl/eval/cliff_walking/full_eval/var_moves/var_config_moves/n_500/pos/",
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.33299999999999996,
+        "avg_steps": null,
+        "train_time": 87.4,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 15,
+        "num_successes": 0,
+        "success_rate": 0.4,
+        "avg_steps": null,
+        "train_time": 0.069,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      }
+    ],
+    "test_configs_var_config": [
+      {
+        "name": "config_1",
+        "width": 4,
+        "height": 4,
+        "goalX": 3,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 2,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 4,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 2,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_2",
+        "width": 4,
+        "height": 4,
+        "goalX": 3,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 2,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 4,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 2,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_3",
+        "width": 4,
+        "height": 4,
+        "goalX": 3,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 2,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 4,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 2,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_4",
+        "width": 6,
+        "height": 4,
+        "goalX": 5,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 4,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 6,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 4,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_5",
+        "width": 6,
+        "height": 4,
+        "goalX": 5,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 4,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 6,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 4,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_6",
+        "width": 6,
+        "height": 4,
+        "goalX": 5,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 4,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 6,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 4,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_7",
+        "width": 8,
+        "height": 4,
+        "goalX": 7,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 6,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 8,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 6,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_8",
+        "width": 8,
+        "height": 4,
+        "goalX": 7,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 6,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 8,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 6,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_9",
+        "width": 8,
+        "height": 4,
+        "goalX": 7,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 6,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 8,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 6,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_10",
+        "width": 10,
+        "height": 4,
+        "goalX": 9,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 8,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 10,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 8,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_11",
+        "width": 10,
+        "height": 4,
+        "goalX": 9,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 8,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 10,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 8,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_12",
+        "width": 10,
+        "height": 4,
+        "goalX": 9,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 8,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 10,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 8,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_13",
+        "width": 12,
+        "height": 4,
+        "goalX": 11,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 10,
+        "cliffHeight": 1,
+        "var_moves": true,
+        "grid_size": 12,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 10,
+        "cliff_height": 1,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 11,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_14",
+        "width": 12,
+        "height": 4,
+        "goalX": 11,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 10,
+        "cliffHeight": 2,
+        "var_moves": true,
+        "grid_size": 12,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 10,
+        "cliff_height": 2,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 11,
+          "y": 0
+        }
+      },
+      {
+        "name": "config_15",
+        "width": 12,
+        "height": 4,
+        "goalX": 11,
+        "goalY": 0,
+        "cliffXMin": 1,
+        "cliffXMax": 10,
+        "cliffHeight": 3,
+        "var_moves": true,
+        "grid_size": 12,
+        "grid_rows": 4,
+        "cliff_min": 1,
+        "cliff_max": 10,
+        "cliff_height": 3,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 11,
+          "y": 0
+        }
+      }
+    ],
+    "test_configs_var_size": []
+  }
+}

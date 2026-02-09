@@ -1,0 +1,7 @@
+{"source": "neg_trace_2.jsonl:line_0_to_1", "input": 0, "output": 1}
+{"source": "neg_trace_2.jsonl:line_1_to_2", "input": 1, "output": 2}
+{"source": "neg_trace_2.jsonl:line_2_to_3", "input": 2, "output": 2}
+{"source": "neg_trace_2.jsonl:line_3_to_4", "input": 2, "output": 2}
+{"source": "neg_trace_2.jsonl:line_4_to_5", "input": 2, "output": 2}
+{"source": "neg_trace_2.jsonl:line_5_to_6", "input": 2, "output": 2}
+{"source": "neg_trace_2.jsonl:line_6_to_7", "input": 2, "output": 1}

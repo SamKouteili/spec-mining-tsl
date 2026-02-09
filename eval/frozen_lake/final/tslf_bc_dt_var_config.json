@@ -1,0 +1,3590 @@
+{
+  "game": "frozen_lake",
+  "timestamp": "20260122_010849",
+  "n_values": [
+    2,
+    4,
+    8,
+    12,
+    16,
+    20,
+    50,
+    100,
+    200,
+    500,
+    1000
+  ],
+  "num_test_configs": 50,
+  "fixed": {
+    "game": "frozen_lake",
+    "train_mode": "fixed",
+    "timestamp": "20260122_010849",
+    "results": [
+      {
+        "method": "bc",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 12,
+        "success_rate": 0.24,
+        "avg_steps": 2.6666666666666665,
+        "train_time": 0.9559831619262695,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.0017390251159667969,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 35,
+        "success_rate": 0.7,
+        "avg_steps": 4.294117647058823,
+        "train_time": 2.42525315284729,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 35,
+        "success_rate": 0.7,
+        "avg_steps": 4.294117647058823,
+        "train_time": 2.42525315284729,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 3.4615384615384617,
+        "train_time": 0.25665807723999023,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.02506089210510254,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 24,
+        "success_rate": 0.48,
+        "avg_steps": 4.5625,
+        "train_time": 3.5113320350646973,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 35,
+        "success_rate": 0.7,
+        "avg_steps": 4.5625,
+        "train_time": 3.5113320350646973,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 9,
+        "success_rate": 0.18,
+        "avg_steps": 2.0,
+        "train_time": 0.7629880905151367,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 15,
+        "success_rate": 0.3,
+        "avg_steps": 2.533333333333333,
+        "train_time": 0.0018548965454101562,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 42,
+        "success_rate": 0.84,
+        "avg_steps": 6.0,
+        "train_time": 2.8647732734680176,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 42,
+        "success_rate": 0.84,
+        "avg_steps": 6.0,
+        "train_time": 2.8647732734680176,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 11,
+        "success_rate": 0.22,
+        "avg_steps": 2.6363636363636362,
+        "train_time": 1.3741528987884521,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.002418994903564453,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 3.5438547134399414,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 3.5438547134399414,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 2.64945912361145,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 9,
+        "success_rate": 0.18,
+        "avg_steps": 2.111111111111111,
+        "train_time": 0.002933979034423828,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 4.399411916732788,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 4.399411916732788,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 16,
+        "success_rate": 0.32,
+        "avg_steps": 2.75,
+        "train_time": 2.144317150115967,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 9,
+        "success_rate": 0.18,
+        "avg_steps": 2.111111111111111,
+        "train_time": 0.0032567977905273438,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 6.5722692012786865,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 6.5722692012786865,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 12,
+        "success_rate": 0.24,
+        "avg_steps": 2.5,
+        "train_time": 4.821684837341309,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 9,
+        "success_rate": 0.18,
+        "avg_steps": 2.111111111111111,
+        "train_time": 0.0062029361724853516,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 14,
+        "success_rate": 0.28,
+        "avg_steps": 2.5714285714285716,
+        "train_time": 8.028831005096436,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.011158943176269531,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 5,
+        "success_rate": 0.1,
+        "avg_steps": 3.6,
+        "train_time": 17.003000020980835,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.01966118812561035,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.076923076923077,
+        "train_time": 47.65557599067688,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 15,
+        "success_rate": 0.3,
+        "avg_steps": 2.533333333333333,
+        "train_time": 0.050356149673461914,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 12,
+        "success_rate": 0.24,
+        "avg_steps": 2.4166666666666665,
+        "train_time": 94.23880290985107,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.19796991348266602,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      }
+    ],
+    "test_configs_var_config": [
+      {
+        "name": "config_1",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_2",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_3",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_4",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_5",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_6",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_7",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_8",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_9",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_10",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_11",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_12",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_13",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_14",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_15",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_16",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_17",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_18",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_19",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_20",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_21",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_22",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_23",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_24",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_25",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_26",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_27",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_28",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_29",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_30",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_31",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_32",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_33",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_34",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_35",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_36",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_37",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_38",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_39",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_40",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_41",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_42",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_43",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_44",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_45",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_46",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_47",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_48",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_49",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_50",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      }
+    ],
+    "test_configs_var_size": []
+  },
+  "var_config": {
+    "game": "frozen_lake",
+    "train_mode": "var_config",
+    "timestamp": "20260122_062027",
+    "results": [
+      {
+        "method": "bc",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.3846153846153846,
+        "train_time": 0.18565821647644043,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 11,
+        "success_rate": 0.22,
+        "avg_steps": 2.272727272727273,
+        "train_time": 0.002187013626098633,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 45,
+        "success_rate": 0.9,
+        "avg_steps": 4.333333333333333,
+        "train_time": 5.187376976013184,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 2,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 45,
+        "success_rate": 0.9,
+        "avg_steps": 4.333333333333333,
+        "train_time": 5.187376976013184,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 21,
+        "success_rate": 0.42,
+        "avg_steps": 2.619047619047619,
+        "train_time": 0.20122337341308594,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 12,
+        "success_rate": 0.24,
+        "avg_steps": 2.5833333333333335,
+        "train_time": 0.0019910335540771484,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 45,
+        "success_rate": 0.9,
+        "avg_steps": 4.416666666666667,
+        "train_time": 2.665125846862793,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 4,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 45,
+        "success_rate": 0.9,
+        "avg_steps": 4.416666666666667,
+        "train_time": 2.665125846862793,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 28,
+        "success_rate": 0.56,
+        "avg_steps": 3.25,
+        "train_time": 0.3074300289154053,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 17,
+        "success_rate": 0.34,
+        "avg_steps": 2.3529411764705883,
+        "train_time": 0.0018050670623779297,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 1.5904169082641602,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 8,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 1.5904169082641602,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 17,
+        "success_rate": 0.34,
+        "avg_steps": 2.4705882352941178,
+        "train_time": 0.7651360034942627,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 13,
+        "success_rate": 0.26,
+        "avg_steps": 2.1538461538461537,
+        "train_time": 0.0019402503967285156,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 2.457119941711426,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 12,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 2.457119941711426,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 18,
+        "success_rate": 0.36,
+        "avg_steps": 2.3333333333333335,
+        "train_time": 0.6225919723510742,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 12,
+        "success_rate": 0.24,
+        "avg_steps": 1.9166666666666667,
+        "train_time": 0.0041637420654296875,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 3.1011500358581543,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 16,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 3.1011500358581543,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 27,
+        "success_rate": 0.54,
+        "avg_steps": 2.7037037037037037,
+        "train_time": 0.5251138210296631,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 9,
+        "success_rate": 0.18,
+        "avg_steps": 1.5555555555555556,
+        "train_time": 0.002721071243286133,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "tslf",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 3.471055030822754,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "ltl",
+        "n_train": 20,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 50,
+        "success_rate": 1.0,
+        "avg_steps": 6.0,
+        "train_time": 3.471055030822754,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": 50
+      },
+      {
+        "method": "bc",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 25,
+        "success_rate": 0.5,
+        "avg_steps": 2.72,
+        "train_time": 1.3103759288787842,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 50,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 27,
+        "success_rate": 0.54,
+        "avg_steps": 2.888888888888889,
+        "train_time": 0.004347801208496094,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 24,
+        "success_rate": 0.48,
+        "avg_steps": 2.9166666666666665,
+        "train_time": 1.9695067405700684,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 100,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 25,
+        "success_rate": 0.5,
+        "avg_steps": 2.88,
+        "train_time": 0.006292104721069336,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 31,
+        "success_rate": 0.62,
+        "avg_steps": 2.903225806451613,
+        "train_time": 4.984602928161621,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 200,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 18,
+        "success_rate": 0.36,
+        "avg_steps": 2.388888888888889,
+        "train_time": 0.011329174041748047,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 32,
+        "success_rate": 0.64,
+        "avg_steps": 3.125,
+        "train_time": 11.25123405456543,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 500,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 27,
+        "success_rate": 0.54,
+        "avg_steps": 3.111111111111111,
+        "train_time": 0.13817501068115234,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "bc",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 32,
+        "success_rate": 0.64,
+        "avg_steps": 2.90625,
+        "train_time": 22.24812126159668,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      },
+      {
+        "method": "dt",
+        "n_train": 1000,
+        "test_condition": "var_config",
+        "num_test_configs": 50,
+        "num_successes": 29,
+        "success_rate": 0.58,
+        "avg_steps": 2.9310344827586206,
+        "train_time": 0.05381298065185547,
+        "test_time": null,
+        "error": null,
+        "num_timeouts": 0,
+        "effective_total": null
+      }
+    ],
+    "test_configs_var_config": [
+      {
+        "name": "config_1",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_2",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_3",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_4",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_5",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_6",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_7",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_8",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_9",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_10",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_11",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_12",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_13",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_14",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_15",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_16",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_17",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_18",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_19",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_20",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_21",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_22",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_23",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_24",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_25",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_26",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_27",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_28",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_29",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_30",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_31",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_32",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 1,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_33",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_34",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_35",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_36",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_37",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_38",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_39",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 2,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "name": "config_40",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_41",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_42",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_43",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 2,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_44",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 2
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 1,
+            "y": 1
+          }
+        ]
+      },
+      {
+        "name": "config_45",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 2,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_46",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 0
+        },
+        "holes": [
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 3,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_47",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 2,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 3,
+            "y": 1
+          },
+          {
+            "x": 3,
+            "y": 0
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_48",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 3,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 0,
+            "y": 3
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "name": "config_49",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 1,
+          "y": 3
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "name": "config_50",
+        "grid_size": 4,
+        "start_pos": {
+          "x": 0,
+          "y": 0
+        },
+        "goal": {
+          "x": 0,
+          "y": 1
+        },
+        "holes": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 3,
+            "y": 3
+          }
+        ]
+      }
+    ],
+    "test_configs_var_size": []
+  }
+}

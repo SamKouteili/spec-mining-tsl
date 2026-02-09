@@ -1,0 +1,71 @@
+# Ice Lake Pipeline Configuration
+#
+# Robot navigates a frozen lake grid, avoiding holes to reach the goal.
+
+name: ice_lake
+
+# Variable updates: raw TSL expressions for potential variable updates
+# Paste the expressions directly from updates.tsl (replacing playerX/playerY with x/y)
+# Default if not specified: "[x <- x] || [x <- add x i1()] || [x <- sub x i1()]"
+variable_updates:
+  x: "[x <- x] || [x <- add x i1()] || [x <- sub x i1()]"
+  y: "[y <- y] || [y <- add y i1()] || [y <- sub y i1()]"
+
+synthesis:
+  command: issy
+  args:
+    - "--tslmt"
+    - "--synt"
+    - "--pruning"
+    - "1"
+  timeout_minutes: 10  # Skip configuration if synthesis takes longer than 10 minutes
+
+debug: true
+
+run_configuration:
+  - name: "4x4 single hole"
+    grid_size: 4
+    start_pos: {x: 0, y: 0}
+    goal: {x: 3, y: 3}
+    holes:
+      - {x: 1, y: 1}
+      - {x: 3, y: 2}
+      - {x: 1, y: 3}
+    objectives:
+      # Objective 1: Reach goal while avoiding holes
+      - objective: "F ((eq x goalx) && (eq y goaly)) && G (X ((eq x hole0x && eq y hole0y) <-> (eq x hole1x && eq y hole1y) || (eq x hole2x && eq y hole2y)))"
+        timeout: 1000
+
+  #     # Objective 2: Just reach goal (relaxed - no hole avoidance in objective)
+  #     - objective: "F atGoal"
+  #       timeout: 1000
+
+  # - name: "4x4 single hole"
+  #   grid_size: 4
+  #   start_pos: {x: 0, y: 0}
+  #   goal: {x: 3, y: 3}
+  #   holes:
+  #     - {x: 2, y: 2}
+  #   objectives:
+  #     - objective: "F ((eq x goalx) && (eq y goaly)) && G (X ((eq x hole0x && eq y hole0y) <-> (eq x hole1x && eq y hole1y) || (eq x hole2x && eq y hole2y)))"
+  #       timeout: 1000
+
+  # - name: "4x4 single hole"
+  #   grid_size: 4
+  #   start_pos: {x: 0, y: 0}
+  #   goal: {x: 3, y: 3}
+  #   holes:
+  #     - {x: 3, y: 2}
+  #   objectives:
+  #     - objective: "F atGoal"
+  #       timeout: 1000
+
+  # - name: "4x4 single hole"
+  #   grid_size: 4
+  #   start_pos: {x: 0, y: 0}
+  #   goal: {x: 3, y: 3}
+  #   holes:
+  #     - {x: 2, y: 1}
+  #   objectives:
+  #     - objective: "F atGoal"
+  #       timeout: 1000

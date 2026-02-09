@@ -1,0 +1,35 @@
+% Comparison of Mined Specifications: TSLf vs LTL-DK vs LTL-BB
+% FrozenLake environment
+
+\begin{table*}[t]
+\centering
+\caption{Unique specifications mined by each method on \textsc{FrozenLake}.}
+\label{tab:mined-specs-comparison}
+\small
+\begin{tabular}{@{}l p{6cm} p{8cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Liveness} & \textbf{Safety} \\
+\midrule
+TSL$_f$
+& $\mathbf{F}\,((\texttt{eq}\,x\,\texttt{goalx}) \land (\texttt{eq}\,y\,\texttt{goaly}))$
+& $\mathbf{G}\,(((\texttt{eq}\,x\,\texttt{hole0x}) \land (\texttt{eq}\,y\,\texttt{hole0y})) \leftrightarrow (((\texttt{eq}\,x\,\texttt{hole1x}) \land (\texttt{eq}\,y\,\texttt{hole1y})) \lor ((\texttt{eq}\,x\,\texttt{hole2x}) \land (\texttt{eq}\,y\,\texttt{hole2y}))))$ \\
+& & $\mathbf{G}\,(((\texttt{eq}\,x\,\texttt{hole1x}) \land (\texttt{eq}\,y\,\texttt{hole1y})) \leftrightarrow (((\texttt{eq}\,x\,\texttt{hole0x}) \land (\texttt{eq}\,y\,\texttt{hole0y})) \lor ((\texttt{eq}\,x\,\texttt{hole2x}) \land (\texttt{eq}\,y\,\texttt{hole2y}))))$ \\
+& & $\mathbf{G}\,(((\texttt{eq}\,x\,\texttt{hole2x}) \land (\texttt{eq}\,y\,\texttt{hole2y})) \leftrightarrow (((\texttt{eq}\,x\,\texttt{hole0x}) \land (\texttt{eq}\,y\,\texttt{hole0y})) \lor ((\texttt{eq}\,x\,\texttt{hole1x}) \land (\texttt{eq}\,y\,\texttt{hole1y}))))$ \\
+\midrule
+LTL-DK
+& $\mathbf{F}\,(\texttt{isGoal})$
+& $\mathbf{G}\,(\lnot\,\texttt{isHole0})$ \\
+& & $\mathbf{G}\,((\mathbf{X}\,\texttt{isHole0}) \to \texttt{isGoal})$ \\
+\midrule
+LTL-BB
+& $\mathbf{F}\,(\texttt{playerX\_b1})$
+& $\mathbf{G}\,((\mathbf{X}\,\texttt{goalX\_b2}) \to (\texttt{playerX\_b1}))$ \\
+& $\mathbf{F}\,((\texttt{playerY\_b0}) \land (\mathbf{X}\,\texttt{playerX\_b1}))$
+& $\mathbf{G}\,((\texttt{playerY\_b0}) \to ((\texttt{playerY\_b1}) \leftrightarrow (\mathbf{X}\,\texttt{playerY\_b0})))$ \\
+& $\mathbf{F}\,(\bot\,\mathbf{R}\,((\texttt{playerY\_b0}) \land (\texttt{playerY\_b1})))$
+& $\mathbf{G}\,((\mathbf{X}\,\texttt{goalX\_b2}) \to ((\texttt{playerY\_b0}) \land (\texttt{playerY\_b1})))$ \\
+& $\mathbf{F}\,((\texttt{goalY\_b0}) \leftrightarrow (\texttt{hole1Y\_b1}))$
+& $\mathbf{G}\,((\texttt{goalY\_b0}) \leftrightarrow (\texttt{hole1Y\_b1}))$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

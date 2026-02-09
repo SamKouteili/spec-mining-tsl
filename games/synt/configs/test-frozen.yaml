@@ -1,0 +1,31 @@
+debug: true
+name: ice_lake
+run_configuration:
+- goal:
+    x: 1
+    y: 2
+  grid_size: 4
+  holes:
+  - x: 3
+    y: 0
+  - x: 2
+    y: 2
+  - x: 2
+    y: 0
+  name: config_3
+  objectives:
+  - objective: "(F (((eq x goalx) && (eq y goaly)))) && (G (((((eq x hole0x) && (eq y hole0y))) || (((eq x hole2x) && (eq y hole2y)))) -> (((eq x goalx) && (eq y goaly)))))"
+    timeout: 1000
+  start_pos:
+    x: 0
+    y: 0
+synthesis:
+  args:
+  - --tslmt
+  - --synt
+  - --pruning
+  - '1'
+  - --accel
+  - "no"
+  command: issy
+  timeout_minutes: 30

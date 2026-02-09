@@ -1,0 +1,12 @@
+{"source": "neg_trace_8.jsonl:line_0_to_1", "input": 0, "output": 0}
+{"source": "neg_trace_8.jsonl:line_1_to_2", "input": 1, "output": 0}
+{"source": "neg_trace_8.jsonl:line_2_to_3", "input": 2, "output": 1}
+{"source": "neg_trace_8.jsonl:line_3_to_4", "input": 2, "output": 2}
+{"source": "neg_trace_8.jsonl:line_4_to_5", "input": 2, "output": 3}
+{"source": "neg_trace_8.jsonl:line_5_to_6", "input": 2, "output": 4}
+{"source": "neg_trace_8.jsonl:line_6_to_7", "input": 2, "output": 5}
+{"source": "neg_trace_8.jsonl:line_7_to_8", "input": 2, "output": 6}
+{"source": "neg_trace_8.jsonl:line_8_to_9", "input": 2, "output": 7}
+{"source": "neg_trace_8.jsonl:line_9_to_10", "input": 2, "output": 8}
+{"source": "neg_trace_8.jsonl:line_10_to_11", "input": 2, "output": 9}
+{"source": "neg_trace_8.jsonl:line_11_to_12", "input": 2, "output": 9}

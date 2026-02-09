@@ -1,0 +1,3 @@
+{"source": "pos_trace_5.jsonl:line_0_to_1", "input": 10, "output": 13}
+{"source": "pos_trace_5.jsonl:line_1_to_2", "input": 13, "output": 15}
+{"source": "pos_trace_5.jsonl:line_2_to_3", "input": 15, "output": 25}

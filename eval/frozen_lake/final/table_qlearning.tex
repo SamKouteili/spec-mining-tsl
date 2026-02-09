@@ -1,0 +1,19 @@
+\begin{table}[h]
+\centering
+\caption{FrozenLake Q-Learning Win Counts (out of 50) by Training Episodes}
+\label{tab:frozen_lake_qlearning}
+\begin{tabular}{llcccccccc}
+\toprule
+\textbf{Train} & \textbf{Test} & \textbf{100} & \textbf{500} & \textbf{1k} & \textbf{2k} & \textbf{5k} & \textbf{10k} & \textbf{20k} & \textbf{50k} \\
+\midrule
+fixed & fixed & 50 & 50 & 50 & 50 & 50 & 50 & 50 & 50 \\
+fixed & var\_config & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+var & var\_config & 0 & 1 & 2 & 4 & 7 & 14 & 22 & 37 \\
+fixed & var\_size & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+var & var\_size & 0 & 2 & 3 & 5 & 12 & 14 & 17 & 20 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+
+\footnotesize{Note: Columns = training episodes. Q-Learning achieves 50/50 on fixed but 0/50 generalization from fixed training.}
+\end{table}

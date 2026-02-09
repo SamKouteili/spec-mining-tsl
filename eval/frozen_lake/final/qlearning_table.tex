@@ -1,0 +1,16 @@
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabular}{llcccccccc}
+\toprule
+\textbf{Train} & \textbf{Test} & \textbf{100} & \textbf{500} & \textbf{1000} & \textbf{2000} & \textbf{5000} & \textbf{10000} & \textbf{20000} & \textbf{50000} \\
+\midrule
+fixed & var\_config & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+var\_config & var\_config & 1 & 1 & 2 & 5 & 8 & 15 & 23 & 38 \\
+fixed & var\_size & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+var\_size & var\_size & 1 & 3 & 3 & 6 & 13 & 14 & 18 & 21 \\
+\bottomrule
+\end{tabular}
+\label{tab:qlearning_results}
+\caption{Q-Learning Results on \textsc{FrozenLake} Win Rate. 50 test episodes at different episode checkpoints.}
+\end{table}

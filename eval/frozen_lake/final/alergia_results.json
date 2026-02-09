@@ -1,0 +1,149 @@
+{
+  "method": "alergia",
+  "test_condition": "var_config",
+  "num_test_configs": 50,
+  "fixed": {
+    "4": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 4,
+      "train_time": 0.0013439655303955078
+    },
+    "8": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 3,
+      "train_time": 0.0027687549591064453
+    },
+    "12": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 4,
+      "train_time": 0.00651097297668457
+    },
+    "16": {
+      "successes": 18,
+      "total": 50,
+      "success_rate": 0.36,
+      "num_states": 9,
+      "train_time": 0.004183053970336914
+    },
+    "20": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 7,
+      "train_time": 0.006062030792236328
+    },
+    "50": {
+      "successes": 17,
+      "total": 50,
+      "success_rate": 0.34,
+      "num_states": 13,
+      "train_time": 0.04788398742675781
+    },
+    "100": {
+      "successes": 19,
+      "total": 50,
+      "success_rate": 0.38,
+      "num_states": 14,
+      "train_time": 0.02599191665649414
+    },
+    "200": {
+      "successes": 25,
+      "total": 50,
+      "success_rate": 0.5,
+      "num_states": 18,
+      "train_time": 0.0477449893951416
+    },
+    "500": {
+      "successes": 24,
+      "total": 50,
+      "success_rate": 0.48,
+      "num_states": 19,
+      "train_time": 0.14443421363830566
+    },
+    "1000": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 21,
+      "train_time": 0.330125093460083
+    }
+  },
+  "var_config": {
+    "4": {
+      "successes": 22,
+      "total": 50,
+      "success_rate": 0.44,
+      "num_states": 2,
+      "train_time": 0.0026388168334960938
+    },
+    "8": {
+      "successes": 12,
+      "total": 50,
+      "success_rate": 0.24,
+      "num_states": 4,
+      "train_time": 0.0020301342010498047
+    },
+    "12": {
+      "successes": 20,
+      "total": 50,
+      "success_rate": 0.4,
+      "num_states": 5,
+      "train_time": 0.004002094268798828
+    },
+    "16": {
+      "successes": 25,
+      "total": 50,
+      "success_rate": 0.5,
+      "num_states": 4,
+      "train_time": 0.004015922546386719
+    },
+    "20": {
+      "successes": 25,
+      "total": 50,
+      "success_rate": 0.5,
+      "num_states": 6,
+      "train_time": 0.005976676940917969
+    },
+    "50": {
+      "successes": 25,
+      "total": 50,
+      "success_rate": 0.5,
+      "num_states": 5,
+      "train_time": 0.007340908050537109
+    },
+    "100": {
+      "successes": 32,
+      "total": 50,
+      "success_rate": 0.64,
+      "num_states": 10,
+      "train_time": 0.019617080688476562
+    },
+    "200": {
+      "successes": 35,
+      "total": 50,
+      "success_rate": 0.7,
+      "num_states": 13,
+      "train_time": 0.039444923400878906
+    },
+    "500": {
+      "successes": 36,
+      "total": 50,
+      "success_rate": 0.72,
+      "num_states": 24,
+      "train_time": 0.14238190650939941
+    },
+    "1000": {
+      "successes": 38,
+      "total": 50,
+      "success_rate": 0.76,
+      "num_states": 38,
+      "train_time": 0.2477860450744629
+    }
+  }
+}

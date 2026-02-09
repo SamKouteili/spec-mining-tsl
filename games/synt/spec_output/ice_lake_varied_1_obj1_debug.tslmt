@@ -1,0 +1,45 @@
+var Int x
+var Int y
+
+SPECIFICATION
+
+/* Ice Lake: Robot navigates 4x4 grid avoiding holes to reach the goal */
+/* Goal: (2,1), Start: (0,0), Holes: 3 */
+
+goalx = i2();
+goaly = i1();
+startx = i0();
+starty = i0();
+BOUND_MIN = i0();
+BOUND_MAX = i3();
+
+/* Hole positions */
+hole0x = i1();
+hole0y = i1();
+hole1x = i3();
+hole1y = i0();
+hole2x = i0();
+hole2y = i1();
+
+/* Position predicates */
+inBounds = (gte x BOUND_MIN) && (lte x BOUND_MAX) && (gte y BOUND_MIN) && (lte y BOUND_MAX);
+
+/* Potential Variable Updates */
+xMoves = [x <- x] || [x <- add x i1()] || [x <- sub x i1()];
+yMoves = [y <- y] || [y <- add y i1()] || [y <- sub y i1()];
+
+assume {
+    eq x startx;
+    eq y starty;
+}
+
+guarantee {
+    /* Stay in bounds */
+    G inBounds;
+
+    /* Movement */
+    G ((xMoves && [y <- y]) || ([x <- x] && yMoves));
+
+    /* Objective */
+    (F (((eq x goalx) && (eq y goaly)))) && (G ((((eq x hole0x) && (eq y hole0y))) <-> ((((eq x hole1x) && (eq y hole1y))) || (((eq x hole2x) && (eq y hole2y))))));
+}

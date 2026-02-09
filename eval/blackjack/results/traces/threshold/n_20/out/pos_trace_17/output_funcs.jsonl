@@ -1,0 +1,54 @@
+{
+  "functions": [
+    "(define-fun f ((x Int)) Int (+ x (+ 1 1))) )",
+    "(define-fun f ((x Int)) Int (+ x 1)) )",
+    "(define-fun f ((x Int)) Int (+ x (+ 1 (+ 1 1)))) )",
+    "IDENTITY"
+  ],
+  "assignments": {
+    "time_0__count": {
+      "function_id": 0,
+      "record": {
+        "source": "pos_trace_17.jsonl:line_0_to_1",
+        "input": 13,
+        "output": 15,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    },
+    "time_1__count": {
+      "function_id": 1,
+      "record": {
+        "source": "pos_trace_17.jsonl:line_1_to_2",
+        "input": 15,
+        "output": 16,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    },
+    "time_2__count": {
+      "function_id": 2,
+      "record": {
+        "source": "pos_trace_17.jsonl:line_2_to_3",
+        "input": 16,
+        "output": 19,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    },
+    "time_3__count": {
+      "function_id": 3,
+      "record": {
+        "source": "pos_trace_17.jsonl:line_3_to_4",
+        "input": 19,
+        "output": 19,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "time_0__count": [
+    {
+      "source": "neg_trace_2.jsonl:line_0_to_1",
+      "input": 5,
+      "output": 9
+    }
+  ],
+  "time_1__count": [
+    {
+      "source": "neg_trace_2.jsonl:line_1_to_2",
+      "input": 9,
+      "output": 18
+    }
+  ],
+  "time_2__count": [
+    {
+      "source": "neg_trace_2.jsonl:line_2_to_3",
+      "input": 18,
+      "output": 19
+    }
+  ],
+  "time_3__count": [
+    {
+      "source": "neg_trace_2.jsonl:line_3_to_4",
+      "input": 19,
+      "output": 19
+    }
+  ]
+}

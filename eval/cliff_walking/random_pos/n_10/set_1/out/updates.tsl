@@ -1,0 +1,2 @@
+[x <- add x i1()] || [x <- sub x i1()] || [x <- x]
+[y <- add y i1()] || [y <- sub y i1()] || [y <- y]

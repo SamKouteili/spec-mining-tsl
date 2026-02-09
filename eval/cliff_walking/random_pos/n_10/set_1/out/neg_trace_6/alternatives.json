@@ -1,0 +1,602 @@
+{
+  "time_0__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 0
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 0
+    }
+  ],
+  "time_1__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_1_to_2",
+      "input": 0,
+      "output": 0
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_1_to_2",
+      "input": 1,
+      "output": 0
+    }
+  ],
+  "time_2__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_2_to_3",
+      "input": 0,
+      "output": 0
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_2_to_3",
+      "input": 2,
+      "output": 0
+    }
+  ],
+  "time_3__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_3_to_4",
+      "input": 0,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_3_to_4",
+      "input": 3,
+      "output": 1
+    }
+  ],
+  "time_4__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_4_to_5",
+      "input": 1,
+      "output": 2
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_4_to_5",
+      "input": 3,
+      "output": 2
+    }
+  ],
+  "time_5__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_5_to_6",
+      "input": 2,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_5_to_6",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_6__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_6_to_7",
+      "input": 3,
+      "output": 4
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_6_to_7",
+      "input": 3,
+      "output": 4
+    }
+  ],
+  "time_7__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_7_to_8",
+      "input": 4,
+      "output": 5
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_7_to_8",
+      "input": 3,
+      "output": 5
+    }
+  ],
+  "time_8__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_8_to_9",
+      "input": 5,
+      "output": 6
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_8_to_9",
+      "input": 3,
+      "output": 6
+    }
+  ],
+  "time_9__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_9_to_10",
+      "input": 6,
+      "output": 7
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_9_to_10",
+      "input": 3,
+      "output": 7
+    }
+  ],
+  "time_10__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_10_to_11",
+      "input": 7,
+      "output": 8
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_10_to_11",
+      "input": 3,
+      "output": 8
+    }
+  ],
+  "time_11__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_11_to_12",
+      "input": 8,
+      "output": 9
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_11_to_12",
+      "input": 3,
+      "output": 9
+    }
+  ],
+  "time_12__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_12_to_13",
+      "input": 9,
+      "output": 10
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_12_to_13",
+      "input": 3,
+      "output": 10
+    }
+  ],
+  "time_13__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_13_to_14",
+      "input": 10,
+      "output": 11
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_13_to_14",
+      "input": 3,
+      "output": 11
+    }
+  ],
+  "time_14__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_14_to_15",
+      "input": 11,
+      "output": 11
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_14_to_15",
+      "input": 3,
+      "output": 11
+    }
+  ],
+  "time_15__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_15_to_16",
+      "input": 11,
+      "output": 11
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_15_to_16",
+      "input": 2,
+      "output": 11
+    }
+  ],
+  "time_16__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_16_to_17",
+      "input": 11,
+      "output": 11
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_16_to_17",
+      "input": 1,
+      "output": 11
+    }
+  ],
+  "time_17__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_17_to_18",
+      "input": 11,
+      "output": 11
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_17_to_18",
+      "input": 2,
+      "output": 11
+    }
+  ],
+  "time_18__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_18_to_19",
+      "input": 11,
+      "output": 10
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_18_to_19",
+      "input": 3,
+      "output": 10
+    }
+  ],
+  "time_19__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_19_to_20",
+      "input": 10,
+      "output": 9
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_19_to_20",
+      "input": 3,
+      "output": 9
+    }
+  ],
+  "time_20__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_20_to_21",
+      "input": 9,
+      "output": 8
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_20_to_21",
+      "input": 3,
+      "output": 8
+    }
+  ],
+  "time_21__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_21_to_22",
+      "input": 8,
+      "output": 7
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_21_to_22",
+      "input": 3,
+      "output": 7
+    }
+  ],
+  "time_22__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_22_to_23",
+      "input": 7,
+      "output": 6
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_22_to_23",
+      "input": 3,
+      "output": 6
+    }
+  ],
+  "time_23__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_23_to_24",
+      "input": 6,
+      "output": 5
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_23_to_24",
+      "input": 3,
+      "output": 5
+    }
+  ],
+  "time_24__x": [
+    {
+      "source": "neg_trace_6.jsonl:line_24_to_25",
+      "input": 5,
+      "output": 5
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_24_to_25",
+      "input": 3,
+      "output": 5
+    }
+  ],
+  "time_0__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 1
+    }
+  ],
+  "time_1__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_1_to_2",
+      "input": 0,
+      "output": 2
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_1_to_2",
+      "input": 1,
+      "output": 2
+    }
+  ],
+  "time_2__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_2_to_3",
+      "input": 0,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_2_to_3",
+      "input": 2,
+      "output": 3
+    }
+  ],
+  "time_3__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_3_to_4",
+      "input": 0,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_3_to_4",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_4__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_4_to_5",
+      "input": 1,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_4_to_5",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_5__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_5_to_6",
+      "input": 2,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_5_to_6",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_6__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_6_to_7",
+      "input": 3,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_6_to_7",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_7__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_7_to_8",
+      "input": 4,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_7_to_8",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_8__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_8_to_9",
+      "input": 5,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_8_to_9",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_9__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_9_to_10",
+      "input": 6,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_9_to_10",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_10__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_10_to_11",
+      "input": 7,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_10_to_11",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_11__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_11_to_12",
+      "input": 8,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_11_to_12",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_12__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_12_to_13",
+      "input": 9,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_12_to_13",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_13__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_13_to_14",
+      "input": 10,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_13_to_14",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_14__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_14_to_15",
+      "input": 11,
+      "output": 2
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_14_to_15",
+      "input": 3,
+      "output": 2
+    }
+  ],
+  "time_15__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_15_to_16",
+      "input": 11,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_15_to_16",
+      "input": 2,
+      "output": 1
+    }
+  ],
+  "time_16__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_16_to_17",
+      "input": 11,
+      "output": 2
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_16_to_17",
+      "input": 1,
+      "output": 2
+    }
+  ],
+  "time_17__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_17_to_18",
+      "input": 11,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_17_to_18",
+      "input": 2,
+      "output": 3
+    }
+  ],
+  "time_18__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_18_to_19",
+      "input": 11,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_18_to_19",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_19__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_19_to_20",
+      "input": 10,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_19_to_20",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_20__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_20_to_21",
+      "input": 9,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_20_to_21",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_21__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_21_to_22",
+      "input": 8,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_21_to_22",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_22__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_22_to_23",
+      "input": 7,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_22_to_23",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_23__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_23_to_24",
+      "input": 6,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_23_to_24",
+      "input": 3,
+      "output": 3
+    }
+  ],
+  "time_24__y": [
+    {
+      "source": "neg_trace_6.jsonl:line_24_to_25",
+      "input": 5,
+      "output": 2
+    },
+    {
+      "source": "neg_trace_6.jsonl:line_24_to_25",
+      "input": 3,
+      "output": 2
+    }
+  ]
+}

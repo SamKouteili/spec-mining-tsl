@@ -1,0 +1,143 @@
+{
+  "fixed": {
+    "4": {
+      "train_time": 0.0015,
+      "num_states": 4,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0037,
+      "num_states": 3,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0035,
+      "num_states": 4,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.0064,
+      "num_states": 9,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0073,
+      "num_states": 7,
+      "num_traces": 20
+    },
+    "50": {
+      "train_time": 0.0487,
+      "num_states": 13,
+      "num_traces": 50
+    },
+    "100": {
+      "train_time": 0.0326,
+      "num_states": 14,
+      "num_traces": 100
+    },
+    "500": {
+      "train_time": 0.1824,
+      "num_states": 19,
+      "num_traces": 500
+    },
+    "1000": {
+      "train_time": 0.258,
+      "num_states": 21,
+      "num_traces": 1000
+    }
+  },
+  "var_config": {
+    "4": {
+      "train_time": 0.0021,
+      "num_states": 3,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0024,
+      "num_states": 2,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0041,
+      "num_states": 5,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.0052,
+      "num_states": 5,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0072,
+      "num_states": 6,
+      "num_traces": 20
+    },
+    "50": {
+      "train_time": 0.0116,
+      "num_states": 5,
+      "num_traces": 50
+    },
+    "100": {
+      "train_time": 0.0185,
+      "num_states": 10,
+      "num_traces": 100
+    },
+    "500": {
+      "train_time": 0.1952,
+      "num_states": 26,
+      "num_traces": 500
+    },
+    "1000": {
+      "train_time": 0.2632,
+      "num_states": 42,
+      "num_traces": 1000
+    }
+  },
+  "var_size": {
+    "4": {
+      "train_time": 0.0033,
+      "num_states": 2,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0039,
+      "num_states": 3,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0025,
+      "num_states": 2,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.0041,
+      "num_states": 3,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0074,
+      "num_states": 7,
+      "num_traces": 20
+    },
+    "50": {
+      "train_time": 0.0147,
+      "num_states": 7,
+      "num_traces": 50
+    },
+    "100": {
+      "train_time": 0.0259,
+      "num_states": 10,
+      "num_traces": 100
+    },
+    "500": {
+      "train_time": 0.1736,
+      "num_states": 35,
+      "num_traces": 500
+    },
+    "1000": {
+      "train_time": 0.2966,
+      "num_states": 57,
+      "num_traces": 1000
+    }
+  }
+}

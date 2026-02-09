@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\centering
+\tiny
+\begin{tabular}{@{}l l p{4.5cm} p{6.5cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Train} & \textbf{Liveness} & \textbf{Safety} \\
+\midrule
+\multirow{2}{*}{TSL$_f$}
+& fixed & $\mathbf{F}\,((\texttt{eq}\,x\,\texttt{goalx}) \land\land (\texttt{eq}\,y\,\texttt{goaly}))$
+& $\mathbf{G}\,((\texttt{eq}\,x\,\texttt{goaly}) \lor\lor ((\texttt{eq}\,y\,\texttt{goaly}) \to (\texttt{eq}\,x\,\texttt{goalx})))$ \\
+& var\_conf & $\mathbf{F}\,((\texttt{eq}\,x\,\texttt{goalx}) \land\land (\texttt{eq}\,y\,\texttt{goaly}))$
+& $\mathbf{G}\,((\texttt{eq}\,x\,\texttt{goalx}) \lor\lor ((\texttt{lt}\,y\,\texttt{cliffHeight}) \to (\texttt{eq}\,x\,\texttt{goaly})))$ \\
+\midrule
+\multicolumn{4}{l}{\textit{Note: LTL-DK and LTL-BB baselines not applicable --- predefined predicates assume standard movement functions.}} \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\caption{Mined specifications for \textsc{CliffWalking} with variant moves (left=$x-1$, right=$(x*2)+1$, up=$y-2$, down=$y+1$). TSL$_f$ discovers the movement functions automatically. Fixed training yields a spec that only works for cliffHeight=1; var\_conf training generalizes across all cliff heights.}
+\label{tab:mined-specs-cliff-var-moves}
+\end{table*}

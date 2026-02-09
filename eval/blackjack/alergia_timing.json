@@ -1,0 +1,83 @@
+{
+  "threshold": {
+    "4": {
+      "train_time": 0.0016,
+      "num_states": 1,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0016,
+      "num_states": 1,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0027,
+      "num_states": 1,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.0037,
+      "num_states": 1,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0043,
+      "num_states": 1,
+      "num_traces": 20
+    }
+  },
+  "conservative": {
+    "4": {
+      "train_time": 0.0024,
+      "num_states": 1,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0032,
+      "num_states": 1,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0042,
+      "num_states": 1,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.0043,
+      "num_states": 1,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0073,
+      "num_states": 1,
+      "num_traces": 20
+    }
+  },
+  "basic": {
+    "4": {
+      "train_time": 0.0013,
+      "num_states": 1,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0019,
+      "num_states": 1,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0038,
+      "num_states": 1,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.006,
+      "num_states": 1,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0064,
+      "num_states": 1,
+      "num_traces": 20
+    }
+  }
+}

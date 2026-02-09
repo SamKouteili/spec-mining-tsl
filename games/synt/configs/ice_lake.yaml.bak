@@ -1,0 +1,54 @@
+# Ice Lake Pipeline Configuration
+#
+# Robot navigates a frozen lake grid, avoiding holes to reach the goal.
+
+name: ice_lake
+
+synthesis:
+  command: issy
+  args:
+    - "--tslmt"
+    - "--synt"
+    - "--pruning"
+    - "1"
+  timeout_minutes: 10  # Skip configuration if synthesis takes longer than 10 minutes
+
+debug: true
+
+run_configuration:
+  # Objective 1: Reach goal while avoiding holes
+  - objective: "F ((eq x GOAL_X) && (eq y GOAL_Y)) && (G X ((eq x HOLE_0_X && eq y HOLE_0_Y) <-> ((eq x HOLE_1_X && eq y HOLE_1_Y) || (eq x HOLE_2_X && eq y HOLE_2_Y))))"
+    configurations:
+      - name: "4x4 single hole"
+        grid_size: 4
+        start_pos: {x: 0, y: 0}
+        goal: {x: 3, y: 3}
+        holes:
+          - {x: 1, y: 1}
+          - {x: 2, y: 2}
+          - {x: 3, y: 1}
+
+      # - name: "4x4 single hole"
+      #   grid_size: 4
+      #   start_pos: {x: 0, y: 0}
+      #   goal: {x: 3, y: 3}
+      #   holes:
+      #     - {x: 2, y: 2}
+
+  # Objective 2: Just reach goal (relaxed - no hole avoidance in objective)
+  # - objective: "F atGoal"
+  #   timeout: 1000
+  #   configurations:
+  #     - name: "4x4 single hole"
+  #       grid_size: 4
+  #       start_pos: {x: 0, y: 0}
+  #       goal: {x: 3, y: 3}
+  #       holes:
+  #         - {x: 3, y: 2}
+
+  #     - name: "4x4 single hole"
+  #       grid_size: 4
+  #       start_pos: {x: 0, y: 0}
+  #       goal: {x: 3, y: 3}
+  #       holes:
+  #         - {x: 2, y: 1}

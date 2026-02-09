@@ -1,7 +1,0 @@
-TODO
-CREATE clean pipeline to do all of this in on bash script
-currently need to run
-IOSeperation.py
-CreateGroupings.py
-CreatGroupingSubsets.py
-GenerateFunctions.py

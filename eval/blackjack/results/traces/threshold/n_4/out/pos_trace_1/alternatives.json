@@ -1,0 +1,16 @@
+{
+  "time_0__count": [
+    {
+      "source": "pos_trace_1.jsonl:line_0_to_1",
+      "input": 8,
+      "output": 19
+    }
+  ],
+  "time_1__count": [
+    {
+      "source": "pos_trace_1.jsonl:line_1_to_2",
+      "input": 19,
+      "output": 19
+    }
+  ]
+}

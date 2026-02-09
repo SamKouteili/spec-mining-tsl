@@ -1,0 +1,29 @@
+\begin{table*}[h]
+\centering
+\caption{FrozenLake Win Counts - Test on var\_size (3-5 board size, variable positions)}
+\label{tab:frozen_lake_var_size}
+\begin{tabular}{lllcccccccccccc}
+\toprule
+\textbf{Method} & \textbf{Train} & \textbf{Test} & \textbf{4} & \textbf{8} & \textbf{12} & \textbf{16} & \textbf{20} & \textbf{50} & \textbf{100} & \textbf{500} & \textbf{1k} & \textbf{5k} & \textbf{10k} & \textbf{50k} \\
+\midrule
+\multirow{2}{*}{SpecMining(TSLf)$^\dagger$}
+  & fixed & var\_size & 50 & 50 & 50 & 50 & 50 & - & - & - & - & - & - & - \\
+  & var & var\_size & 50 & 50 & 50 & 50 & 50 & - & - & - & - & - & - & - \\
+\midrule
+\multirow{2}{*}{BehavClon(NN)}
+  & fixed & var\_size & 17 & 8 & 10 & 6 & 8 & 5 & 8 & 4 & 5 & 5 & 3 & 2 \\
+  & var & var\_size & 18 & 23 & 23 & 24 & 27 & 22 & 24 & 32 & 32 & 33 & 34 & 34 \\
+\midrule
+\multirow{2}{*}{DecTree(wLR)}
+  & fixed & var\_size & 14 & 14 & 14 & 11 & 11 & 11 & 8 & 8 & 9 & 10 & 9 & 8 \\
+  & var & var\_size & 6 & 22 & 26 & 21 & 22 & 20 & 34 & 39 & 41 & 42 & 43 & 43 \\
+\midrule
+\multirow{2}{*}{Q-Learning}
+  & fixed & var\_size & - & - & - & - & - & - & 0 & 0 & 0 & 0 & 0 & 0 \\
+  & var & var\_size & - & - & - & - & - & - & 0 & 2 & 3 & 12 & 14 & 20 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+
+\footnotesize{$^\dagger$TSLf tested on 50 configs (shows x/50). BC/DT/Q-Learning tested on 50 configs (shows x/50).}
+\end{table*}

@@ -1,0 +1,50 @@
+{
+  "fixed_moves": {
+    "4": {
+      "train_time": 0.001,
+      "num_states": 1,
+      "num_traces": 4
+    },
+    "8": {
+      "train_time": 0.0019,
+      "num_states": 1,
+      "num_traces": 8
+    },
+    "12": {
+      "train_time": 0.0059,
+      "num_states": 1,
+      "num_traces": 12
+    },
+    "16": {
+      "train_time": 0.0051,
+      "num_states": 1,
+      "num_traces": 16
+    },
+    "20": {
+      "train_time": 0.0041,
+      "num_states": 4,
+      "num_traces": 20
+    },
+    "50": {
+      "train_time": 0.0487,
+      "num_states": 1,
+      "num_traces": 50
+    },
+    "100": {
+      "train_time": 0.0184,
+      "num_states": 6,
+      "num_traces": 100
+    },
+    "500": {
+      "train_time": 0.0926,
+      "num_states": 7,
+      "num_traces": 500
+    },
+    "1000": {
+      "train_time": 0.2428,
+      "num_states": 17,
+      "num_traces": 1000
+    }
+  },
+  "var_config_moves": {}
+}

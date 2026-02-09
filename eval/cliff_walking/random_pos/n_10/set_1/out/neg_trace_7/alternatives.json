@@ -1,0 +1,146 @@
+{
+  "time_0__x": [
+    {
+      "source": "neg_trace_7.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 0
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 0
+    }
+  ],
+  "time_1__x": [
+    {
+      "source": "neg_trace_7.jsonl:line_1_to_2",
+      "input": 0,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_1_to_2",
+      "input": 1,
+      "output": 1
+    }
+  ],
+  "time_2__x": [
+    {
+      "source": "neg_trace_7.jsonl:line_2_to_3",
+      "input": 1,
+      "output": 2
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_2_to_3",
+      "input": 1,
+      "output": 2
+    }
+  ],
+  "time_3__x": [
+    {
+      "source": "neg_trace_7.jsonl:line_3_to_4",
+      "input": 2,
+      "output": 3
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_3_to_4",
+      "input": 1,
+      "output": 3
+    }
+  ],
+  "time_4__x": [
+    {
+      "source": "neg_trace_7.jsonl:line_4_to_5",
+      "input": 3,
+      "output": 4
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_4_to_5",
+      "input": 1,
+      "output": 4
+    }
+  ],
+  "time_5__x": [
+    {
+      "source": "neg_trace_7.jsonl:line_5_to_6",
+      "input": 4,
+      "output": 4
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_5_to_6",
+      "input": 1,
+      "output": 4
+    }
+  ],
+  "time_0__y": [
+    {
+      "source": "neg_trace_7.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_0_to_1",
+      "input": 0,
+      "output": 1
+    }
+  ],
+  "time_1__y": [
+    {
+      "source": "neg_trace_7.jsonl:line_1_to_2",
+      "input": 0,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_1_to_2",
+      "input": 1,
+      "output": 1
+    }
+  ],
+  "time_2__y": [
+    {
+      "source": "neg_trace_7.jsonl:line_2_to_3",
+      "input": 1,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_2_to_3",
+      "input": 1,
+      "output": 1
+    }
+  ],
+  "time_3__y": [
+    {
+      "source": "neg_trace_7.jsonl:line_3_to_4",
+      "input": 2,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_3_to_4",
+      "input": 1,
+      "output": 1
+    }
+  ],
+  "time_4__y": [
+    {
+      "source": "neg_trace_7.jsonl:line_4_to_5",
+      "input": 3,
+      "output": 1
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_4_to_5",
+      "input": 1,
+      "output": 1
+    }
+  ],
+  "time_5__y": [
+    {
+      "source": "neg_trace_7.jsonl:line_5_to_6",
+      "input": 4,
+      "output": 0
+    },
+    {
+      "source": "neg_trace_7.jsonl:line_5_to_6",
+      "input": 1,
+      "output": 0
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "functions": [
+    "(define-fun f ((x Int)) Int (+ x (+ 1 (+ 1 (+ 1 (+ 1 (+ 1 (+ 1 1)))))))) )"
+  ],
+  "assignments": {
+    "time_0__count": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_3.jsonl:line_0_to_1",
+        "input": 18,
+        "output": 25,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    }
+  }
+}

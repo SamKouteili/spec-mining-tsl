@@ -1,0 +1,30 @@
+{
+  "time_0__count": [
+    {
+      "source": "pos_trace_10.jsonl:line_0_to_1",
+      "input": 13,
+      "output": 16
+    }
+  ],
+  "time_1__count": [
+    {
+      "source": "pos_trace_10.jsonl:line_1_to_2",
+      "input": 16,
+      "output": 16
+    }
+  ],
+  "time_2__count": [
+    {
+      "source": "pos_trace_10.jsonl:line_2_to_3",
+      "input": 16,
+      "output": 21
+    }
+  ],
+  "time_3__count": [
+    {
+      "source": "pos_trace_10.jsonl:line_3_to_4",
+      "input": 21,
+      "output": 21
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "game": "cliff_walking",
+    "condition": "random_pos",
+    "n": 10,
+    "set": 1,
+    "success": true,
+    "liveness": "F ((eqC x goalX) & (eqC y goalY))",
+    "safety": "G ((X (eqC y goalY)) -> (eqC x goalX))",
+    "spec": "(F ((eqC x goalX) & (eqC y goalY))) & (G ((X (eqC y goalY)) -> (eqC x goalX)))",
+    "error": ""
+  }
+]

@@ -1,0 +1,16 @@
+\begin{table}[h]
+\centering
+\caption{Q-Learning Results on FrozenLake (Win Rate \%)}
+\begin{tabular}{lcccccccc}
+\toprule
+Training $\rightarrow$ Test & 100 & 500 & 1000 & 2000 & 5000 & 10000 & 20000 & 50000 \\
+\midrule
+Fixed $\rightarrow$ Fixed & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 & 100.0 $\pm$ 0.0 \\
+Fixed $\rightarrow$ Var Config & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 \\
+Var Config $\rightarrow$ Var Config & 0.0 $\pm$ 0.0 & 1.8 $\pm$ 1.3 & 3.2 $\pm$ 1.2 & 7.4 $\pm$ 1.0 & 19.0 $\pm$ 2.6 & 30.6 $\pm$ 6.1 & 42.6 $\pm$ 1.9 & 75.6 $\pm$ 2.7 \\
+Fixed $\rightarrow$ Var Size & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.0 $\pm$ 0.0 & 0.2 $\pm$ 0.4 \\
+Var Size $\rightarrow$ Var Size & 0.8 $\pm$ 0.7 & 2.0 $\pm$ 1.3 & 8.0 $\pm$ 3.0 & 12.0 $\pm$ 3.8 & 24.8 $\pm$ 2.4 & 27.6 $\pm$ 5.0 & 33.8 $\pm$ 1.7 & 44.0 $\pm$ 3.9 \\
+\bottomrule
+\end{tabular}
+\label{tab:qlearning_results}
+\end{table}

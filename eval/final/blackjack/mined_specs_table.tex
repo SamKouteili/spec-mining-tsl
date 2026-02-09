@@ -1,0 +1,38 @@
+% Comparison of Mined Specifications: TSLf vs LTL-BB
+% Blackjack environment
+
+\begin{table*}[t]
+\centering
+\caption{Specifications mined by each method on \textsc{Blackjack}.}
+\label{tab:blackjack-mined-specs}
+\small
+\begin{tabular}{@{}l l p{11cm}@{}}
+\toprule
+\textbf{Method} & \textbf{Strategy} & \textbf{Safety Specification} \\
+\midrule
+\multirow{6}{*}{TSL$_f$}
+& Threshold
+& $\mathbf{G}\, \neg ((\texttt{lt}\,\texttt{count}\,\texttt{standThreshold}) \leftrightarrow (\mathbf{X}\,\texttt{stood}))$ \\[0.5em]
+& \multirow{3}{*}{Conservative}
+& $\mathbf{G}\, ((\texttt{lt}\,\texttt{count}\,\texttt{standThreshold}) \to (\mathbf{X}\, ((\texttt{lt}\,\texttt{count}\,\texttt{standThreshold}) \leftrightarrow (((\texttt{gte}\,\texttt{dealer}\,\texttt{lo}) \land (\texttt{lte}\,\texttt{dealer}\,\texttt{med})) \lor (\texttt{lt}\,\texttt{count}\,\texttt{standVsWeakMin})))))$ \\
+& & $\mathbf{F}\, ((\mathbf{X}\, (\texttt{lt}\,\texttt{count}\,\texttt{standThreshold})) \leftrightarrow (\mathbf{F}\, ([\texttt{count} \leftarrow \texttt{add}\,\texttt{count}\,\texttt{med}] \lor [\texttt{count} \leftarrow \texttt{add}\,\texttt{count}\,5])))$ \\
+& & $\mathbf{G}\, \neg ((\mathbf{X}\,\texttt{stood}) \leftrightarrow ((\texttt{lt}\,\texttt{count}\,\texttt{standThreshold}) \land (((\texttt{gte}\,\texttt{dealer}\,\texttt{lo}) \land (\texttt{lte}\,\texttt{dealer}\,\texttt{med})) \to (\texttt{lt}\,\texttt{count}\,\texttt{standVsWeakMin}))))$ \\[0.5em]
+& \multirow{3}{*}{Basic}
+& $\mathbf{G}\, ((\texttt{lt}\,\texttt{count}\,\texttt{standVsWeakMin}) \lor (\mathbf{X}\, ((\texttt{eq}\,\texttt{count}\,\texttt{standVsWeakMin}) \leftrightarrow [\texttt{count} \leftarrow \texttt{count}])))$ \\
+& & $\mathbf{F}\, (\mathbf{X}^{!}\, \neg ((\texttt{lt}\,\texttt{count}\,\texttt{standThreshold}) \leftrightarrow \texttt{stood}))$ \\
+& & $\mathbf{G}\, \neg ((\mathbf{X}\,\texttt{stood}) \leftrightarrow ((\texttt{lt}\,\texttt{count}\,\texttt{standThreshold}) \land (((\texttt{gte}\,\texttt{dealer}\,\texttt{lo}) \land (\texttt{lte}\,\texttt{dealer}\,\texttt{med})) \to (\texttt{lt}\,\texttt{count}\,\texttt{standVsWeakMin}))))$ \\
+\midrule
+\multirow{3}{*}{LTL-BB}
+& Threshold
+& $\mathbf{G}\, ((\texttt{count\_b4}) \to (\mathbf{X}\,\texttt{stood}))$ \\[0.5em]
+& Conservative
+& $\mathbf{G}\, ((\texttt{dealer\_b2}) \leftrightarrow (\texttt{count\_b3}))$ \\[0.5em]
+& Basic
+& $\mathbf{G}\, ((\texttt{dealer\_b1}) \leftrightarrow (\mathbf{X}\,\texttt{dealer\_b1}))$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+
+\footnotesize
+\textbf{Legend:} \texttt{lo}$=$2, \texttt{med}$=$6, \texttt{standThreshold}$=$17, \texttt{standVsWeakMin}$=$12 (conservative) or 13 (basic).
+\end{table*}

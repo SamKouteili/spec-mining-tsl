@@ -1,0 +1,471 @@
+{
+  "functions": [
+    "IDENTITY",
+    "(define-fun f ((x Int)) Int (+ x 1)) )",
+    "(define-fun f ((x Int)) Int (- x 1)) )"
+  ],
+  "assignments": {
+    "time_0__x": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_0_to_1",
+        "input": 0,
+        "output": 0,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_1__x": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_1_to_2",
+        "input": 0,
+        "output": 0,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_2__x": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_2_to_3",
+        "input": 0,
+        "output": 0,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_20__x": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_20_to_21",
+        "input": 5,
+        "output": 5,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_3__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_3_to_4",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_4__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_4_to_5",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_5__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_5_to_6",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_6__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_6_to_7",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_7__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_7_to_8",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_8__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_8_to_9",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_9__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_9_to_10",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_10__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_10_to_11",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_11__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_11_to_12",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_12__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_12_to_13",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_13__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_13_to_14",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_14__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_14_to_15",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_15__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_15_to_16",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_16__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_16_to_17",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_17__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_17_to_18",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_18__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_18_to_19",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_19__y": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_19_to_20",
+        "input": 3,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_3__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_3_to_4",
+        "input": 0,
+        "output": 1,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_4__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_4_to_5",
+        "input": 1,
+        "output": 2,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_5__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_5_to_6",
+        "input": 2,
+        "output": 3,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_6__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_6_to_7",
+        "input": 3,
+        "output": 4,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_7__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_7_to_8",
+        "input": 4,
+        "output": 5,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_8__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_8_to_9",
+        "input": 5,
+        "output": 6,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_9__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_9_to_10",
+        "input": 6,
+        "output": 7,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_10__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_10_to_11",
+        "input": 7,
+        "output": 8,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_11__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_11_to_12",
+        "input": 8,
+        "output": 9,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_12__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_12_to_13",
+        "input": 9,
+        "output": 10,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_13__x": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_13_to_14",
+        "input": 10,
+        "output": 11,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_0__y": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_0_to_1",
+        "input": 0,
+        "output": 1,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_1__y": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_1_to_2",
+        "input": 1,
+        "output": 2,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_2__y": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_2_to_3",
+        "input": 2,
+        "output": 3,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    },
+    "time_14__x": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_14_to_15",
+        "input": 11,
+        "output": 10,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_15__x": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_15_to_16",
+        "input": 10,
+        "output": 9,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_16__x": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_16_to_17",
+        "input": 9,
+        "output": 8,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_17__x": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_17_to_18",
+        "input": 8,
+        "output": 7,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_18__x": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_18_to_19",
+        "input": 7,
+        "output": 6,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_19__x": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_19_to_20",
+        "input": 6,
+        "output": 5,
+        "_input_vars": [
+          "x"
+        ]
+      }
+    },
+    "time_20__y": {
+      "function_id": 2,
+      "record": {
+        "source": "neg_trace_4.jsonl:line_20_to_21",
+        "input": 3,
+        "output": 2,
+        "_input_vars": [
+          "y"
+        ]
+      }
+    }
+  }
+}

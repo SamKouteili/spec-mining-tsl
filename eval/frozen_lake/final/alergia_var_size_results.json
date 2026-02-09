@@ -1,0 +1,35 @@
+{
+  "method": "alergia",
+  "test_condition": "var_size",
+  "num_test_configs": 10,
+  "var_size": {
+    "2": {
+      "successes": 2,
+      "total": 10,
+      "success_rate": 0.2,
+      "num_states": 1,
+      "train_time": 0.0005588531494140625
+    },
+    "4": {
+      "successes": 5,
+      "total": 10,
+      "success_rate": 0.5,
+      "num_states": 2,
+      "train_time": 0.002002239227294922
+    },
+    "10": {
+      "successes": 6,
+      "total": 10,
+      "success_rate": 0.6,
+      "num_states": 3,
+      "train_time": 0.003535032272338867
+    },
+    "20": {
+      "successes": 6,
+      "total": 10,
+      "success_rate": 0.6,
+      "num_states": 7,
+      "train_time": 0.004289150238037109
+    }
+  }
+}

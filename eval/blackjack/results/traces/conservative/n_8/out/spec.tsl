@@ -1,0 +1,1 @@
+F ((X (ltC count standThreshold)) <-> (F (([count <- add count (add i1() (add i1() (add i1() (add i1() (add i1() i1())))))]) | ([count <- add count (add i1() (add i1() (add i1() (add i1() i1()))))]))))

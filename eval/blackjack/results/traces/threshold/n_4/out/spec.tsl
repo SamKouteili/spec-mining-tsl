@@ -1,0 +1,1 @@
+(F (! ((stood) -> (ltC count standThreshold)))) & (G (! ((ltC count standThreshold) <-> (X (stood)))))

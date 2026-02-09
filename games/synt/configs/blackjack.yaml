@@ -1,0 +1,26 @@
+# Blackjack Pipeline Configuration
+#
+# Blackjack stand-at-17 strategy controller.
+# The controller implements simple hit/stand decisions:
+# - Stand when count >= 17
+# - Hit when count < 17
+# - When hitting, count accumulates the card value
+
+name: blackjack
+
+synthesis:
+  command: issy
+  args:
+    - "--tslmt"
+    - "--synt"
+  timeout_minutes: 5
+
+debug: true
+
+run_configuration:
+  - name: "Stand at 17 strategy test"
+    num_games: 100  # Number of blackjack games to play
+    objectives:
+      # Objective: Stand at 17 or above, hit below 17 (X G skips first step)
+      - objective: "X G (! ((lt count dealerStand) <-> (X (stood))))"
+        timeout: 100

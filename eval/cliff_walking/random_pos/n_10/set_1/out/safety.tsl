@@ -1,0 +1,1 @@
+G ((X (eqC y goalY)) -> (eqC x goalX))

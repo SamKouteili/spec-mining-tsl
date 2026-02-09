@@ -1,0 +1,32 @@
+\begin{table}[t]
+\scriptsize
+\centering
+\begin{tabular}{lllcccccccccc}
+\toprule
+\textbf{Method} & \textbf{Train} & \textbf{Test} & \textbf{4} & \textbf{8} & \textbf{12} & \textbf{16} & \textbf{20} & \textbf{50} & \textbf{100} & \textbf{200} & \textbf{500} & \textbf{1000} \\
+\midrule
+\multirow{2}{*}{\textbf{SpecMining(TSL$_f$)}}
+  & fixed & var\_size & 17 & 17 & 17 & 17 & 17 & - & - & - & - & - \\
+  & var\_size & var\_size & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - & - \\
+\midrule
+\multirow{2}{*}{SpecMining(LTL-DK)}
+  & fixed & var\_size & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - & - \\
+  & var\_size & var\_size & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & - & - & - & - & - \\
+\midrule
+\multirow{2}{*}{BehavClon(NN)}
+  & fixed & var\_size & 5 & 5 & 2 & 7 & 7 & 7 & 7 & 8 & 8 & 7 \\
+  & var\_size & var\_size & 20 & 23 & 43 & 47 & \textbf{50} & 43 & 47 & 47 & 23 & 17 \\
+\midrule
+\multirow{2}{*}{CART(DT)}
+  & fixed & var\_size & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 \\
+  & var\_size & var\_size & 20 & 27 & 40 & \textbf{50} & \textbf{50} & 47 & 37 & 37 & 23 & 20 \\
+\midrule
+\multirow{2}{*}{Alergia(SMM)}
+  & fixed & var\_size & 19 & 21 & 22 & 22 & 21 & 20 & 18 & 19 & 20 & 20 \\
+  & var\_size & var\_size & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} & \textbf{50} \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\caption{\textsc{CliffWalking} win counts from training over fixed boards and varied board configurations. Test on 50 \texttt{var\_size} instances (cliff height $h\in[1,3]$, board width $w\in[3,12]$, board length $l\in[4,6]$). }
+\label{tab:cliff_walking_var_config}
+\end{table}

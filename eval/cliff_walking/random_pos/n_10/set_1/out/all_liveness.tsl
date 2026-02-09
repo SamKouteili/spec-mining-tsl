@@ -1,0 +1,2 @@
+F (! (F (ltC x goalX)))
+F ((eqC x goalX) & (eqC y goalY))

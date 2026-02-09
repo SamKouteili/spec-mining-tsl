@@ -1,0 +1,18 @@
+{
+  "functions": [
+    "IDENTITY"
+  ],
+  "assignments": {
+    "time_0__count": {
+      "function_id": 0,
+      "record": {
+        "source": "pos_trace_4.jsonl:line_0_to_1",
+        "input": 17,
+        "output": 17,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    }
+  }
+}

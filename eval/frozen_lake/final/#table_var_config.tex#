@@ -1,0 +1,32 @@
+le\begin{table}[h]
+\centering
+\caption{FrozenLake Win Rates (\%) - Test on var\_config (fixed 4×4 board, variable positions)}
+\label{tab:frozen_lake_var_config}
+\begin{tabular}{llccccccc}
+\toprule
+\textbf{Method} & \textbf{Train$\rightarrow$Test} & \textbf{8} & \textbf{16} & \textbf{100} & \textbf{500} & \textbf{1k} & \textbf{10k} & \textbf{50k} \\
+\midrule
+\multirow{2}{*}{SpecMining(TSLf)}
+  & fixed$\rightarrow$var\_config & 70 & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} \\
+  & var$\rightarrow$var\_config & 90 & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} \\
+\midrule
+\multirow{2}{*}{SpecMining(wDK)}
+  & fixed$\rightarrow$var\_config & 70 & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} \\
+  & var$\rightarrow$var\_config & 90 & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} & \textbf{100} \\
+\midrule
+\multirow{2}{*}{BehavClon(NN)}
+  & fixed$\rightarrow$var\_config & 18 & 26 & 11 & 5 & 8 & 2 & 4 \\
+  & var$\rightarrow$var\_config & 56 & 36 & 38 & 66 & 64 & 80 & 82 \\
+\midrule
+\multirow{2}{*}{DecTree(wLR)}
+  & fixed$\rightarrow$var\_config & 30 & 18 & 22 & 18 & 23 & 23 & 22 \\
+  & var$\rightarrow$var\_config & 34 & 24 & 65 & 77 & 84 & \textbf{94} & 92 \\
+\midrule
+\multirow{2}{*}{Q-Learning}
+  & fixed$\rightarrow$var\_config & - & - & 0 & 0 & 0 & 0 & 0 \\
+  & var$\rightarrow$var\_config & - & - & 0 & 2 & 4 & 28 & 75 \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em}
+\footnotesize{Note: Columns show training samples. TSLf uses 2 samples per trace. Q-Learning uses episodes.}
+\end{table}

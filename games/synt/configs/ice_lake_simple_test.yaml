@@ -1,0 +1,31 @@
+# Simple Ice Lake Test Configuration - Liveness only
+# Just testing if synthesis works at all with a simple spec
+
+name: ice_lake
+
+variable_updates:
+  x: "[x <- x] || [x <- add x i1()] || [x <- sub x i1()]"
+  y: "[y <- y] || [y <- add y i1()] || [y <- sub y i1()]"
+
+synthesis:
+  command: issy
+  args:
+    - "--tslmt"
+    - "--synt"
+    - "--pruning"
+    - "1"
+  timeout_minutes: 5  # Should be fast for simple spec
+
+debug: true
+
+run_configuration:
+  # Simple liveness: Just reach goal
+  - objective: "F ((eq x goalx) && (eq y goaly))"
+    timeout: 1000
+    configurations:
+      - name: "4x4 simple"
+        grid_size: 4
+        start_pos: {x: 0, y: 0}
+        goal: {x: 3, y: 3}
+        holes:
+          - {x: 1, y: 1}

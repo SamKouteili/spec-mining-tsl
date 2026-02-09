@@ -1,0 +1,1 @@
+G (! ((X (stood)) <-> ((ltC count standThreshold) & ((isWeakDealer) -> (ltC count standVsWeakMin)))))

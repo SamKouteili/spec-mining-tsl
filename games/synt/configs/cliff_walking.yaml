@@ -1,0 +1,47 @@
+# Cliff Walking Pipeline Configuration
+#
+# Robot navigates a grid, avoiding a cliff to reach the goal.
+# Based on the OpenAI Gymnasium Cliff Walking environment.
+
+name: cliff_walking
+
+synthesis:
+  command: issy
+  args:
+    - "--tslmt"
+    - "--synt"
+    - "--pruning"
+    - "1"
+    - "--accel"
+    - "no"
+  timeout_minutes: 30  # Skip configuration if synthesis takes longer than 10 minutes
+
+debug: true
+
+run_configuration:
+  - name: "12x4 cliff"
+    grid_size: 12
+    grid_rows: 4
+    cliff_min: 1
+    cliff_max: 10
+    cliff_height: 2
+    start_pos: {x: 0, y: 0}
+    goal_pos: {x: 11, y: 0}
+    objectives:
+      - objective: "(F (eq x goalx && eq y goaly)) && (G ((eq x goalx) || ((lt y cliffHeight) -> (eq x goaly))))"
+        timeout: 1000
+
+  #     # Objective: Just reach goal (relaxed)
+  #     - objective: "F atGoal"
+  #       timeout: 1000
+
+  # - name: "Smaller 8x4"
+  #   grid_size: 8
+  #   grid_rows: 4
+  #   cliff_min: 1
+  #   cliff_max: 6
+  #   start_pos: {x: 0, y: 0}
+  #   goal_pos: {x: 7, y: 0}
+  #   objectives:
+  #     - objective: "F (eq x goalX && eq y goalY) && (G (X (eq y goalY -> eq x goalX)))"
+  #       timeout: 1000

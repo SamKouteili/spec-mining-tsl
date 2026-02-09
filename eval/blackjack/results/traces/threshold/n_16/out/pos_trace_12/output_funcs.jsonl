@@ -1,0 +1,30 @@
+{
+  "functions": [
+    "IDENTITY",
+    "(define-fun f ((x Int)) Int (- (+ x x) (+ 1 (+ 1 (+ 1 1))))) )"
+  ],
+  "assignments": {
+    "time_0__count": {
+      "function_id": 0,
+      "record": {
+        "source": "pos_trace_12.jsonl:line_0_to_1",
+        "input": 14,
+        "output": 14,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    },
+    "time_1__count": {
+      "function_id": 1,
+      "record": {
+        "source": "pos_trace_12.jsonl:line_1_to_2",
+        "input": 14,
+        "output": 24,
+        "_input_vars": [
+          "count"
+        ]
+      }
+    }
+  }
+}

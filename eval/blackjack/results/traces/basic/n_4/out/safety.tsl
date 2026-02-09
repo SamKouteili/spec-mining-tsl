@@ -1,0 +1,1 @@
+G ((ltC count standVsWeakMin) | (X ((eqC count standVsWeakMin) <-> ([count <- count]))))

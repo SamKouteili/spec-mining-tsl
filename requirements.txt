@@ -1,5 +1,36 @@
-Scarlet-ltl
+# Core TSL_f mining dependencies
+scarlet-ltl
 hoax-hoa-executor
-pydot
+hoa-utils-redux
+ltlf2dfa
+
+# Data & visualization
 pandas
+numpy
 matplotlib
+pydot
+networkx
+
+# Scientific computing & ML
+scipy
+scikit-learn
+torch
+
+# Parsing & logic
+lark
+clingo
+python-sat
+
+# Automata learning
+aalpy
+
+# Serverless (Modal)
+modal
+
+# CLI & utilities
+click
+pyyaml
+rich
+
+# Note: spot (LTL/automata library) must be installed via conda:
+#   conda install -c conda-forge spot

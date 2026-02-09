@@ -1,1 +1,0 @@
-G ((u0ball0f1dmove2left0ball1b) -> (X (! (p0p0rightmost0ball)))) & G ((u0ball0f1dmove2right0ball1b) -> (X (! (p0p0leftmost0ball)))) & G (! ((p0p0leftmost0ball) & (p0p0rightmost0ball)))
