@@ -238,7 +238,7 @@ echo "[Step 1] SyGuS synthesis complete. Metadata: $METADATA_FILE"
 
 echo ""
 echo "=============================================="
-echo "[Step 2] Running Bolt LTL Mining"
+echo "[Step 2] Running Bolt TSLf Mining"
 echo "=============================================="
 
 if [[ "$MODE" == "bolt" ]]; then
@@ -264,15 +264,15 @@ echo "[Step 2] Bolt mining complete."
 #########################################
 
 if [[ -n "$GAME" ]]; then
-    echo ""
-    echo "=============================================="
-    echo "[Step 3] Transforming Specs for Game: $GAME"
-    echo "=============================================="
+    # echo ""
+    # echo "=============================================="
+    # echo "[Step 3] Transforming Specs for Game: $GAME"
+    # echo "=============================================="
 
     TRANSFORMER="$SYNT_DIR/spec_transformer.py"
     if [[ ! -f "$TRANSFORMER" ]]; then
         echo "[mine.sh] Warning: spec_transformer.py not found at $TRANSFORMER" >&2
-        echo "[mine.sh] Skipping spec transformation."
+        # echo "[mine.sh] Skipping spec transformation."
     else
         # Transform each spec file
         for spec_file in "$OUT_DIR/liveness.tsl" "$OUT_DIR/safety.tsl" "$OUT_DIR/spec.tsl"; do
@@ -314,7 +314,7 @@ if [[ -n "$GAME" ]]; then
             fi
         done
 
-        echo "[Step 3] Spec transformation complete."
+        # echo "[Step 3] Spec transformation complete."
     fi
 fi
 

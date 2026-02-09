@@ -129,7 +129,7 @@ class RLLoop:
     def __init__(self, game: str, varied: bool = False, work_dir: Optional[Path] = None):
         self.game = game
         self.varied = varied
-        self.api = SynthesisAPI(game=game)
+        self.api = SynthesisAPI(game=game, synthesis_timeout_minutes=20)
 
         # Setup working directory (always absolute to avoid cwd issues)
         self.work_dir = Path(work_dir).resolve() if work_dir else Path(tempfile.mkdtemp(prefix="rl_loop_"))
@@ -333,7 +333,7 @@ class RLLoop:
         Returns:
             Tuple of (primary_spec, all_specs) where all_specs includes alternatives
         """
-        script = Path(__file__).parent.parent / "bin" / "mine.sh"
+        script = Path(__file__).parent.parent / "mine.sh"
 
         cmd = [
             "bash", str(script), str(self.work_dir), opt,
@@ -541,7 +541,7 @@ class RLLoop:
                                  failure_reason=result.error_message)
 
     def loop(self, 
-             iters: int = 100, 
+             iters: int = 10, 
              max_depth: int = 7, 
              start_size: int = 5,
              pop_rank: str | None = "pred", 

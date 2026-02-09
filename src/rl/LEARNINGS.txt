@@ -1,0 +1,107 @@
+RL Loop Learnings
+=================
+
+1. SPEC RANKING
+---------------
+Problem: Trivial update specs (e.g., `G (! [x <- x])`) were being prioritized over
+semantically meaningful predicate specs (e.g., `G ((! eq x hole0x) || (! eq y hole0y))`).
+
+Solution: Added `pop_by_pred()` method to SpecPool that ranks specs by:
+  - Most predicates (descending)
+  - Fewest updates (ascending)
+
+Helper `_count_pred_update(op)` recursively counts predicates and updates in Op tree.
+
+
+2. TIMEOUT TRACE CONTINUATION
+-----------------------------
+Problem: Spec rollouts that timed out (exceeded step limit) were discarded, providing
+no learning signal.
+
+Solution: Added `continue_on_timeout` flag. When enabled:
+  - Extract final state from timed-out trace
+  - Continue with random rollout from that state until win/lose
+  - Combine traces and classify based on final outcome
+
+Implementation:
+  - `synt.py`: Added `start_state` parameter to `initial_random_run()`
+  - `loop.py`: Added `_continue_with_random()` helper
+
+
+3. SEARCH SPACE ANALYSIS
+------------------------
+Observation: With `--first-all`, stack drains quickly (5 specs). With `--collect-all`,
+stack can grow to 800+ specs but most are spurious.
+
+The loop now tries `--first-all` first, then falls back to `--collect-all` with
+increasing max-size if stack empties.
+
+
+4. HOLE COVERAGE IN TRACES
+--------------------------
+For FrozenLake with 3 holes, negative traces may not cover all holes equally:
+  - hole0: 44% of traces
+  - hole1: 44% of traces
+  - hole2: 11% of traces (under-represented)
+
+This affects mining: specs mentioning all 3 holes require seeing all 3 holes in traces.
+
+
+5. FORMULA SIZE CONSTRAINTS
+---------------------------
+Golden spec for 3-hole avoidance:
+  G ((! eq x hole0x || ! eq y hole0y) &&
+     (! eq x hole1x || ! eq y hole1y) &&
+     (! eq x hole2x || ! eq y hole2y))
+
+Size estimate: 6 predicates + 2 And operators + G = ~8-9 nodes.
+Default max-size of 7 is insufficient. Increased to 8.
+
+
+6. LIVENESS-FROM-NEGATIVES APPROACH
+-----------------------------------
+When no positive traces exist:
+  - Mine liveness from negatives (treating neg as pos)
+  - Negate the result
+
+Example:
+  - Mine: F (eq x hole0x && eq y hole0y) [eventually hit hole]
+  - Negate: G ((! eq x hole0x) || (! eq y hole0y)) [always avoid hole]
+
+Issue: Mining finds smallest formula true for ALL traces. If traces hit different
+holes, the disjunction F(hit_hole0 || hit_hole1 || hit_hole2) should emerge, but
+trivial update specs (smaller size) may win instead.
+
+
+7. RE-MINING BEHAVIOR
+---------------------
+Current behavior: Re-mines every iteration when `not success`. This can produce
+the same specs repeatedly, which get rejected as visited.
+
+The visited set prevents duplicate exploration, but re-mining wastes computation.
+Consider: only re-mine when stack is empty.
+
+
+8. SPEC STACK VS VISITED SET
+----------------------------
+- Stack (list): Candidates to try, supports LIFO or ranked pop
+- Visited (set): Already-tried specs, prevents re-exploration
+
+Specs are added to visited when popped, not when rollout completes.
+
+
+9. SPURIOUS SPECS
+-----------------
+Many mined specs are spurious (e.g., complex temporal patterns that don't help):
+  G ((avoid_hole0 || X avoid_hole1) && (at_hole0 || X at_hole1))
+
+These have high predicate counts but weird structure. The `--prune` flag helps
+but doesn't eliminate all spurious specs.
+
+
+10. BOARD CONFIGURATION
+-----------------------
+The loop uses a FIXED board config for all iterations (set in __init__).
+This ensures traces are comparable across iterations.
+
+Config is generated via `toytext.generate_config(game, varied=bool)`.
