@@ -1,0 +1,5 @@
+F (eqC player hole0)
+F ([player[0] <- add player[0] i1()])
+F ([player[0] <- player[0]])
+F ([player[1] <- add player[1] i1()])
+F ([player[1] <- player[1]])

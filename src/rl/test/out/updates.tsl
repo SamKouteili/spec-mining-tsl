@@ -1,0 +1,2 @@
+[player[0] <- add player[0] i1()] || [player[0] <- player[0]]
+[player[1] <- add player[1] i1()] || [player[1] <- player[1]]

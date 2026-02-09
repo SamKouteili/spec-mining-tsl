@@ -1,0 +1,30 @@
+{
+  "functions": [
+    "IDENTITY",
+    "(define-fun f ((x Int)) Int (+ x 1)) )"
+  ],
+  "assignments": {
+    "time_0__player[0]": {
+      "function_id": 0,
+      "record": {
+        "source": "neg_4.jsonl:line_0_to_1",
+        "input": 0,
+        "output": 0,
+        "_input_vars": [
+          "player[0]"
+        ]
+      }
+    },
+    "time_1__player[0]": {
+      "function_id": 1,
+      "record": {
+        "source": "neg_4.jsonl:line_1_to_2",
+        "input": 0,
+        "output": 1,
+        "_input_vars": [
+          "player[0]"
+        ]
+      }
+    }
+  }
+}
