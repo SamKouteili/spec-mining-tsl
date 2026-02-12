@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 # from src.bolt.log2tslf import Update, Predicate, BooleanAP
 from synt import SynthesisAPI
-from toytext import config_to_params, generate_config
+from toytext import config_to_params, generate_config, get_goal_spec
 from parser import Op, And, Or, Not, Next, Until, Eventually, Always, neg, parse_tsl
 from src.bolt.log2tslf import Update, Predicate, BooleanAP
 from games.synt.spec_transformer import transform_spec
@@ -25,28 +25,28 @@ class SpecPool:
         self.stack: list[Op] = []
         self.visited: set[Op] = set()
 
-    def _count_pred_update(self, op: Op) -> tuple[int, int]:
+    def _collect_pred_update(self, op: Op) -> tuple[set, set]:
         """
-        Recursively count predicates and updates in an Op tree.
-        Returns (predicate_count, update_count).
+        Recursively collect unique predicates and updates in an Op tree.
+        Returns (predicate_set, update_set).
         """
         match op:
             case Predicate():
-                return (1, 0)
+                return ({op}, set())
             case Update():
-                return (0, 1)
+                return (set(), {op})
             case BooleanAP():
-                return (0, 0)  # Neither predicate nor update
+                return (set(), set())
             case Not(inner):
-                return self._count_pred_update(inner)
+                return self._collect_pred_update(inner)
             case And(left, right) | Or(left, right) | Until(left, right):
-                lp, lu = self._count_pred_update(left)
-                rp, ru = self._count_pred_update(right)
-                return (lp + rp, lu + ru)
+                lp, lu = self._collect_pred_update(left)
+                rp, ru = self._collect_pred_update(right)
+                return (lp | rp, lu | ru)
             case Next(inner) | Eventually(inner) | Always(inner):
-                return self._count_pred_update(inner)
+                return self._collect_pred_update(inner)
             case _:
-                return (0, 0)
+                return (set(), set())
 
     def pop_by_pred(self) -> Optional[Op]:
         """
@@ -57,20 +57,20 @@ class SpecPool:
             print(f"  [SpecPool.pop_by_pred] STACK EMPTY (visited size: {len(self.visited)})")
             return None
 
-        # Rank by (predicates DESC, updates ASC)
+        # Rank by (unique predicates DESC, unique updates ASC)
         def rank_key(spec: Op) -> tuple[int, int]:
-            preds, updates = self._count_pred_update(spec)
-            return (-preds, updates)  # Negative preds for descending sort
+            preds, updates = self._collect_pred_update(spec)
+            return (-len(preds), len(updates))
 
         # Find best spec
         best_spec = min(self.stack, key=rank_key)
-        best_preds, best_updates = self._count_pred_update(best_spec)
+        best_preds, best_updates = self._collect_pred_update(best_spec)
 
         # Remove from stack and add to visited
         self.stack.remove(best_spec)
         self.visited.add(best_spec)
 
-        print(f"  [SpecPool.pop_by_pred] POPPED: {best_spec} (preds={best_preds}, updates={best_updates}, visited size now: {len(self.visited)})")
+        print(f"  [SpecPool.pop_by_pred] POPPED: {best_spec} (unique_preds={len(best_preds)}, unique_updates={len(best_updates)}, visited size now: {len(self.visited)})")
         return best_spec
 
     def add(self, spec: Op | list[Op]) -> bool:
@@ -126,9 +126,14 @@ class SpecPool:
     
 
 class RLLoop:
-    def __init__(self, game: str, varied: bool = False, work_dir: Optional[Path] = None):
+    def __init__(self, 
+                 game: str, 
+                 varied: bool = False, 
+                 work_dir: Optional[Path] = None,
+                 goal: None | Optional[Op] = None):
         self.game = game
         self.varied = varied
+        self.goal  = goal # goal spec, optionally provided
         self.api = SynthesisAPI(game=game, synthesis_timeout_minutes=20)
 
         # Setup working directory (always absolute to avoid cwd issues)
@@ -161,6 +166,7 @@ class RLLoop:
         # Spec
         self.spec: Optional[Op] = None
         self.specs: SpecPool = SpecPool()
+        self._traces_at_last_collect = 0
         # self.spec_queue : set[Op] = set()
         # self.spec_visited: set[Op] = set()
         # self.spec_queue: SpecQueue = SpecQueue()
@@ -483,7 +489,7 @@ class RLLoop:
         else:
             # Normal case: mine with actual pos/neg
             spec, all_specs = self._run_mining(
-                mode=mode,
+                mode="safety",
                 max_size=max_size,
                 opt=opt
             )
@@ -513,6 +519,10 @@ class RLLoop:
         """
         Synthesize agent from spec on the fixed board config.
 
+        When self.goal is set, the spec from the stack is treated as a safety
+        component and conjoined with the goal: objective = goal && safety_spec.
+        If spec is None but goal exists, rolls out with just the goal.
+
         Args:
             spec: The specification to synthesize and run
             continue_on_timeout: If True, when rollout times out, continue with
@@ -521,13 +531,21 @@ class RLLoop:
         Returns:
             True if positive trace, False otherwise
         """
-        if not spec:
+        if not spec and not self.goal:
             print("No spec provided for rollout, performing random rollout.")
             return self._random_rollout(continue_on_timeout=continue_on_timeout)
 
-        print(f"Rolling out with spec: {spec}")
+        # Build the objective: conjoin goal with safety spec if both exist
+        if self.goal and spec:
+            objective = And(self.goal, spec)
+        elif self.goal:
+            objective = self.goal
+        else:
+            objective = spec
 
-        result = self.api.synthesize_and_run(objective=str(spec), params=self.params, timeout_steps=20)
+        print(f"Rolling out with spec: {objective}")
+
+        result = self.api.synthesize_and_run(objective=str(objective), params=self.params, timeout_steps=20)
 
         if result.error_message:
             print(f"Synthesis/run error: {result.error_message}")
@@ -542,8 +560,8 @@ class RLLoop:
 
     def loop(self, 
              iters: int = 10, 
-             max_depth: int = 7, 
-             start_size: int = 5,
+             max_size: int = 9, 
+             start_size: int = 6,
              pop_rank: str | None = "pred", 
              continue_on_timeout: bool = True):
         """
@@ -559,7 +577,12 @@ class RLLoop:
                 random walk from final state until win or lose. This ensures every
                 rollout produces a positive or negative trace.
         """
-        self._random_rollout(continue_on_timeout=continue_on_timeout)  # init with 1 random rollout
+        # Initial rollout: use goal spec if available, otherwise random
+        if self.goal:
+            print(f"Initial rollout with goal spec: {self.goal}")
+            self.rollout(spec=None, continue_on_timeout=continue_on_timeout)
+        else:
+            self._random_rollout(continue_on_timeout=continue_on_timeout)
         iteration = 0
         success = False
         size = start_size
@@ -567,10 +590,18 @@ class RLLoop:
             iteration += 1
             print(f"\n=== Iteration {iteration}: Spec stack size {len(self.specs.stack)} ===")
             if not success or self.spec is None:
+                # Invalidate stale stack when new traces have arrived since last collect-all
+                current_trace_count = len(self.pos_traces) + len(self.neg_traces)
+                if current_trace_count > self._traces_at_last_collect:
+                    print(f"  New traces since last collect-all ({self._traces_at_last_collect} → {current_trace_count}), clearing stale stack ({len(self.specs.stack)} specs)")
+                    self.specs.stack.clear()
+                    size = start_size
+
                 self.refine_policy(opt="--first-all")  # Refine policy with new traces, get new spec(s)
-                while len(self.specs.stack) == 0 and size < 9:
-                    # print("Spec stack exhausted, no more specs to try.")
-                    self.refine_policy(opt="--collect-all", max_size=size)  # Try collecting all alternatives if first-all didn't yield results
+                # Try collecting all alternatives if first-all didn't yield new specifications to try
+                while len(self.specs.stack) == 0 and size < max_size:
+                    self.refine_policy(opt="--collect-all", max_size=size)
+                    self._traces_at_last_collect = len(self.pos_traces) + len(self.neg_traces)
                     size += 1
             # Get next spec from queue using ranking strategy
                 self.spec = self.specs.pop(rank=pop_rank)
@@ -618,10 +649,17 @@ if __name__ == "__main__":
                         help="Continue timed-out traces with random rollout until win/lose")
     parser.add_argument("--pop-rank", choices=["pred", None], default="pred",
                         help="Ranking strategy for spec selection (default: pred)")
+    parser.add_argument("--goal-specified", action="store_true",
+                        help="Use the known goal/liveness spec for the game (e.g. F(reach goal))")
     args = parser.parse_args()
 
-    loop = RLLoop(game=args.game, varied=args.varied, work_dir=args.work_dir)
+    goal = get_goal_spec(args.game) if args.goal_specified else None
+    if args.goal_specified and goal is None:
+        print(f"Warning: no known goal spec for game '{args.game}', running without goal.")
+
+    loop = RLLoop(game=args.game, varied=args.varied, work_dir=args.work_dir, goal=goal)
     print(f"Work dir: {loop.work_dir}")
+    print(f"Goal: {loop.goal}")
     print(f"Pos: {len(loop.pos_traces)}, Neg: {len(loop.neg_traces)}")
     print(f"Spec: {loop.spec}")
     # exit(0)

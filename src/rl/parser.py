@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from src.bolt.log2tslf import Update, Predicate, BooleanAP
 
 #################################################################
-################## SPEC TYPES ###################################
+################## SPECIFICATION TYPES ##########################
 #################################################################
 
 type AP = BooleanAP | Predicate | Update
@@ -89,8 +89,20 @@ def neg(op: Op) -> Op:
         case _:
             return Not(op)
 
+def size(op: Op) -> int:
+    """Recursively compute the size of an Op."""
+    match op:
+        case Not(inner):
+            return 1 + size(inner)
+        case And(left, right) | Or(left, right) | Until(left, right):
+            return 1 + size(left) + size(right)
+        case Next(inner) | Eventually(inner) | Always(inner):
+            return 1 + size(inner)
+        case _:
+            return 1
+
 #################################################################
-################## TSL_f PARSER #################################
+################## TSLf PARSER ##################################
 #################################################################
 
 class TSLTokenizer:

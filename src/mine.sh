@@ -203,6 +203,10 @@ BOLT_FLAGS=""
 [[ -n "$LIVENESS_ONLY" ]] && BOLT_FLAGS="$BOLT_FLAGS --liveness-only"
 [[ -n "$MAX_SOLUTIONS" ]] && BOLT_FLAGS="$BOLT_FLAGS --max-solutions $MAX_SOLUTIONS"
 
+# Propagate --mode to bolt flags: safety → --safety-only, liveness → --liveness-only
+[[ "$MODE" == "safety" ]] && BOLT_FLAGS="$BOLT_FLAGS --safety-only"
+[[ "$MODE" == "liveness" ]] && BOLT_FLAGS="$BOLT_FLAGS --liveness-only"
+
 #########################################
 # STEP 1: SyGuS Function Synthesis
 #########################################
@@ -285,8 +289,10 @@ if [[ -n "$GAME" ]]; then
                         is_safety="--is-safety"
                     fi
 
-                    # Transform and overwrite
-                    transformed=$(python3 "$TRANSFORMER" --spec "$spec_content" --game "$GAME" $is_safety 2>/dev/null || echo "$spec_content")
+                    # Transform and overwrite (extract Output: line from transformer)
+                    raw_output=$(python3 "$TRANSFORMER" --spec "$spec_content" --game "$GAME" $is_safety 2>/dev/null || echo "Output: $spec_content")
+                    transformed=$(echo "$raw_output" | grep '^Output:' | sed 's/^Output: *//')
+                    [[ -z "$transformed" ]] && transformed="$spec_content"
                     echo "$transformed" > "$spec_file"
                     echo "  Transformed: $spec_file"
                 fi
@@ -301,11 +307,13 @@ if [[ -n "$GAME" ]]; then
                     is_safety="--is-safety"
                 fi
 
-                # Transform each line
+                # Transform each line (extract Output: line from transformer)
                 temp_file=$(mktemp)
                 while IFS= read -r line; do
                     if [[ -n "$line" ]]; then
-                        transformed=$(python3 "$TRANSFORMER" --spec "$line" --game "$GAME" $is_safety 2>/dev/null || echo "$line")
+                        raw_output=$(python3 "$TRANSFORMER" --spec "$line" --game "$GAME" $is_safety 2>/dev/null || echo "Output: $line")
+                        transformed=$(echo "$raw_output" | grep '^Output:' | sed 's/^Output: *//')
+                        [[ -z "$transformed" ]] && transformed="$line"
                         echo "$transformed" >> "$temp_file"
                     fi
                 done < "$all_file"
