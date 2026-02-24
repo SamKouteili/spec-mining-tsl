@@ -186,6 +186,18 @@ def _get_trace_parser(game: str):
         return None
 
 
+SYNTHESIS_BACKENDS = {
+    "issy": {
+        "command": "issy",
+        "args": ["--tslmt", "--solve", "--synt", "--pruning", "1", "--accel", "no"],
+    },
+    "tsltools": {
+        "command": "tsl",
+        "args": ["synthesize", "--c", "-i"],
+    },
+}
+
+
 class SynthesisAPI:
     """
     API for synthesizing and running controllers from mined specs.
@@ -197,7 +209,8 @@ class SynthesisAPI:
     def __init__(
         self,
         game: str = "ice_lake",
-        synthesis_command: str = "issy",
+        backend: str = "issy",
+        synthesis_command: Optional[str] = None,
         synthesis_args: Optional[list[str]] = None,
         synthesis_timeout_minutes: Optional[float] = None,
         debug: bool = False,
@@ -207,18 +220,17 @@ class SynthesisAPI:
 
         Args:
             game: Game type (ice_lake, taxi, cliff_walking, blackjack)
-            synthesis_command: Path/name of synthesis tool
-            synthesis_args: Arguments for synthesis tool
+            backend: Synthesis backend ("issy" or "tsltools")
+            synthesis_command: Override backend command (default: from backend config)
+            synthesis_args: Override backend args (default: from backend config)
             synthesis_timeout_minutes: Timeout for synthesis (None = no timeout)
             debug: Enable debug output
         """
         self.game = game
-        self.synthesis_command = synthesis_command
-        self.synthesis_args = synthesis_args or [
-            "--tslmt", "--solve", "--synt",
-            "--pruning", "1",
-            "--accel", "no"
-        ]
+        self.backend = backend
+        config = SYNTHESIS_BACKENDS[backend]
+        self.synthesis_command = synthesis_command or config["command"]
+        self.synthesis_args = synthesis_args or config["args"]
         self.synthesis_timeout = synthesis_timeout_minutes
         self.debug = debug
 

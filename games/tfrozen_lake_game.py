@@ -85,13 +85,13 @@ class TupleFrozenLakeGame:
             self.goal_y = self.size - 1
             # Always exactly 3 holes for consistency with random placements
             if self.size == 4:
-                self.holes = [(1, 1), (3, 1), (3, 2)]
+                self.holes = [(1, 1), (3, 1), (1, 3)]
             else:
                 # For other board sizes, place 3 holes in reasonable positions
                 self.holes = [
                     (1, 1),
                     (self.size - 1, 1),
-                    (self.size - 1, self.size - 2)
+                    (1, self.size - 1)
                 ]
 
         # Build grid based on positions

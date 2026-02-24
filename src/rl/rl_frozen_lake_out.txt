@@ -1,0 +1,1131 @@
+Work dir: /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u
+Goal: (F (eq x goalx && eq y goaly))
+Pos: 0, Neg: 0
+Spec: None
+
+=== Iteration 1: Spec stack size 0 ===
+Rolling out with spec: (F (eq x goalx && eq y goaly))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmp0n1qko74.tslmt
+Synthesis/run error: Fell into hole
+Rollout result: Negative
+  New traces since last collect-all (0 → 1), clearing stale stack (0 specs)
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=8...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --first-all --mode liveness --game frozen_lake --max-size 8 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F (eq x hole0x && eq y hole0y)), all_specs count=3
+Negated primary spec: (G ((! eq x hole0x) || (! eq y hole0y)))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 3 negated alternatives:
+Spec stack has 3 alternative specs:
+  * (G (! [x <- x]))
+  * (G (! [x <- add x i1()]))
+  * (G ((! eq x hole0x) || (! eq y hole0y)))
+  [SpecPool.pop_by_pred] POPPED: (G ((! eq x hole0x) || (! eq y hole0y))) (unique_preds=2, unique_updates=0, visited size now: 1)
+Current spec: (G ((! eq x hole0x) || (! eq y hole0y)))
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+=== Iteration 2: Spec stack size 2 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G ((! eq x hole0x) || (! eq y hole0y))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmpb8b8zqff.tslmt
+Synthesis/run error: Fell into hole
+Rollout result: Negative
+  New traces since last collect-all (0 → 2), clearing stale stack (2 specs)
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=8...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --first-all --mode liveness --game frozen_lake --max-size 8 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F [x <- add x i1()]), all_specs count=2
+Negated primary spec: (G (! [x <- add x i1()]))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 2 negated alternatives:
+Spec stack has 2 alternative specs:
+  * (G (! [x <- x]))
+  * (G (! [x <- add x i1()]))
+  [SpecPool.pop_by_pred] POPPED: (G (! [x <- x])) (unique_preds=0, unique_updates=1, visited size now: 2)
+Current spec: (G (! [x <- x]))
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+=== Iteration 3: Spec stack size 1 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (! [x <- x])))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmpolimh820.tslmt
+Synthesis/run error: No 'void main()' function found in synthesis output
+Warning: Empty trace, skipping storage
+Rollout result: Negative
+  New traces since last collect-all (0 → 2), clearing stale stack (1 specs)
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=8...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --first-all --mode liveness --game frozen_lake --max-size 8 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F [x <- add x i1()]), all_specs count=2
+Negated primary spec: (G (! [x <- add x i1()]))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 2 negated alternatives:
+  [SpecPool.add] REJECTED (visited): (G (! [x <- x]))
+Spec stack has 1 alternative specs:
+  * (G (! [x <- add x i1()]))
+  [SpecPool.pop_by_pred] POPPED: (G (! [x <- add x i1()])) (unique_preds=0, unique_updates=1, visited size now: 3)
+Current spec: (G (! [x <- add x i1()]))
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+=== Iteration 4: Spec stack size 0 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (! [x <- add x i1()])))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmp3memox7u.tslmt
+Synthesis/run error: No 'void main()' function found in synthesis output
+Warning: Empty trace, skipping storage
+Rollout result: Negative
+  New traces since last collect-all (0 → 2), clearing stale stack (0 specs)
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=8...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --first-all --mode liveness --game frozen_lake --max-size 8 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F [x <- add x i1()]), all_specs count=2
+Negated primary spec: (G (! [x <- add x i1()]))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 2 negated alternatives:
+  [SpecPool.add] REJECTED (visited): (G (! [x <- x]))
+  [SpecPool.add] REJECTED (visited): (G (! [x <- add x i1()]))
+Spec stack has 0 alternative specs:
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=6...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --collect-all --mode liveness --game frozen_lake --max-size 6 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y))), all_specs count=102
+Negated primary spec: (G (((! eq x hole0x) || (! eq y hole0y)) && ((! eq x hole1x) || (! eq y hole1y))))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 102 negated alternatives:
+  [SpecPool.add] REJECTED (visited): (G (! [x <- x]))
+  [SpecPool.add] REJECTED (visited): (G (! [x <- add x i1()]))
+Spec stack has 100 alternative specs:
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X (! [x <- x]))) && ((F (eq x hole1x && eq y hole1y)) || (X [x <- x]))))
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X (! [x <- add x i1()]))) && ((F (eq x hole1x && eq y hole1y)) || (X [x <- add x i1()]))))
+  * (G ((G ((! eq x hole0x) || (! eq y hole0y))) && (X (! [x <- x]))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (X (! [x <- x]))) && ((F (eq x hole0x && eq y hole0y)) || (X [x <- x]))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (X (! [x <- add x i1()]))) && ((F (eq x hole0x && eq y hole0y)) || (X [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (((! [x <- x]) || (X (X (! [x <- x])))) && ([x <- x] || (X (X [x <- x])))))
+  * (G (((! [x <- x]) || (X (X (! [x <- add x i1()])))) && ([x <- x] || (X (X [x <- add x i1()])))))
+  * (G ([x <- add x i1()] && (X (X (! [x <- x])))))
+  * (G (((! [x <- add x i1()]) || (X (X (! [x <- x])))) && ([x <- add x i1()] || (X (X [x <- x])))))
+  * (G ([x <- add x i1()] && (X (X (! [x <- add x i1()])))))
+  * (G (((! [x <- add x i1()]) || (X (X (! [x <- add x i1()])))) && ([x <- add x i1()] || (X (X [x <- add x i1()])))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X (! [x <- x])))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X (! [x <- add x i1()])))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (X (! [x <- x])))) && ((eq x hole0x && eq y hole0y) || (F (X [x <- x])))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (X (! [x <- x])))) && ((eq x hole0x && eq y hole0y) || (X (X [x <- x])))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X (! [x <- x])))))
+  * (G ((X (X [x <- x])) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (X (! [x <- add x i1()])))) && ((eq x hole0x && eq y hole0y) || (X (X [x <- add x i1()])))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X (! [x <- add x i1()])))))
+  * (G ((X (X [x <- add x i1()])) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (X ((! eq x hole1x) || (! eq y hole1y))))) && ((eq x hole0x && eq y hole0y) || (F (X (eq x hole1x && eq y hole1y))))))
+  * (G ((X (F (eq x hole0x && eq y hole0y))) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((X (X (eq x hole0x && eq y hole0y))) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (X (! [x <- x])))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (X (! [x <- add x i1()])))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (X [x <- x])))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- x])))))
+  * (G (X ((X [x <- x]) && ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- add x i1()]))) && ((eq x hole0x && eq y hole0y) || (X [x <- add x i1()])))))
+  * (G (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- add x i1()])))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- add x i1()])))))
+  * (G (X ((X [x <- add x i1()]) && ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- x])) && ((eq x hole0x && eq y hole0y) || [x <- x])))))
+  * (G (X (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x])))))
+  * (G (X (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- add x i1()])) && ((eq x hole0x && eq y hole0y) || [x <- add x i1()])))))
+  * (G (X (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()])))))
+  * (G (((! [x <- x]) || (X (! [x <- x]))) && ([x <- x] || (X [x <- x]))))
+  * (G (((! [x <- x]) || (X (! [x <- add x i1()]))) && ([x <- x] || (X [x <- add x i1()]))))
+  * (G (((! [x <- x]) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- x] || (F (eq x hole1x && eq y hole1y)))))
+  * (G (((! [x <- x]) || (G ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- x] || (F (eq x hole0x && eq y hole0y)))))
+  * (G ((! [x <- x]) && (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (((! [x <- add x i1()]) || (X (! [x <- x]))) && ([x <- add x i1()] || (X [x <- x]))))
+  * (G ([x <- add x i1()] && (X (! [x <- x]))))
+  * (G (((! [x <- add x i1()]) || (X (! [x <- add x i1()]))) && ([x <- add x i1()] || (X [x <- add x i1()]))))
+  * (G (((! [x <- add x i1()]) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- add x i1()] || (F (eq x hole1x && eq y hole1y)))))
+  * (G (((! [x <- add x i1()]) || (G ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- add x i1()] || (F (eq x hole0x && eq y hole0y)))))
+  * (G ((F (eq x hole0x && eq y hole0y)) && (! [x <- add x i1()])))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (! [x <- add x i1()]))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (F [x <- x]))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (X [x <- x]))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- x]))))
+  * (G ((X [x <- x]) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- add x i1()]))) && ((eq x hole0x && eq y hole0y) || (X [x <- add x i1()]))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole0x && eq y hole0y) || (X (eq x hole1x && eq y hole1y)))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G ((X (eq x hole0x && eq y hole0y)) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- x])) && ((eq x hole0x && eq y hole0y) || [x <- x]))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x]))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- add x i1()])) && ((eq x hole0x && eq y hole0y) || [x <- add x i1()]))))
+  * (G ([x <- add x i1()] U (eq x hole0x && eq y hole0y)))
+  * (G (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()]))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()]))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole1x) || (! eq y hole1y))) && ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y)))))
+  * (G (X (X (G (! [x <- x])))))
+  * (G (X (G (X (! [x <- x])))))
+  * (G (X (X [x <- x])))
+  * (G (X (X (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X (X (eq x hole0x && eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- x])) && ((eq x hole0x && eq y hole0y) || [x <- x])))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x])))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- add x i1()])) && ((eq x hole0x && eq y hole0y) || [x <- add x i1()])))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()])))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole1x) || (! eq y hole1y))) && ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G (X (G (! [x <- x]))))
+  * (G (X (X (! [x <- x]))))
+  * (G (X [x <- x]))
+  * (G (X (X (! [x <- add x i1()]))))
+  * (G (X (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X (X ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X (eq x hole1x && eq y hole1y)))
+  * (G (X (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (G (X ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X (X ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X (eq x hole0x && eq y hole0y)))
+  * (G (G (! [x <- x])))
+  * (G (X (! [x <- x])))
+  * (G [x <- x])
+  * (G (G (! [x <- add x i1()])))
+  * (G (X (! [x <- add x i1()])))
+  * (G [x <- add x i1()])
+  * (G (X ((! eq x hole1x) || (! eq y hole1y))))
+  * (G (eq x hole1x && eq y hole1y))
+  * (G (X ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (eq x hole0x && eq y hole0y))
+  [SpecPool.pop_by_pred] POPPED: (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole0x) || (! eq y hole0y)))))) (unique_preds=4, unique_updates=0, visited size now: 4)
+Current spec: (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+=== Iteration 5: Spec stack size 99 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole0x) || (! eq y hole0y)))))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmp34swfx7d.tslmt
+Synthesis/run error: Fell into hole
+Rollout result: Negative
+  New traces since last collect-all (2 → 3), clearing stale stack (99 specs)
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=8...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --first-all --mode liveness --game frozen_lake --max-size 8 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F [x <- add x i1()]), all_specs count=2
+Negated primary spec: (G (! [x <- add x i1()]))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 2 negated alternatives:
+  [SpecPool.add] REJECTED (visited): (G (! [x <- x]))
+  [SpecPool.add] REJECTED (visited): (G (! [x <- add x i1()]))
+Spec stack has 0 alternative specs:
+No positive traces. Mining liveness from negatives (flipped), then negating.
+Mining with mode=liveness, max_size=6...
+  Command: bash /Users/samkouteili/rose/tsl-f/spec-mining-tsl/src/mine.sh /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u --collect-all --mode liveness --game frozen_lake --max-size 6 --prune --self-inputs-only --pos /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/neg --neg /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/rl_loop_r5koel9u/pos
+  Mining completed with return code 0
+[refine_policy] Mining returned: primary=(F (((eq x hole0x && eq y hole0y) && (eq x hole1x && eq y hole1y)) || ((! (eq x hole0x && eq y hole0y)) && (! (eq x hole1x && eq y hole1y))))), all_specs count=499
+Negated primary spec: (G ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole1x) || (! eq y hole1y))) && ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y))))
+[refine_policy] NOTE: Primary spec is NOT being added to stack!
+[refine_policy] Adding 499 negated alternatives:
+  [SpecPool.add] REJECTED (visited): (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  [SpecPool.add] REJECTED (visited): (G (! [x <- x]))
+  [SpecPool.add] REJECTED (visited): (G (! [x <- add x i1()]))
+Spec stack has 496 alternative specs:
+  * (G (((G ((! eq x hole2x) || (! eq y hole2y))) || (G (! [x <- x]))) && ((F (eq x hole2x && eq y hole2y)) || (F [x <- x]))))
+  * (G ((F (eq x hole2x && eq y hole2y)) && (X (! [x <- x]))))
+  * (G (((G ((! eq x hole2x) || (! eq y hole2y))) || (X (! [x <- x]))) && ((F (eq x hole2x && eq y hole2y)) || (X [x <- x]))))
+  * (G (((G ((! eq x hole2x) || (! eq y hole2y))) || (G (! [x <- add x i1()]))) && ((F (eq x hole2x && eq y hole2y)) || (F [x <- add x i1()]))))
+  * (G ((F (eq x hole2x && eq y hole2y)) && (X (! [x <- add x i1()]))))
+  * (G (((G ((! eq x hole2x) || (! eq y hole2y))) || (X (! [x <- add x i1()]))) && ((F (eq x hole2x && eq y hole2y)) || (X [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && (G ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G ((F (eq x hole2x && eq y hole2y)) && (X ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (((X ((! eq x hole2x) || (! eq y hole2y))) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ((X (eq x hole2x && eq y hole2y)) || (F (eq x hole2x && eq y hole2y)))))
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (G (! [x <- x]))) && ((F (eq x hole1x && eq y hole1y)) || (F [x <- x]))))
+  * (G ((F (eq x hole1x && eq y hole1y)) && (X (! [x <- x]))))
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X (! [x <- x]))) && ((F (eq x hole1x && eq y hole1y)) || (X [x <- x]))))
+  * (G ((X [x <- x]) && (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (G (! [x <- add x i1()]))) && ((F (eq x hole1x && eq y hole1y)) || (F [x <- add x i1()]))))
+  * (G ((F (eq x hole1x && eq y hole1y)) && (X (! [x <- add x i1()]))))
+  * (G ((G ((! eq x hole1x) || (! eq y hole1y))) && (X (! [x <- add x i1()]))))
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X (! [x <- add x i1()]))) && ((F (eq x hole1x && eq y hole1y)) || (X [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+  * (G (((X ((! eq x hole1x) || (! eq y hole1y))) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ((X (eq x hole1x && eq y hole1y)) || (F (eq x hole2x && eq y hole2y)))))
+  * (G (((X ((! eq x hole1x) || (! eq y hole1y))) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ((X (eq x hole1x && eq y hole1y)) || (F (eq x hole1x && eq y hole1y)))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (G (! [x <- x]))) && ((F (eq x hole0x && eq y hole0y)) || (F [x <- x]))))
+  * (G ((G ((! eq x hole0x) || (! eq y hole0y))) && (X (! [x <- x]))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (X (! [x <- x]))) && ((F (eq x hole0x && eq y hole0y)) || (X [x <- x]))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (G (! [x <- add x i1()]))) && ((F (eq x hole0x && eq y hole0y)) || (F [x <- add x i1()]))))
+  * (G ((G ((! eq x hole0x) || (! eq y hole0y))) && (X (! [x <- add x i1()]))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (X (! [x <- add x i1()]))) && ((F (eq x hole0x && eq y hole0y)) || (X [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole0x && eq y hole0y)) || (X (eq x hole2x && eq y hole2y)))))
+  * (G (((G ((! eq x hole0x) || (! eq y hole0y))) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ((F (eq x hole0x && eq y hole0y)) || (X (eq x hole1x && eq y hole1y)))))
+  * (G (((X ((! eq x hole0x) || (! eq y hole0y))) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ((X (eq x hole0x && eq y hole0y)) || (F (eq x hole2x && eq y hole2y)))))
+  * (G (((X ((! eq x hole0x) || (! eq y hole0y))) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ((X (eq x hole0x && eq y hole0y)) || (F (eq x hole1x && eq y hole1y)))))
+  * (G (((! [x <- x]) || ((((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- add x i1()]))) || (F ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- x] || ([x <- add x i1()] U (eq x hole2x && eq y hole2y)))))
+  * (G ((! [x <- x]) && ((((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- add x i1()]))) || (F ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (((! [x <- x]) || ((((! eq x hole1x) || (! eq y hole1y)) && (G (! [x <- x]))) || (F ((! eq x hole1x) || (! eq y hole1y))))) && ([x <- x] || ([x <- x] U (eq x hole1x && eq y hole1y)))))
+  * (G (((! [x <- x]) || (G (X (! [x <- x])))) && ([x <- x] || (F (X [x <- x])))))
+  * (G (((! [x <- x]) || (X (X (! [x <- x])))) && ([x <- x] || (X (X [x <- x])))))
+  * (G ((! [x <- x]) && (X (X (! [x <- x])))))
+  * (G ((! [x <- x]) && (X (X (! [x <- add x i1()])))))
+  * (G (((! [x <- x]) || (X (X (! [x <- add x i1()])))) && ([x <- x] || (X (X [x <- add x i1()])))))
+  * (G ((X (X [x <- add x i1()])) && (! [x <- x])))
+  * (G (((! [x <- x]) || (X (G ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- x] || (X (F (eq x hole2x && eq y hole2y))))))
+  * (G ((X (F (eq x hole2x && eq y hole2y))) && (! [x <- x])))
+  * (G (((! [x <- x]) || (G (X ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- x] || (F (X (eq x hole2x && eq y hole2y))))))
+  * (G ((! [x <- x]) && (G (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (((! [x <- x]) || (X (X ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- x] || (X (X (eq x hole2x && eq y hole2y))))))
+  * (G (((! [x <- x]) || (X (X ((! eq x hole1x) || (! eq y hole1y))))) && ([x <- x] || (X (X (eq x hole1x && eq y hole1y))))))
+  * (G (((! [x <- x]) || (X (G ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- x] || (X (F (eq x hole0x && eq y hole0y))))))
+  * (G (((! [x <- x]) || (G (X ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- x] || (F (X (eq x hole0x && eq y hole0y))))))
+  * (G (((! [x <- x]) || (X (X ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- x] || (X (X (eq x hole0x && eq y hole0y))))))
+  * (G (((! [x <- add x i1()]) || ((((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- add x i1()]))) || (F ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- add x i1()] || ([x <- add x i1()] U (eq x hole2x && eq y hole2y)))))
+  * (G (((! [x <- add x i1()]) || ((((! eq x hole0x) || (! eq y hole0y)) && (G (! [x <- add x i1()]))) || (F ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- add x i1()] || ([x <- add x i1()] U (eq x hole0x && eq y hole0y)))))
+  * (G (((! [x <- add x i1()]) || (X (G (! [x <- x])))) && ([x <- add x i1()] || (X (F [x <- x])))))
+  * (G (((! [x <- add x i1()]) || (G (X (! [x <- x])))) && ([x <- add x i1()] || (F (X [x <- x])))))
+  * (G (((X (X (! [x <- x]))) && (G (! [x <- add x i1()]))) || (F (X (X (! [x <- x]))))))
+  * (G (((! [x <- add x i1()]) || (X (X (! [x <- x])))) && ([x <- add x i1()] || (X (X [x <- x])))))
+  * (G ([x <- add x i1()] && (X (X (! [x <- x])))))
+  * (G ((! [x <- add x i1()]) || (X (X (! [x <- x])))))
+  * (G (((! [x <- add x i1()]) || (G (X (! [x <- add x i1()])))) && ([x <- add x i1()] || (F (X [x <- add x i1()])))))
+  * (G ([x <- add x i1()] && (X (X (! [x <- add x i1()])))))
+  * (G (((X (X (! [x <- add x i1()]))) && (G (! [x <- add x i1()]))) || (F (X (X (! [x <- add x i1()]))))))
+  * (G (((! [x <- add x i1()]) || (X (X (! [x <- add x i1()])))) && ([x <- add x i1()] || (X (X [x <- add x i1()])))))
+  * (G ((! [x <- add x i1()]) || (X (X (! [x <- add x i1()])))))
+  * (G (((! [x <- add x i1()]) || (X (G ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- add x i1()] || (X (F (eq x hole2x && eq y hole2y))))))
+  * (G (((! [x <- add x i1()]) || (G (X ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- add x i1()] || (F (X (eq x hole2x && eq y hole2y))))))
+  * (G (((! [x <- add x i1()]) || (X (X ((! eq x hole2x) || (! eq y hole2y))))) && ([x <- add x i1()] || (X (X (eq x hole2x && eq y hole2y))))))
+  * (G (((! [x <- add x i1()]) && (G (X (X ((! eq x hole2x) || (! eq y hole2y)))))) || (F (! [x <- add x i1()]))))
+  * (G (((X (X ((! eq x hole2x) || (! eq y hole2y)))) && (G (! [x <- add x i1()]))) || (F (X (X ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G ((! [x <- add x i1()]) && (X (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G ([x <- add x i1()] && (X (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (((! [x <- add x i1()]) || (X (X ((! eq x hole1x) || (! eq y hole1y))))) && ([x <- add x i1()] || (X (X (eq x hole1x && eq y hole1y))))))
+  * (G (((! [x <- add x i1()]) || (X (G ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- add x i1()] || (X (F (eq x hole0x && eq y hole0y))))))
+  * (G (((! [x <- add x i1()]) || (G (X ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- add x i1()] || (F (X (eq x hole0x && eq y hole0y))))))
+  * (G (((! [x <- add x i1()]) || (X (X ((! eq x hole0x) || (! eq y hole0y))))) && ([x <- add x i1()] || (X (X (eq x hole0x && eq y hole0y))))))
+  * (G ((! [x <- add x i1()]) && (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G ((X (F [x <- x])) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (G (X (! [x <- x])))) && ((eq x hole2x && eq y hole2y) || (F (X [x <- x])))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (X (! [x <- x])))) && ((eq x hole2x && eq y hole2y) || (X (X [x <- x])))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (X (X (! [x <- x])))))
+  * (G ((X (X [x <- x])) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (G (X (! [x <- add x i1()])))) && ((eq x hole2x && eq y hole2y) || (F (X [x <- add x i1()])))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (X (! [x <- add x i1()])))) && ((eq x hole2x && eq y hole2y) || (X (X [x <- add x i1()])))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (X (X (! [x <- add x i1()])))))
+  * (G ((X (X [x <- add x i1()])) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((X (F (eq x hole2x && eq y hole2y))) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (X ((! eq x hole2x) || (! eq y hole2y))))) && ((eq x hole2x && eq y hole2y) || (X (X (eq x hole2x && eq y hole2y))))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (X (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G ((X (X (eq x hole2x && eq y hole2y))) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (G (X ((! eq x hole1x) || (! eq y hole1y))))) && ((eq x hole2x && eq y hole2y) || (F (X (eq x hole1x && eq y hole1y))))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (X ((! eq x hole1x) || (! eq y hole1y))))) && ((eq x hole2x && eq y hole2y) || (X (X (eq x hole1x && eq y hole1y))))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (X (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G ((X (X (eq x hole1x && eq y hole1y))) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (G (X ((! eq x hole0x) || (! eq y hole0y))))) && ((eq x hole2x && eq y hole2y) || (F (X (eq x hole0x && eq y hole0y))))))
+  * (G ((X (X (eq x hole0x && eq y hole0y))) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (X ((! eq x hole0x) || (! eq y hole0y))))) && ((eq x hole2x && eq y hole2y) || (X (X (eq x hole0x && eq y hole0y))))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G ((X (F [x <- x])) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (G (X (! [x <- x])))) && ((eq x hole1x && eq y hole1y) || (F (X [x <- x])))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (X (! [x <- x])))) && ((eq x hole1x && eq y hole1y) || (X (X [x <- x])))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X (! [x <- x])))))
+  * (G ((X (X [x <- x])) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (G (X (! [x <- add x i1()])))) && ((eq x hole1x && eq y hole1y) || (F (X [x <- add x i1()])))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (X (! [x <- add x i1()])))) && ((eq x hole1x && eq y hole1y) || (X (X [x <- add x i1()])))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X (! [x <- add x i1()])))))
+  * (G ((X (X [x <- add x i1()])) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (G (X ((! eq x hole2x) || (! eq y hole2y))))) && ((eq x hole1x && eq y hole1y) || (F (X (eq x hole2x && eq y hole2y))))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (X ((! eq x hole2x) || (! eq y hole2y))))) && ((eq x hole1x && eq y hole1y) || (X (X (eq x hole2x && eq y hole2y))))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G ((X (X (eq x hole2x && eq y hole2y))) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((X (F (eq x hole1x && eq y hole1y))) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (X ((! eq x hole1x) || (! eq y hole1y))))) && ((eq x hole1x && eq y hole1y) || (X (X (eq x hole1x && eq y hole1y))))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G ((X (X (eq x hole1x && eq y hole1y))) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (G (X ((! eq x hole0x) || (! eq y hole0y))))) && ((eq x hole1x && eq y hole1y) || (F (X (eq x hole0x && eq y hole0y))))))
+  * (G ((X (X (eq x hole0x && eq y hole0y))) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (X ((! eq x hole0x) || (! eq y hole0y))))) && ((eq x hole1x && eq y hole1y) || (X (X (eq x hole0x && eq y hole0y))))))
+  * (G ((X (F [x <- x])) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (X (! [x <- x])))) && ((eq x hole0x && eq y hole0y) || (F (X [x <- x])))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (G (X (! [x <- x])))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (X (! [x <- x])))) && ((eq x hole0x && eq y hole0y) || (X (X [x <- x])))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X (! [x <- x])))))
+  * (G ((X (X [x <- x])) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (X (! [x <- add x i1()])))) && ((eq x hole0x && eq y hole0y) || (F (X [x <- add x i1()])))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (X (! [x <- add x i1()])))) && ((eq x hole0x && eq y hole0y) || (X (X [x <- add x i1()])))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X (! [x <- add x i1()])))))
+  * (G ((X (X [x <- add x i1()])) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (X ((! eq x hole2x) || (! eq y hole2y))))) && ((eq x hole0x && eq y hole0y) || (F (X (eq x hole2x && eq y hole2y))))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (X ((! eq x hole2x) || (! eq y hole2y))))) && ((eq x hole0x && eq y hole0y) || (X (X (eq x hole2x && eq y hole2y))))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G ((X (X (eq x hole2x && eq y hole2y))) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (X ((! eq x hole1x) || (! eq y hole1y))))) && ((eq x hole0x && eq y hole0y) || (F (X (eq x hole1x && eq y hole1y))))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (X ((! eq x hole1x) || (! eq y hole1y))))) && ((eq x hole0x && eq y hole0y) || (X (X (eq x hole1x && eq y hole1y))))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G ((X (X (eq x hole1x && eq y hole1y))) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((X (F (eq x hole0x && eq y hole0y))) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G ((X (X (eq x hole0x && eq y hole0y))) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (X (((! [x <- x]) || (X (! [x <- x]))) && ([x <- x] || (X [x <- x])))))
+  * (G (X ((X [x <- x]) && (! [x <- x]))))
+  * (G ((! (X [x <- x])) || [x <- x]))
+  * (G (X (((! [x <- x]) && (G (X (! [x <- x])))) || (F (! [x <- x])))))
+  * (G ((X [x <- x]) U [x <- x]))
+  * (G (X (((X (! [x <- add x i1()])) && (G (! [x <- x]))) || (F (X (! [x <- add x i1()]))))))
+  * (G ([x <- x] U (X [x <- add x i1()])))
+  * (G (X ((! [x <- x]) && (X (! [x <- add x i1()])))))
+  * (G ([x <- x] || (X [x <- add x i1()])))
+  * (G (X (((! [x <- x]) || (X (! [x <- add x i1()]))) && ([x <- x] || (X [x <- add x i1()])))))
+  * (G (X ((X [x <- add x i1()]) && (! [x <- x]))))
+  * (G (X (((! [x <- x]) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- x] || (F (eq x hole2x && eq y hole2y))))))
+  * (G (([x <- x] && (F (eq x hole2x && eq y hole2y))) || ((! [x <- x]) && (! (F (eq x hole2x && eq y hole2y))))))
+  * (G (X ((F (eq x hole2x && eq y hole2y)) && (! [x <- x]))))
+  * (G (X (((! [x <- x]) && (G (G ((! eq x hole2x) || (! eq y hole2y))))) || (F (! [x <- x])))))
+  * (G ((F (eq x hole2x && eq y hole2y)) U [x <- x]))
+  * (G ([x <- x] && (F (eq x hole2x && eq y hole2y))))
+  * (G (X ((! [x <- x]) && (G ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X (((X ((! eq x hole2x) || (! eq y hole2y))) && (G (! [x <- x]))) || (F (X ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G (X (((! [x <- x]) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- x] || (X (eq x hole2x && eq y hole2y))))))
+  * (G ([x <- x] U (X (eq x hole2x && eq y hole2y))))
+  * (G (X (((! [x <- x]) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- x] || (F (eq x hole1x && eq y hole1y))))))
+  * (G (([x <- x] && (F (eq x hole1x && eq y hole1y))) || ((! [x <- x]) && (! (F (eq x hole1x && eq y hole1y))))))
+  * (G (X ((F (eq x hole1x && eq y hole1y)) && (! [x <- x]))))
+  * (G (X (((! [x <- x]) && (G (G ((! eq x hole1x) || (! eq y hole1y))))) || (F (! [x <- x])))))
+  * (G ((F (eq x hole1x && eq y hole1y)) U [x <- x]))
+  * (G (X ((! [x <- x]) && (G ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (((! [x <- x]) || (G ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- x] || (F (eq x hole0x && eq y hole0y))))))
+  * (G (([x <- x] && (F (eq x hole0x && eq y hole0y))) || ((! [x <- x]) && (! (F (eq x hole0x && eq y hole0y))))))
+  * (G (X ((! [x <- x]) && (G ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X (((! [x <- x]) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- x] || (X (eq x hole0x && eq y hole0y))))))
+  * (G (X (((! [x <- add x i1()]) || (G (! [x <- x]))) && ([x <- add x i1()] || (F [x <- x])))))
+  * (G (([x <- add x i1()] && (F [x <- x])) || ((! [x <- add x i1()]) && (! (F [x <- x])))))
+  * (G (X ((! [x <- add x i1()]) || (G (! [x <- x])))))
+  * (G (X (((! [x <- add x i1()]) || (X (! [x <- x]))) && ([x <- add x i1()] || (X [x <- x])))))
+  * (G (X ([x <- add x i1()] && (X (! [x <- x])))))
+  * (G ((! [x <- add x i1()]) || (X [x <- x])))
+  * (G (X ((! [x <- add x i1()]) || (X (! [x <- x])))))
+  * (G (X ((! [x <- add x i1()]) && (X (! [x <- x])))))
+  * (G ([x <- add x i1()] || (X [x <- x])))
+  * (G (X (((! [x <- add x i1()]) || (X (! [x <- add x i1()]))) && ([x <- add x i1()] || (X [x <- add x i1()])))))
+  * (G (X ([x <- add x i1()] && (X (! [x <- add x i1()])))))
+  * (G ((! [x <- add x i1()]) || (X [x <- add x i1()])))
+  * (G (X (((! [x <- add x i1()]) && (G (X (! [x <- add x i1()])))) || (F (! [x <- add x i1()])))))
+  * (G ((X [x <- add x i1()]) U [x <- add x i1()]))
+  * (G (X (((! [x <- add x i1()]) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- add x i1()] || (F (eq x hole2x && eq y hole2y))))))
+  * (G (([x <- add x i1()] && (F (eq x hole2x && eq y hole2y))) || ((! [x <- add x i1()]) && (! (F (eq x hole2x && eq y hole2y))))))
+  * (G (X ((F (eq x hole2x && eq y hole2y)) && (! [x <- add x i1()]))))
+  * (G (X ([x <- add x i1()] && (G ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X ((! [x <- add x i1()]) || (G ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G ([x <- add x i1()] && (F (eq x hole2x && eq y hole2y))))
+  * (G (X (((! [x <- add x i1()]) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- add x i1()] || (X (eq x hole2x && eq y hole2y))))))
+  * (G (X ([x <- add x i1()] && (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X (((! [x <- add x i1()]) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- add x i1()] || (F (eq x hole1x && eq y hole1y))))))
+  * (G (([x <- add x i1()] && (F (eq x hole1x && eq y hole1y))) || ((! [x <- add x i1()]) && (! (F (eq x hole1x && eq y hole1y))))))
+  * (G (X ([x <- add x i1()] && (G ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X ((! [x <- add x i1()]) && (G ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (((! [x <- add x i1()]) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- add x i1()] || (X (eq x hole1x && eq y hole1y))))))
+  * (G (X ((! [x <- add x i1()]) && (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (((! [x <- add x i1()]) || (G ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- add x i1()] || (F (eq x hole0x && eq y hole0y))))))
+  * (G (([x <- add x i1()] && (F (eq x hole0x && eq y hole0y))) || ((! [x <- add x i1()]) && (! (F (eq x hole0x && eq y hole0y))))))
+  * (G ((F (eq x hole0x && eq y hole0y)) U [x <- add x i1()]))
+  * (G (X (((! [x <- add x i1()]) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- add x i1()] || (X (eq x hole0x && eq y hole0y))))))
+  * (G (X ([x <- add x i1()] && (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (G (! [x <- x]))) && ((eq x hole2x && eq y hole2y) || (F [x <- x])))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- x])))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (X (! [x <- x]))) && ((eq x hole2x && eq y hole2y) || (X [x <- x])))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (X (! [x <- x])))))
+  * (G (X ((X [x <- x]) && ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G ((! (X [x <- x])) || (eq x hole2x && eq y hole2y)))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (G (! [x <- add x i1()]))) && ((eq x hole2x && eq y hole2y) || (F [x <- add x i1()])))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (X (! [x <- add x i1()]))) && ((eq x hole2x && eq y hole2y) || (X [x <- add x i1()])))))
+  * (G (G (((! eq x hole2x) || (! eq y hole2y)) && (X (! [x <- add x i1()])))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (X (! [x <- add x i1()])))))
+  * (G (X ((X [x <- add x i1()]) && ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G ((! (X [x <- add x i1()])) || (eq x hole2x && eq y hole2y)))
+  * (G (X ((X (eq x hole2x && eq y hole2y)) && ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G ((! (X (eq x hole2x && eq y hole2y))) || (eq x hole2x && eq y hole2y)))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole2x && eq y hole2y) || (F (eq x hole1x && eq y hole1y))))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (G ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole2x && eq y hole2y) || (X (eq x hole1x && eq y hole1y))))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (G ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ((eq x hole2x && eq y hole2y) || (X (eq x hole0x && eq y hole0y))))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (G (! [x <- x]))) && ((eq x hole1x && eq y hole1y) || (F [x <- x])))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (X (! [x <- x]))) && ((eq x hole1x && eq y hole1y) || (X [x <- x])))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (X (! [x <- x])))))
+  * (G (X ((X [x <- x]) && ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G ((! (X [x <- x])) || (eq x hole1x && eq y hole1y)))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (G (! [x <- add x i1()]))) && ((eq x hole1x && eq y hole1y) || (F [x <- add x i1()])))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (X (! [x <- add x i1()]))) && ((eq x hole1x && eq y hole1y) || (X [x <- add x i1()])))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (X (! [x <- add x i1()])))))
+  * (G (X ((X [x <- add x i1()]) && ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G ((! (X [x <- add x i1()])) || (eq x hole1x && eq y hole1y)))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ((eq x hole1x && eq y hole1y) || (F (eq x hole2x && eq y hole2y))))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (G ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((eq x hole1x && eq y hole1y) || (X (eq x hole2x && eq y hole2y))))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X ((X (eq x hole2x && eq y hole2y)) && ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X ((X (eq x hole1x && eq y hole1y)) && ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X ((X (eq x hole0x && eq y hole0y)) && ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (G (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (F [x <- x])))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (G (! [x <- x])))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (X [x <- x])))))
+  * (G (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- x])))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- x])))))
+  * (G (X ((X [x <- x]) && ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (G (! [x <- add x i1()]))) && ((eq x hole0x && eq y hole0y) || (F [x <- add x i1()])))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- add x i1()]))) && ((eq x hole0x && eq y hole0y) || (X [x <- add x i1()])))))
+  * (G (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- add x i1()])))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- add x i1()])))))
+  * (G (X ((X [x <- add x i1()]) && ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G ((! (X [x <- add x i1()])) || (eq x hole0x && eq y hole0y)))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ((eq x hole0x && eq y hole0y) || (F (eq x hole2x && eq y hole2y))))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (G ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((eq x hole0x && eq y hole0y) || (X (eq x hole2x && eq y hole2y))))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole0x && eq y hole0y) || (F (eq x hole1x && eq y hole1y))))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (G ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole0x && eq y hole0y) || (X (eq x hole1x && eq y hole1y))))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X ((X (eq x hole0x && eq y hole0y)) && ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G ((! (X (eq x hole0x && eq y hole0y))) || (eq x hole0x && eq y hole0y)))
+  * (G (X (X ((((! eq x hole2x) || (! eq y hole2y)) || (! [x <- x])) && ((eq x hole2x && eq y hole2y) || [x <- x])))))
+  * (G (X (G (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- x])))))
+  * (G (X (X (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- x])))))
+  * (G (X (X ((((! eq x hole2x) || (! eq y hole2y)) || (! [x <- add x i1()])) && ((eq x hole2x && eq y hole2y) || [x <- add x i1()])))))
+  * (G (X (X ((((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- add x i1()]))) || (F ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G (X ([x <- add x i1()] U (eq x hole2x && eq y hole2y))))
+  * (G (X (G (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- add x i1()])))))
+  * (G (G (X (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- add x i1()])))))
+  * (G (X (X (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- add x i1()])))))
+  * (G (X (X ((((! eq x hole1x) || (! eq y hole1y)) || (! [x <- x])) && ((eq x hole1x && eq y hole1y) || [x <- x])))))
+  * (G (X (X ((((! eq x hole1x) || (! eq y hole1y)) && (G (! [x <- x]))) || (F ((! eq x hole1x) || (! eq y hole1y)))))))
+  * (G (X ([x <- x] U (eq x hole1x && eq y hole1y))))
+  * (G (X (G (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- x])))))
+  * (G (X (X (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- x])))))
+  * (G (X (X ((((! eq x hole1x) || (! eq y hole1y)) || (! [x <- add x i1()])) && ((eq x hole1x && eq y hole1y) || [x <- add x i1()])))))
+  * (G (X (X (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- add x i1()])))))
+  * (G (X (X ((((! eq x hole1x) || (! eq y hole1y)) || ((! eq x hole2x) || (! eq y hole2y))) && ((eq x hole1x && eq y hole1y) || (eq x hole2x && eq y hole2y))))))
+  * (G (X (X (((! eq x hole1x) || (! eq y hole1y)) && ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- x])) && ((eq x hole0x && eq y hole0y) || [x <- x])))))
+  * (G (X (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x])))))
+  * (G (G (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x])))))
+  * (G (X (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x])))))
+  * (G (X (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- add x i1()])) && ((eq x hole0x && eq y hole0y) || [x <- add x i1()])))))
+  * (G (X (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()])))))
+  * (G (G (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()])))))
+  * (G (X (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()])))))
+  * (G (X (X (((! eq x hole0x) || (! eq y hole0y)) && ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X (X ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole1x) || (! eq y hole1y))) && ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y))))))
+  * (G (X (X (((! eq x hole0x) || (! eq y hole0y)) && ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (X (X (G (! [x <- add x i1()]))))))
+  * (G (X (X (G (X (! [x <- add x i1()]))))))
+  * (G (X (G (X (X (! [x <- add x i1()]))))))
+  * (G (X (X (X (X (! [x <- add x i1()]))))))
+  * (G (X (X (X [x <- add x i1()]))))
+  * (G (X (X (X (G ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G (X (X (F (eq x hole2x && eq y hole2y)))))
+  * (G (X (X (G (X ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G (X (F (X (eq x hole2x && eq y hole2y)))))
+  * (G (X (G (X (X ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G (F (X (X (eq x hole2x && eq y hole2y)))))
+  * (G (X (X (X (X ((! eq x hole2x) || (! eq y hole2y)))))))
+  * (G (X (X (X (eq x hole2x && eq y hole2y)))))
+  * (G (X (X (X (G ((! eq x hole1x) || (! eq y hole1y)))))))
+  * (G (X (X (F (eq x hole1x && eq y hole1y)))))
+  * (G (X (X (G (X ((! eq x hole1x) || (! eq y hole1y)))))))
+  * (G (X (F (X (eq x hole1x && eq y hole1y)))))
+  * (G (X (G (X (X ((! eq x hole1x) || (! eq y hole1y)))))))
+  * (G (F (X (X (eq x hole1x && eq y hole1y)))))
+  * (G (X (X (X (X ((! eq x hole1x) || (! eq y hole1y)))))))
+  * (G (X (X (X (eq x hole1x && eq y hole1y)))))
+  * (G (X (X (X (X ((! eq x hole0x) || (! eq y hole0y)))))))
+  * (G (X (X (X (eq x hole0x && eq y hole0y)))))
+  * (G ((F [x <- x]) && (! [x <- x])))
+  * (G (((! [x <- x]) || (X (! [x <- x]))) && ([x <- x] || (X [x <- x]))))
+  * (G ((X [x <- x]) && (! [x <- x])))
+  * (G (((! [x <- x]) && (G (X (! [x <- x])))) || (F (! [x <- x]))))
+  * (G (((X (! [x <- add x i1()])) && (G (! [x <- x]))) || (F (X (! [x <- add x i1()])))))
+  * (G ((! [x <- x]) && (X (! [x <- add x i1()]))))
+  * (G (((! [x <- x]) || (X (! [x <- add x i1()]))) && ([x <- x] || (X [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && (! [x <- x])))
+  * (G (((! [x <- x]) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- x] || (F (eq x hole2x && eq y hole2y)))))
+  * (G ((F (eq x hole2x && eq y hole2y)) && (! [x <- x])))
+  * (G ([x <- x] && (G ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (((! [x <- x]) && (G (G ((! eq x hole2x) || (! eq y hole2y))))) || (F (! [x <- x]))))
+  * (G ((! [x <- x]) && (G ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (((! [x <- x]) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- x] || (X (eq x hole2x && eq y hole2y)))))
+  * (G (((X ((! eq x hole2x) || (! eq y hole2y))) && (G (! [x <- x]))) || (F (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (((! [x <- x]) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- x] || (F (eq x hole1x && eq y hole1y)))))
+  * (G ((F (eq x hole1x && eq y hole1y)) && (! [x <- x])))
+  * (G (((! [x <- x]) && (G (G ((! eq x hole1x) || (! eq y hole1y))))) || (F (! [x <- x]))))
+  * (G ((! [x <- x]) && (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (((! [x <- x]) || (G ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- x] || (F (eq x hole0x && eq y hole0y)))))
+  * (G ([x <- x] && (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G ((! [x <- x]) && (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (((! [x <- x]) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- x] || (X (eq x hole0x && eq y hole0y)))))
+  * (G (((X ((! eq x hole0x) || (! eq y hole0y))) && (G (! [x <- x]))) || (F (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (((! [x <- add x i1()]) || (G (! [x <- x]))) && ([x <- add x i1()] || (F [x <- x]))))
+  * (G (((! [x <- add x i1()]) || (X (! [x <- x]))) && ([x <- add x i1()] || (X [x <- x]))))
+  * (G ((X [x <- x]) && (! [x <- add x i1()])))
+  * (G ([x <- add x i1()] && (X (! [x <- x]))))
+  * (G ((! [x <- add x i1()]) && (X (! [x <- x]))))
+  * (G (((! [x <- add x i1()]) || (X (! [x <- add x i1()]))) && ([x <- add x i1()] || (X [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && (! [x <- add x i1()])))
+  * (G ([x <- add x i1()] && (X (! [x <- add x i1()]))))
+  * (G (((! [x <- add x i1()]) && (G (X (! [x <- add x i1()])))) || (F (! [x <- add x i1()]))))
+  * (G ((! [x <- add x i1()]) && (X (! [x <- add x i1()]))))
+  * (G (((! [x <- add x i1()]) || (G ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- add x i1()] || (F (eq x hole2x && eq y hole2y)))))
+  * (G ((F (eq x hole2x && eq y hole2y)) && (! [x <- add x i1()])))
+  * (G ([x <- add x i1()] && (G ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (((! [x <- add x i1()]) && (G (G ((! eq x hole2x) || (! eq y hole2y))))) || (F (! [x <- add x i1()]))))
+  * (G ((! [x <- add x i1()]) && (G ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (((! [x <- add x i1()]) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ([x <- add x i1()] || (X (eq x hole2x && eq y hole2y)))))
+  * (G ([x <- add x i1()] && (X ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (((! [x <- add x i1()]) || (G ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- add x i1()] || (F (eq x hole1x && eq y hole1y)))))
+  * (G ([x <- add x i1()] && (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G ((! [x <- add x i1()]) && (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (((! [x <- add x i1()]) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ([x <- add x i1()] || (X (eq x hole1x && eq y hole1y)))))
+  * (G ((! [x <- add x i1()]) && (X ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (((! [x <- add x i1()]) || (G ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- add x i1()] || (F (eq x hole0x && eq y hole0y)))))
+  * (G ((F (eq x hole0x && eq y hole0y)) && (! [x <- add x i1()])))
+  * (G (((! [x <- add x i1()]) && (G (G ((! eq x hole0x) || (! eq y hole0y))))) || (F (! [x <- add x i1()]))))
+  * (G ((! [x <- add x i1()]) && (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (((! [x <- add x i1()]) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ([x <- add x i1()] || (X (eq x hole0x && eq y hole0y)))))
+  * (G ([x <- add x i1()] && (X ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (G (! [x <- x]))) && ((eq x hole2x && eq y hole2y) || (F [x <- x]))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- x]))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (! [x <- x]))) && ((eq x hole2x && eq y hole2y) || (X [x <- x]))))
+  * (G ((X [x <- x]) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X (! [x <- add x i1()]))) && ((eq x hole2x && eq y hole2y) || (X [x <- add x i1()]))))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (X (! [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((X (eq x hole2x && eq y hole2y)) && ((! eq x hole2x) || (! eq y hole2y))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole2x && eq y hole2y) || (X (eq x hole1x && eq y hole1y)))))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ((eq x hole2x && eq y hole2y) || (X (eq x hole0x && eq y hole0y)))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (! [x <- x]))) && ((eq x hole1x && eq y hole1y) || (X [x <- x]))))
+  * (G ((X [x <- x]) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (G (! [x <- add x i1()]))) && ((eq x hole1x && eq y hole1y) || (F [x <- add x i1()]))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X (! [x <- add x i1()]))) && ((eq x hole1x && eq y hole1y) || (X [x <- add x i1()]))))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (X (! [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((eq x hole1x && eq y hole1y) || (X (eq x hole2x && eq y hole2y)))))
+  * (G ((X (eq x hole2x && eq y hole2y)) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((X (eq x hole1x && eq y hole1y)) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (X ((! eq x hole0x) || (! eq y hole0y)))) && ((eq x hole1x && eq y hole1y) || (X (eq x hole0x && eq y hole0y)))))
+  * (G ((X (eq x hole0x && eq y hole0y)) && ((! eq x hole1x) || (! eq y hole1y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (G (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (F [x <- x]))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (G (! [x <- x]))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- x]))) && ((eq x hole0x && eq y hole0y) || (X [x <- x]))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- x]))))
+  * (G ((X [x <- x]) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X (! [x <- add x i1()]))) && ((eq x hole0x && eq y hole0y) || (X [x <- add x i1()]))))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (X (! [x <- add x i1()]))))
+  * (G ((X [x <- add x i1()]) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((eq x hole0x && eq y hole0y) || (X (eq x hole2x && eq y hole2y)))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (X ((! eq x hole1x) || (! eq y hole1y)))) && ((eq x hole0x && eq y hole0y) || (X (eq x hole1x && eq y hole1y)))))
+  * (G ((X (eq x hole0x && eq y hole0y)) && ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (X ((! [x <- add x i1()]) && (! [x <- x]))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (! [x <- x])) && ((eq x hole2x && eq y hole2y) || [x <- x]))))
+  * (G (G (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- x]))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- x]))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) || (! [x <- add x i1()])) && ((eq x hole2x && eq y hole2y) || [x <- add x i1()]))))
+  * (G (X ((((! eq x hole2x) || (! eq y hole2y)) && (G (! [x <- add x i1()]))) || (F ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G ([x <- add x i1()] U (eq x hole2x && eq y hole2y)))
+  * (G (G (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- add x i1()]))))
+  * (G (X (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- add x i1()]))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (! [x <- x])) && ((eq x hole1x && eq y hole1y) || [x <- x]))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) && (G (! [x <- x]))) || (F ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G ([x <- x] U (eq x hole1x && eq y hole1y)))
+  * (G (G (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- x]))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- x]))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || (! [x <- add x i1()])) && ((eq x hole1x && eq y hole1y) || [x <- add x i1()]))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- add x i1()]))))
+  * (G (X ((((! eq x hole1x) || (! eq y hole1y)) || ((! eq x hole2x) || (! eq y hole2y))) && ((eq x hole1x && eq y hole1y) || (eq x hole2x && eq y hole2y)))))
+  * (G (X (((! eq x hole1x) || (! eq y hole1y)) && ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- x])) && ((eq x hole0x && eq y hole0y) || [x <- x]))))
+  * (G (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x]))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x]))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- add x i1()])) && ((eq x hole0x && eq y hole0y) || [x <- add x i1()]))))
+  * (G ([x <- add x i1()] U (eq x hole0x && eq y hole0y)))
+  * (G (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()]))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()]))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole2x) || (! eq y hole2y))) && ((eq x hole0x && eq y hole0y) || (eq x hole2x && eq y hole2y)))))
+  * (G (X ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole1x) || (! eq y hole1y))) && ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y)))))
+  * (G (X (((! eq x hole0x) || (! eq y hole0y)) && ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X (X (G (! [x <- x])))))
+  * (G (X (F [x <- x])))
+  * (G (X (G (X (! [x <- x])))))
+  * (G (F (X [x <- x])))
+  * (G (X (X (X (! [x <- x])))))
+  * (G (X (X [x <- x])))
+  * (G (X (X (G (! [x <- add x i1()])))))
+  * (G (X (G (X (! [x <- add x i1()])))))
+  * (G (X (X (X (! [x <- add x i1()])))))
+  * (G (X (X [x <- add x i1()])))
+  * (G (X (X (G ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X (G (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (F (X (eq x hole2x && eq y hole2y))))
+  * (G (X (X (X ((! eq x hole2x) || (! eq y hole2y))))))
+  * (G (X (X (eq x hole2x && eq y hole2y))))
+  * (G (X (X (G ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (G (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (F (X (eq x hole1x && eq y hole1y))))
+  * (G (X (X (X ((! eq x hole1x) || (! eq y hole1y))))))
+  * (G (X (X (eq x hole1x && eq y hole1y))))
+  * (G (F (X (eq x hole0x && eq y hole0y))))
+  * (G (X (X (X ((! eq x hole0x) || (! eq y hole0y))))))
+  * (G (X (X (eq x hole0x && eq y hole0y))))
+  * (G (((! [x <- add x i1()]) || (! [x <- x])) && ([x <- add x i1()] || [x <- x])))
+  * (G ((! [x <- add x i1()]) && (! [x <- x])))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (! [x <- x])) && ((eq x hole2x && eq y hole2y) || [x <- x])))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- x])))
+  * (G ((((! eq x hole2x) || (! eq y hole2y)) || (! [x <- add x i1()])) && ((eq x hole2x && eq y hole2y) || [x <- add x i1()])))
+  * (G (((! eq x hole2x) || (! eq y hole2y)) && (! [x <- add x i1()])))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (! [x <- x])) && ((eq x hole1x && eq y hole1y) || [x <- x])))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- x])))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || (! [x <- add x i1()])) && ((eq x hole1x && eq y hole1y) || [x <- add x i1()])))
+  * (G (((! eq x hole1x) || (! eq y hole1y)) && (! [x <- add x i1()])))
+  * (G ((((! eq x hole1x) || (! eq y hole1y)) || ((! eq x hole2x) || (! eq y hole2y))) && ((eq x hole1x && eq y hole1y) || (eq x hole2x && eq y hole2y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- x])) && ((eq x hole0x && eq y hole0y) || [x <- x])))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- x])))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || (! [x <- add x i1()])) && ((eq x hole0x && eq y hole0y) || [x <- add x i1()])))
+  * (G (((! eq x hole0x) || (! eq y hole0y)) && (! [x <- add x i1()])))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole2x) || (! eq y hole2y))) && ((eq x hole0x && eq y hole0y) || (eq x hole2x && eq y hole2y))))
+  * (G ((((! eq x hole0x) || (! eq y hole0y)) || ((! eq x hole1x) || (! eq y hole1y))) && ((eq x hole0x && eq y hole0y) || (eq x hole1x && eq y hole1y))))
+  * (G (X (G (! [x <- x]))))
+  * (G (F [x <- x]))
+  * (G (X (X (! [x <- x]))))
+  * (G (X [x <- x]))
+  * (G (X (G (! [x <- add x i1()]))))
+  * (G (G (X (! [x <- add x i1()]))))
+  * (G (X (X (! [x <- add x i1()]))))
+  * (G (X [x <- add x i1()]))
+  * (G (X (G ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (X (X ((! eq x hole2x) || (! eq y hole2y)))))
+  * (G (X (eq x hole2x && eq y hole2y)))
+  * (G (X (G ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X (X ((! eq x hole1x) || (! eq y hole1y)))))
+  * (G (X (eq x hole1x && eq y hole1y)))
+  * (G (X (G ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (G (X ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X (X ((! eq x hole0x) || (! eq y hole0y)))))
+  * (G (X (eq x hole0x && eq y hole0y)))
+  * (G (G (! [x <- x])))
+  * (G (X (! [x <- x])))
+  * (G [x <- x])
+  * (G (G (! [x <- add x i1()])))
+  * (G (X (! [x <- add x i1()])))
+  * (G [x <- add x i1()])
+  * (G (X ((! eq x hole2x) || (! eq y hole2y))))
+  * (G (eq x hole2x && eq y hole2y))
+  * (G (X ((! eq x hole1x) || (! eq y hole1y))))
+  * (G (eq x hole1x && eq y hole1y))
+  * (G (X ((! eq x hole0x) || (! eq y hole0y))))
+  * (G (eq x hole0x && eq y hole0y))
+  [SpecPool.pop_by_pred] POPPED: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y))))) (unique_preds=4, unique_updates=0, visited size now: 5)
+Current spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+=== Iteration 6: Spec stack size 495 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y))))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmpuzdj6nw5.tslmt
+Rollout result: Positive
+Current spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+
+--- Positive Trace 1 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+*** Positive trace obtained! ***
+
+=== Iteration 7: Spec stack size 495 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y))))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmp5jzbbqbp.tslmt
+Rollout result: Positive
+Current spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+
+--- Positive Trace 1 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 2 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+*** Positive trace obtained! ***
+
+=== Iteration 8: Spec stack size 495 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y))))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmpnw1j2lfz.tslmt
+Rollout result: Positive
+Current spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+
+--- Positive Trace 1 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 2 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 3 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+*** Positive trace obtained! ***
+
+=== Iteration 9: Spec stack size 495 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y))))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmpi62m_zt3.tslmt
+Rollout result: Positive
+Current spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+
+--- Positive Trace 1 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 2 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 3 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 4 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+*** Positive trace obtained! ***
+
+=== Iteration 10: Spec stack size 495 ===
+Rolling out with spec: ((F (eq x goalx && eq y goaly)) && (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y))))))
+Running synthesis command (timeout: 20min): issy --tslmt --solve --synt --pruning 1 --accel no /var/folders/mx/mdjzxgqj5jl1s5xzg3844srm0000gn/T/tmpz366ojf2.tslmt
+Rollout result: Positive
+Current spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+
+--- Positive Trace 1 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 2 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 3 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 4 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 5 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+*** Positive trace obtained! ***
+
+=== Final Results ===
+Final spec: (G (((G ((! eq x hole1x) || (! eq y hole1y))) || (X ((! eq x hole2x) || (! eq y hole2y)))) && ((F (eq x hole1x && eq y hole1y)) || (X (eq x hole2x && eq y hole2y)))))
+Total positive traces: 5
+Total negative traces: 3
+
+=== Positive Traces ===
+
+--- Positive Trace 1 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 2 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 3 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 4 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Positive Trace 5 (7 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 3], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+=== Negative Traces ===
+
+--- Negative Trace 1 (3 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [0, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 2 (5 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+
+--- Negative Trace 3 (6 steps) ---
+  {'player': [0, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [1, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 0], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 1], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [2, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}
+  {'player': [3, 2], 'goal': [3, 3], 'hole0': [1, 1], 'hole1': [3, 1], 'hole2': [3, 2]}

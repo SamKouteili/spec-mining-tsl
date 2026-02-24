@@ -83,7 +83,7 @@ class SpecPool:
                 elif s in self.stack:
                     print(f"  [SpecPool.add] REJECTED (in stack): {s}")
                 else:
-                    print(f"  [SpecPool.add] ADDED: {s}")
+                    # print(f"  [SpecPool.add] ADDED: {s}")
                     self.stack.append(s)
                     added = True
         else:
@@ -92,7 +92,7 @@ class SpecPool:
             elif spec in self.stack:
                 print(f"  [SpecPool.add] REJECTED (in stack): {spec}")
             else:
-                print(f"  [SpecPool.add] ADDED: {spec}")
+                # print(f"  [SpecPool.add] ADDED: {spec}")
                 self.stack.append(spec)
                 added = True
         return added
@@ -126,15 +126,16 @@ class SpecPool:
     
 
 class RLLoop:
-    def __init__(self, 
-                 game: str, 
-                 varied: bool = False, 
+    def __init__(self,
+                 game: str,
+                 varied: bool = False,
                  work_dir: Optional[Path] = None,
-                 goal: None | Optional[Op] = None):
+                 goal: None | Optional[Op] = None,
+                 backend: str = "issy"):
         self.game = game
         self.varied = varied
         self.goal  = goal # goal spec, optionally provided
-        self.api = SynthesisAPI(game=game, synthesis_timeout_minutes=20)
+        self.api = SynthesisAPI(game=game, backend=backend, synthesis_timeout_minutes=20)
 
         # Setup working directory (always absolute to avoid cwd issues)
         self.work_dir = Path(work_dir).resolve() if work_dir else Path(tempfile.mkdtemp(prefix="rl_loop_"))
@@ -557,6 +558,20 @@ class RLLoop:
 
         return self._store_trace(result.trace, result.success, self.params,
                                  failure_reason=result.error_message)
+    
+    def print_traces(self):
+        print("\n=== Positive Traces ===")
+        for i, trace in enumerate(self.pos_traces):
+            print(f"\n--- Positive Trace {i+1} ({len(trace)} steps) ---")
+            for step in trace:
+                print(f"  {step}")
+
+        print("\n=== Negative Traces ===")
+        for i, trace in enumerate(self.neg_traces):
+            print(f"\n--- Negative Trace {i+1} ({len(trace)} steps) ---")
+            for step in trace:
+                print(f"  {step}")
+
 
     def loop(self, 
              iters: int = 10, 
@@ -578,18 +593,29 @@ class RLLoop:
                 rollout produces a positive or negative trace.
         """
         # Initial rollout: use goal spec if available, otherwise random
-        if self.goal:
-            print(f"Initial rollout with goal spec: {self.goal}")
-            self.rollout(spec=None, continue_on_timeout=continue_on_timeout)
-        else:
-            self._random_rollout(continue_on_timeout=continue_on_timeout)
+        # if self.goal:
+        #     print(f"Initial rollout with goal spec: {self.goal}")
+        #     self.rollout(spec=None, continue_on_timeout=continue_on_timeout)
+        # else:
+        #     self._random_rollout(continue_on_timeout=continue_on_timeout)
+        
         iteration = 0
         success = False
         size = start_size
+        self.spec = None
         while iteration < iters:
             iteration += 1
             print(f"\n=== Iteration {iteration}: Spec stack size {len(self.specs.stack)} ===")
-            if not success or self.spec is None:
+
+            # Rollout with current spec
+            success = self.rollout(self.spec, continue_on_timeout=continue_on_timeout)
+            print(f"Rollout result: {'Positive' if success else 'Negative'}")
+
+            self.print_traces()
+            if success:
+                print("*** Positive trace obtained! ***")
+
+            if not success:
                 # Invalidate stale stack when new traces have arrived since last collect-all
                 current_trace_count = len(self.pos_traces) + len(self.neg_traces)
                 if current_trace_count > self._traces_at_last_collect:
@@ -608,25 +634,7 @@ class RLLoop:
 
             print(f"Current spec: {"NONE" if not self.spec else self.spec}")
 
-            # Rollout with current spec
-            success = self.rollout(self.spec, continue_on_timeout=continue_on_timeout)
-            print(f"Rollout result: {'Positive' if success else 'Negative'}")
 
-
-            # print("\n=== Positive Traces ===")
-            for i, trace in enumerate(self.pos_traces):
-                print(f"\n--- Positive Trace {i+1} ({len(trace)} steps) ---")
-                for step in trace:
-                    print(f"  {step}")
-
-            # print("\n=== Negative Traces ===")
-            for i, trace in enumerate(self.neg_traces):
-                print(f"\n--- Negative Trace {i+1} ({len(trace)} steps) ---")
-                for step in trace:
-                    print(f"  {step}")
-
-            if success:
-                print("*** Positive trace obtained! ***")
                 
 
             # if self.spec_queue == []:
@@ -651,13 +659,15 @@ if __name__ == "__main__":
                         help="Ranking strategy for spec selection (default: pred)")
     parser.add_argument("--goal-specified", action="store_true",
                         help="Use the known goal/liveness spec for the game (e.g. F(reach goal))")
+    parser.add_argument("--synt", choices=["issy", "tsltools"], default="issy",
+                        help="Synthesis backend (default: issy)")
     args = parser.parse_args()
 
     goal = get_goal_spec(args.game) if args.goal_specified else None
     if args.goal_specified and goal is None:
         print(f"Warning: no known goal spec for game '{args.game}', running without goal.")
 
-    loop = RLLoop(game=args.game, varied=args.varied, work_dir=args.work_dir, goal=goal)
+    loop = RLLoop(game=args.game, varied=args.varied, work_dir=args.work_dir, goal=goal, backend=args.synt)
     print(f"Work dir: {loop.work_dir}")
     print(f"Goal: {loop.goal}")
     print(f"Pos: {len(loop.pos_traces)}, Neg: {len(loop.neg_traces)}")
@@ -669,18 +679,7 @@ if __name__ == "__main__":
     print(f"Total positive traces: {len(loop.pos_traces)}")
     print(f"Total negative traces: {len(loop.neg_traces)}")
 
-    if loop.pos_traces:
-        print("\n=== Positive Traces ===")
-        for i, trace in enumerate(loop.pos_traces):
-            print(f"\n--- Positive Trace {i+1} ({len(trace)} steps) ---")
-            for step in trace:
-                print(f"  {step}")
-
-        print("\n=== Negative Traces ===")
-        for i, trace in enumerate(loop.neg_traces):
-            print(f"\n--- Negative Trace {i+1} ({len(trace)} steps) ---")
-            for step in trace:
-                print(f"  {step}")
+    loop.print_traces()
     
 
 
